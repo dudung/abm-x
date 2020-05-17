@@ -7,15 +7,15 @@ based on Finite Diference (FD) and MD for water flow in self-siphon, doing post-
 
 ![](abm-matter-states.png)
 
-States of matter using ABM [[3](#ref3)], where the interaction is still artificial.
+FIG 1 States of matter using ABM [[3](#ref3)], where the interaction is still artificial.
 
 A granular particle-based simulation, e.g. growth of yeast colony [[7](#ref7)], which is studied further using network analysis [[8](#ref8)], could be also simulated, perhaps more simple, using ABM approach, where the physical rules can be simplified to reduce simulation time but sacrifice the details of system evolution, especially the time information.
 
 ![](md-yeast-colony.png)
 
-Growth of yeast colony as observed experimentally (left) and simulated using MD (right) [[7](#ref7)].
+FIG 2 Growth of yeast colony as observed experimentally (left) and simulated using MD (right) [[7](#ref7)].
 
-
+The difference of the system in Fig. 1 and Fig. 2, is that the interaction is still artificial or more realistic but not with the real parameters. The former is simpler and easier for starting a system, while the latter is more trusted qualitatively when compared with experiment or observation results.
 
 ## Condition
 When a system is simulated using `abm-x`, which previously worked with MD, it should work at least with the same speed or better faster, or the proposed system will not be accepted.
