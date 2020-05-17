@@ -1,4 +1,4 @@
-\documentclass{exam}
+\documentclass{article}
 
 % Packages
 \usepackage{amsthm}
@@ -11,4 +11,4 @@
 \newtheorem{theorem}{Theorem}
 
 % Document
-<p align="center"><img src="/concept/tex/aac63a3b9a4b3067d20340cbd94a2633.svg?invert_in_darkmode&sanitize=true" align=middle width=469.0881591pt height=26677.47928725pt/></p>
+<p align="center"><img src="/concept/tex/0033b9ad43b787b0767deac3de52ac14.svg?invert_in_darkmode&sanitize=true" align=middle width=439.2494139pt height=26677.47928725pt/></p>
