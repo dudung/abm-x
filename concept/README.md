@@ -9,6 +9,10 @@ based on Finite Diference (FD) and MD for water flow in self-siphon, doing post-
 
 States of matter using ABM [[3](#ref3)].
 
+![](md-yeast-colony.png)
+
+Growth of yeast colony using MD [[7](#ref7)].
+
 ## References
 1. <a name="ref1"></a> S. Viridi, Novitrian, Nurhayati, W. Hidayat, F. D. E. Latief, F. P. Zen, "Development of single fluid volume element method for simulation of transient fluid flow in self-siphons", AIP Conference Proceedings, vol. 1615, no. 1, pp. 199-207, Sep 2014, url https://doi.org/10.1063/1.4895885
 2. <a name="ref2"></a> S. Viridi, "Learning MPCD and Other Things", Post-Doc Report, Technische Universität Dortmund, Germany, 2014, url http://dx.doi.org/10.13140/2.1.3523.0725
