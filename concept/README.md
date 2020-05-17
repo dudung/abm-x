@@ -11,7 +11,7 @@ States of matter using ABM [[3](#ref3)].
 
 ![](md-yeast-colony.png)
 
-Growth of yeast colony using MD (right) [[7](#ref7)].
+Growth of yeast colony as observed experimentally (left) and simulated using MD (right) [[7](#ref7)].
 
 ## References
 1. <a name="ref1"></a> S. Viridi, Novitrian, Nurhayati, W. Hidayat, F. D. E. Latief, F. P. Zen, "Development of single fluid volume element method for simulation of transient fluid flow in self-siphons", AIP Conference Proceedings, vol. 1615, no. 1, pp. 199-207, Sep 2014, url https://doi.org/10.1063/1.4895885
