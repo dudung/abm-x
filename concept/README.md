@@ -3,15 +3,19 @@ Interaction between particles in granular system, mesoscopic clusters of fluid m
 
 ## A short history
 After learning in brief about Molecular Dynamics (MD) method, inventing Single Fluid Volume Element (SFVE) method [[1](#ref1)]
-based on Finite Diference (FD) and MD for water flow in self-siphon, doing post-doc about Multi-particle Collision Dynamics (MPCD) [[2](#ref2)], and implementing Agent-Based Model (ABM) for physical system [[3](#ref3)], farming [[4](#ref4)], costumer dynamics [[5](#ref5)], and a very simple traffic flow [[6](#ref6)],  let's say -- a consiousness arose, which induced the birth of `abm-x`. A granular particle-based simulation, e.g. growth of yeast colony [[7](#ref7)], which is studied further using network analysis [[8](#ref8)], could be also simulated, perhaps more simple, using ABM approach, where the physical rules can be simplified to reduce simulation time but sacrifice the details of system evolution, especially the time information.
+based on Finite Diference (FD) and MD for water flow in self-siphon, doing post-doc about Multi-particle Collision Dynamics (MPCD) [[2](#ref2)], and implementing Agent-Based Model (ABM) for physical system [[3](#ref3)], farming [[4](#ref4)], costumer dynamics [[5](#ref5)], and a very simple traffic flow [[6](#ref6)],  let's say -- a consiousness arose, which induced the birth of `abm-x`.
 
 ![](abm-matter-states.png)
 
 States of matter using ABM [[3](#ref3)], where the interaction is still artificial.
 
+A granular particle-based simulation, e.g. growth of yeast colony [[7](#ref7)], which is studied further using network analysis [[8](#ref8)], could be also simulated, perhaps more simple, using ABM approach, where the physical rules can be simplified to reduce simulation time but sacrifice the details of system evolution, especially the time information.
+
 ![](md-yeast-colony.png)
 
 Growth of yeast colony as observed experimentally (left) and simulated using MD (right) [[7](#ref7)].
+
+
 
 ## Condition
 When a system is simulated using `abm-x`, which previously worked with MD, it should work at least with the same speed or better faster, or the proposed system will not be accepted.
