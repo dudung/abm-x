@@ -9,7 +9,4 @@ See [proposed concept](concept)
 You can submit [comment and suggestion](https://github.com/dudung/abm-x/issues/1)
 
 ## Related repositories
-* [butiran.js](../../../butiran.js)
-* [datax](../../../datax)
-* [jsxPhys](../../../jsxphys)
-* [pText](../../../ptext)
+[butiran.js](../../../butiran.js), [datax](../../../datax), [jsxPhys](../../../jsxphys), [pText](../../../ptext)
