@@ -1,5 +1,5 @@
 # Concept
-After learning in brief about Molecular Dynamics (MD) method, inventing Single Fluid Volume Element (SFVE) method[<sup>1</sup>](#ref1)
+After learning in brief about Molecular Dynamics (MD) method, inventing Single Fluid Volume Element (SFVE) method[[1](#ref1)]
 based on Finite Diference (FD) and MD for water flow in self-siphon, doing post-doc about [Multi-Collision Particle Dynamics (MPCD)](https://doi.org/10.13140/2.1.3523.0725), and implementing Agent-Based Model (ABM) for physical system, farming, and costumer dynamics, let's say a consiousness arises, which induces the birth of ``abm-x``.
 
 
