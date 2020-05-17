@@ -6,7 +6,7 @@ See [proposed concept](concept)
 
 
 ## Dicussion
-You can submit comments and suggestions [here](https://github.com/dudung/abm-x/issues/1)
+You can submit [comment and suggestion](https://github.com/dudung/abm-x/issues/1)
 
 ## Related repositories
 * [butiran.js](../../../butiran.js)
