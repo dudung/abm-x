@@ -18,7 +18,13 @@ FIG 2 Growth of yeast colony as observed experimentally (left) and simulated usi
 The difference of the system in Fig. 1 and Fig. 2, is that the interaction is still artificial or more realistic but not with the real parameters. The former is simpler and easier for starting a system, while the latter is more trusted qualitatively when compared with experiment or observation results.
 
 ## Condition
-When a system is simulated using `abm-x`, which previously worked with MD, it should work at least with the same speed or better faster, or the proposed system will not be accepted.
+When a system is simulated using `abm-x`, which previously worked with MD, it should work at least with the same speed or better faster, or the proposed system will not be below.
+
+Github does not support MathJax in markdown, but there is work around producing, e.g.
+ 
+![x_{1,2} = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}](https://render.githubusercontent.com/render/math?math=x_%7B1%2C2%7D%20%3D%20%5Cfrac%7B-b%20%5Cpm%20%5Csqrt%7Bb%5E2%20-%204ac%7D%7D%7B2a%7D)
+
+using [this](https://alexanderrodin.com/github-latex-markdown/)
 
 ## References
 1. <a name="ref1"></a> S. Viridi, Novitrian, Nurhayati, W. Hidayat, F. D. E. Latief, F. P. Zen, "Development of single fluid volume element method for simulation of transient fluid flow in self-siphons", AIP Conference Proceedings, vol. 1615, no. 1, pp. 199-207, Sep 2014, url https://doi.org/10.1063/1.4895885
