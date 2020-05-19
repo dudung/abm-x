@@ -35,7 +35,7 @@ It is a rewritten post that has been performed in pText but not documented, whil
 
 ## Edit
 2020-05-19 Initiate the post.<br />
-2020-05-19 Add proper Front Matter for a Jekyll blog post and document structure. Correct some typographical errors.
+2020-05-19 Add proper Front Matter for a Jekyll blog post and document structure. Correct some typographical errors. Set link in references.
 
 ## References
-1. <a name="ref1"></a> url https://help.github.com/en/github/working-with-github-pages/creating-a-github-pages-site [20200520].
+1. <a name="ref1"></a> url [https://help.github.com/en/github/working-with-github-pages/creating-a-github-pages-site](https://help.github.com/en/github/working-with-github-pages/creating-a-github-pages-site) [20200520].

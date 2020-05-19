@@ -9,10 +9,10 @@ threejs: false
 category: www
 tags: [markdown]
 ---
-Suggest a hack for MathJax [[1](#ref1)] showing equation number as post here [[2](#ref2)].
+Suggest a hack for MathJax showing equation number in Markdown Viewer.
 
 ## Try a Google Chrome extension
-An extension for Google Chrome, known as Markdown Viewer [[2](#ref2)] was installed to experience an offline version of markdown. And it was good since it can detect file editing and upload the rendering result automatically.
+An extension for Google Chrome, known as Markdown Viewer [[1](#ref1)] was installed to experience an offline version of markdown. And it was good since it can detect file editing and upload the rendering result automatically. But it has not yet fully supported equation numbering of MathJax [[2](#ref2)]
 
 ## MathJax without equation numbering
 Simeon Velichkov, the author, has not yet use the MathJax configuration as suggested by Refaat Yakoub for showing equation numbering. Suggest a solution by editing directlty the local file.
@@ -33,7 +33,7 @@ folder.
 ```
 ckkdlimhmcjmikdlpkmbgfkaikojcbjk
 ```
-as shown in [[2](#ref2)].
+as shown in [[1](#ref1)].
 
 Forking the `https://github.com/simov/markdown-viewer` and propose above change will be planned.
 
@@ -42,8 +42,8 @@ After save the current edited file, Google Chrome update the file automaticall b
 
 ## Edit
 2020-05-19 Initiate minimal post including two references with url.<br />
-2020-05-19 Add proper Front Matter for a Jekyll blog post and document structure.
+2020-05-19 Add proper Front Matter for a Jekyll blog post and document structure. Edit link from only `link-text` to `[link-text](link-text)`. Remove links in post excerpt.
 
 ## References
-1. <a name="ref1"></a> url https://www.mathjax.org/  [20200520].
-2. <a name="ref2"></a> url https://chrome.google.com/webstore/detail/markdown-viewer/ckkdlimhmcjmikdlpkmbgfkaikojcbjk [20200519].
+1. <a name="ref2"></a> url [https://chrome.google.com/webstore/detail/markdown-viewer/ckkdlimhmcjmikdlpkmbgfkaikojcbjk](https://chrome.google.com/webstore/detail/markdown-viewer/ckkdlimhmcjmikdlpkmbgfkaikojcbjk) [20200519].
+2. <a name="ref1"></a> url [https://www.mathjax.org/](https://www.mathjax.org/)  [20200520].
