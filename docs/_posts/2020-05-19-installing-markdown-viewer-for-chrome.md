@@ -37,13 +37,12 @@ as shown in [[2](#ref2)].
 
 Forking the `https://github.com/simov/markdown-viewer` and propose above change will be planned.
 
-
 ## Note
 After save the current edited file, Google Chrome update the file automaticall but show the rendered result from the top. Better to make an anchor, e.g. using `## section` for `<h2></h2>` and use it in the address bar. But for long part of secion of sub section, I have no ide right now.
 
 ## Edit
 2020-05-19 Initiate minimal post including two references with url.<br />
-2020-05-19 Add proper Front Matter and document structure.
+2020-05-19 Add proper Front Matter for a Jekyll blog post and document structure.
 
 ## References
 1. <a name="ref1"></a> url https://www.mathjax.org/  [20200520].
