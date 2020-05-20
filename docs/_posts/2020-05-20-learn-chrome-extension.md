@@ -116,8 +116,10 @@ function drawRandom() {
 2. It can create element in the JS file as in this example.
 3. It can use MathJax by referencing the CDN.
 4. Shown errors are also the old ones. Remove the unecessary to avoid confusion as I have encountered.
+![](https://github.com/dudung/abm-x/raw/master/src/chrome-ext/ShowX/showx-snapshot-0.png)
+5. Finally the extension can be built.
 ![](https://github.com/dudung/abm-x/raw/master/src/chrome-ext/ShowX/showx-snapshot-1.png)
-5. It can have canvas and draw something on it.
+6. It can have canvas and draw something on it.
 
 ## Edit
 2020-05-20 Create this post. <br />
