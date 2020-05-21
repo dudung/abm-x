@@ -8,6 +8,7 @@
 	0609 It is inspired by [1] for connected agents.
 	0611 Try to run abm-in-rect.js with abm-base.js library.
 	0614 Clean and distribute [2] to abm-base.js, abm-nibbles.js.
+	0642 Create a linear worm with direction.
 	
 	References
 	1. url https://en.wikipedia.org/w/index.php?oldid=945651481
@@ -19,7 +20,7 @@
 
 // Define global variables
 var pname = "abm-nibbles";
-var colors, agents, world;
+var colors;
 
 // Execute main function
 main();
@@ -33,31 +34,25 @@ function main() {
 	p.style.tabSize = "1"
 	document.body.append(p);
 	
-	// Define color table
-	colors = ["#f00", "#0f0", "#00f"];
-	
-	// Create agents
-	var N = 25;
-	var xmin = 5;
-	var xmax = 9;
-	var ymin = 2;
-	var ymax = 6;
-	var mode = "random";
-	agents = createAgent(N, [xmin, xmax], [ymin, ymax], mode);
-	N = agents.length;
-	
 	// Create world in the form of a rect
-	xmin = 0;
-	ymin = 0;
-	xmax = 19;
-	ymax = 9;
-	world = createWorld(xmin, ymin, xmax, ymax);
+	var xmin = 0;
+	var ymin = 0;
+	var xmax = 19;
+	var ymax = 14;
+	var world = createWorld(xmin, ymin, xmax, ymax);
 	addBorder(world);
-	addAgent(agents).toWorld(world);
-	viewWorld(world, agents).inElement(p);
+	
+	// Create a worm
+	var N = 5;
+	var mode = "linier-vertical-to-bottom";
+	worm = createWorm(N, xmin + 6, ymin + 6, mode);
+	
+	addAgent(worm).toWorld(world);
+	viewWorld(world, worm).inElement(p);
 	
 	console.log(pname);
 	
+	/*
 	var proc = setInterval(simulate, 100);
 	
 	var iter = 0
@@ -66,9 +61,9 @@ function main() {
 	
 	function simulate() {
 		if(iter > startIter) {
-			moveAgent(agents, world);
+			moveWorm(worm, world);
 			
-			viewWorld(world, agents).inElement(p);
+			viewWorld(world, worm).inElement(p);
 		}
 		
 		iter++;
@@ -77,5 +72,70 @@ function main() {
 			clearInterval(proc);
 		}
 	}
+	*/
 }
 
+
+// Create a worm
+function createWorm() {
+	var N = arguments[0];
+	var xo = arguments[1];
+	var yo = arguments[2];
+	var mode = arguments[3];
+	
+	var worm = [];
+	if(mode == "linier-horizontal-to-right") {
+		for(var i = 0; i < N; i++) {
+			var xx = xo + i;
+			var yy = yo;
+			var cc = 0;
+			var agent = {
+				x: xx,
+				y: yy,
+				c: cc,
+			};
+			worm.push(agent);
+		}
+	}
+	if(mode == "linier-horizontal-to-left") {
+		for(var i = 0; i < N; i++) {
+			var xx = xo - i;
+			var yy = yo;
+			var cc = 0;
+			var agent = {
+				x: xx,
+				y: yy,
+				c: cc,
+			};
+			worm.push(agent);
+		}
+	}
+	if(mode == "linier-vertical-to-bottom") {
+		for(var i = 0; i < N; i++) {
+			var xx = xo;
+			var yy = yo + i;
+			var cc = 0;
+			var agent = {
+				x: xx,
+				y: yy,
+				c: cc,
+			};
+			worm.push(agent);
+		}
+	}
+	if(mode == "linier-vertical-to-top") {
+		for(var i = 0; i < N; i++) {
+			var xx = xo;
+			var yy = yo - i;
+			var cc = 0;
+			var agent = {
+				x: xx,
+				y: yy,
+				c: cc,
+			};
+			worm.push(agent);
+		}
+	}
+	
+	return worm;
+}

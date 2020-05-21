@@ -12,7 +12,7 @@
 
 // Define global variables
 var pname = "abm-nibbles";
-var colors, agents, world;
+var colors = ["#f00", "#0f0", "#00f"];
 
 
 // Move agents
