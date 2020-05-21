@@ -1,6 +1,6 @@
 /*
 	abm-in-rect.js
-	Agents moving in a square
+	Agents moving in a rect
 	
 	Sparisoma Viridi | https://github.com/dudung/abm-x
 	
