@@ -39,4 +39,4 @@ function moveAgent() {
 }
 ```
 
-An agent must check first their destination at `world[j + dj][i + di]`, if emtpy then move value from `world[j][i]` to it, where `di` and `dj` are generated randomly with value `[-1, 0, 1]`.
+An agent must check first their destination at `world[j + dj][i + di]`, if empty then move value from `world[j][i]` to it, where `di` and `dj` are generated randomly with value `[-1, 0, 1]`.
