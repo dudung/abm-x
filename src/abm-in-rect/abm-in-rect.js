@@ -8,6 +8,7 @@
 	0001 Stuck in moving the agents.
 	0002 Change &#9639; with &equiv; due to character width.
 	0119 Move agents in random direction if dest is empty.
+	0047 Test &#2588; for border (web editing).
 	20200521
 	1910 Start this application.
 	2024 Finish creating agents with random mode.
@@ -189,7 +190,7 @@ function viewWorld() {
 				if(point == -1) {
 					mark = "&nbsp;&nbsp;&nbsp;";
 				} else if(point == -2) {
-					mark = "&equiv;&nbsp;&nbsp;";
+					mark = "&#2588;&nbsp;&nbsp;";
 				} else if(point >= 0) {
 					var cs = colors[agents[point].c];
 					mark = ("0" + point).slice(-2) + "&nbsp;";
