@@ -7,7 +7,10 @@
 	20200521
 	1910 Start this application.
 	2024 Finish creating agents with random mode.
-	2043 View agents in a PRE element and test it.
+	2043 View agents in a PRE element as two columns.
+	2105 View agents in a PRE element as matrix-like.
+	2111 Add mode for viewing agents.
+	2113 Set tab size for PRE element in viewing agents.
 */
 
 
@@ -22,11 +25,11 @@ main();
 // Define main function
 function main() {
 	// Create agents
-	var N = 10;
-	var xmin = 1;
-	var xmax = 5;
+	var N = 20;
+	var xmin = 2;
+	var xmax = 9;
 	var ymin = 1;
-	var ymax = 5;
+	var ymax = 19;
 	var mode = "random";
 	agents = createAgent(N, [xmin, xmax], [ymin, ymax], mode);
 	N = agents.length;
@@ -34,9 +37,10 @@ function main() {
 	// Create element for showing agents
 	pre = document.createElement("pre");
 	document.body.append(pre);
+	pre.style.tabSize = "4";
 	
 	// View agents
-	viewAgent(agents).inElement(pre);
+	viewAgent(agents, [xmin, xmax], [ymin, ymax]).inElement(pre);
 	
 	console.log(pname);
 }
@@ -45,19 +49,53 @@ function main() {
 // View agents in an HTML element
 function viewAgent() {
 	var agents = arguments[0];
+	var x = arguments[1];
+	var y = arguments[2];
+	var mode = arguments[3];
+	
+	var cols = x[1] - x[0] + 1;
+	var rows = y[1] - y[0] + 1;
 	
 	var val = {
 		inElement: function() {
 			var el = arguments[0];
 			if(el instanceof HTMLPreElement) {
 				console.log("Out to a PRE element");
-				var str = "";
+				var lines = "";
 				var N = agents.length;
-				for(var i = 0; i < N; i++) {
-					str += agents[i].x + "\t";
-					str += agents[i].y + "\n";
+				
+				if(mode == undefined) {
+					for(var j = 0; j < rows; j++) {
+						var line = "";
+						for(var i = 0; i < cols; i++) {
+							var str = "-";
+							var ii = i + x[0];
+							var jj = j + y[0];		
+							for(var k = 0; k < N; k++) {
+								if(agents[k].x == ii && agents[k].y == jj) {
+									str = k;
+									break;
+								}
+							}
+							line += str;
+							if(i < cols - 1) line += "\t";
+						}
+						line += "\n";
+						
+						lines += line;
+					}
+				} else {
+					for(var i = 0; i < N; i++) {
+						lines += agents[i].x;
+						lines += "\t";
+						lines += agents[i].y;
+						if(i < N - 1) {
+							lines += "\n";
+						}
+					}
 				}
-				el.innerHTML = str;
+				
+				el.innerHTML = lines;
 			}
 		}
 	}
