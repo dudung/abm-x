@@ -9,6 +9,11 @@
 	0002 Change &#9639; with &equiv; due to character width.
 	0119 Move agents in random direction if dest is empty.
 	0047 Test &#2588; for border (web editing).
+	0322 Revert the last change.
+	0329 The block is good [1] in pre tag, but not in p.
+	0410 Fix the pre.
+	0412 Not good &#219; [1] in pre. Confuse.
+	0423 In p with letter-spacing 0.985 in a tag.
 	20200521
 	1910 Start this application.
 	2024 Finish creating agents with random mode.
@@ -25,6 +30,10 @@
 	2253 Create unusedLinesOfCode function for storing old code.
 	2340 Create color table and add color in generating agents.
 	2348 Modify viewWorld with agent and colors.
+	
+	References
+	1. https://theasciicode.com.ar/eprextended-ascii-code/block
+	   -graphic-character-ascii-code-219.html [20200522]
 */
 
 
@@ -40,19 +49,19 @@ main();
 function main() {
 	// Create element for showing agents
 	p = document.createElement("p");
-	p.style.fontFamily = "Consolas";
-	p.style.fontVariantNumeric = "tabular-nums";
+	p.style.fontFamily = "Courier";
+	p.style.tabSize = "1"
 	document.body.append(p);
 	
 	// Define color table
 	colors = ["#f00", "#0f0", "#00f"];
 	
 	// Create agents
-	var N = 50;
+	var N = 25;
 	var xmin = 5;
-	var xmax = 15;
+	var xmax = 9;
 	var ymin = 2;
-	var ymax = 12;
+	var ymax = 6;
 	var mode = "random";
 	agents = createAgent(N, [xmin, xmax], [ymin, ymax], mode);
 	N = agents.length;
@@ -61,7 +70,7 @@ function main() {
 	xmin = 0;
 	ymin = 0;
 	xmax = 19;
-	ymax = 19;
+	ymax = 9;
 	world = createWorld(xmin, ymin, xmax, ymax);
 	addBorder(world);
 	addAgent(agents).toWorld(world);
@@ -72,12 +81,15 @@ function main() {
 	var proc = setInterval(simulate, 100);
 	
 	var iter = 0
-	var maxIter = 100;
+	var maxIter = 200;
+	var startIter = 40;
 	
 	function simulate() {
-		moveAgent(agents, world);
-		
-		viewWorld(world, agents).inElement(p);
+		if(iter > startIter) {
+			moveAgent(agents, world);
+			
+			viewWorld(world, agents).inElement(p);
+		}
 		
 		iter++;
 		
@@ -163,9 +175,9 @@ function viewWorld() {
 				var point = world[j][i];
 				var mark;
 				if(point == -1) {
-					mark = "-";
+					mark = "-&nbsp;";
 				} else if(point == -2) {
-					mark = "&#9639;";
+					mark = "&#9639;&nbsp;";
 				} else if(point >= 0) {
 					mark = ("0" + point).slice(-2);
 				}
@@ -190,7 +202,7 @@ function viewWorld() {
 				if(point == -1) {
 					mark = "&nbsp;&nbsp;&nbsp;";
 				} else if(point == -2) {
-					mark = "&#2588;&nbsp;&nbsp;";
+					mark = "<a style='letter-spacing:0.985em'>&#9639;</a>";
 				} else if(point >= 0) {
 					var cs = colors[agents[point].c];
 					mark = ("0" + point).slice(-2) + "&nbsp;";
@@ -214,6 +226,8 @@ function viewWorld() {
 			if(el instanceof HTMLPreElement) {
 				el.innerHTML = createPreContent();
 			} else if(el instanceof HTMLParagraphElement) {
+				el.innerHTML = createParagraphContent();
+			} else if(el.nodeName == "CODE") {
 				el.innerHTML = createParagraphContent();
 			}
 		}
@@ -367,6 +381,7 @@ function unusedLinesOfCode() {
 	// Create element for showing agents
 	var pre = document.createElement("pre");
 	document.body.append(pre);
+	//p.style.fontVariantNumeric = "tabular-nums";
 	pre.style.tabSize = "3";
 	
 	// View created agents in two columns or matrix-like view
