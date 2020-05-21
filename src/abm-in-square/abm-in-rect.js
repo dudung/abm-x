@@ -1,5 +1,5 @@
 /*
-	abm-in-square.js
+	abm-in-rect.js
 	Agents moving in a square
 	
 	Sparisoma Viridi | https://github.com/dudung/abm-x
@@ -11,6 +11,7 @@
 	2105 View agents in a PRE element as matrix-like.
 	2111 Add mode for viewing agents.
 	2113 Set tab size for PRE element in viewing agents.
+	2118 Renama square to rect for the name.
 */
 
 
@@ -26,9 +27,9 @@ main();
 function main() {
 	// Create agents
 	var N = 20;
-	var xmin = 2;
-	var xmax = 9;
-	var ymin = 1;
+	var xmin = 5;
+	var xmax = 24;
+	var ymin = 3;
 	var ymax = 19;
 	var mode = "random";
 	agents = createAgent(N, [xmin, xmax], [ymin, ymax], mode);
@@ -44,6 +45,10 @@ function main() {
 	
 	console.log(pname);
 }
+
+
+// Create world
+
 
 
 // View agents in an HTML element
@@ -104,7 +109,7 @@ function viewAgent() {
 }
 
 
-// Create agents
+// Create agents in x and y ranges (include both limits)
 function createAgent() {
 	var N = arguments[0];
 	var x = arguments[1];
