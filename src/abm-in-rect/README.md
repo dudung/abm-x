@@ -1,7 +1,7 @@
 # abm-in-rect
 Try https://raw.githack.com/dudung/abm-x/master/src/abm-in-rect/abm-in-rect.html
 
-Spreading of agent in a diffusion-like phenomenon is shown in following Fig 1 and 2.
+Spreading of agents in a diffusion-like phenomenon is shown in following Fig 1 and 2.
 
 ![](abm-in-rect-0.png)
 
