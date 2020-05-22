@@ -12,7 +12,9 @@
 	1738 Obtain color for each agent but not in efficient way.
 	1741 Still do not know how to move Cell (and Worm).
 	1900 Start to move Bit in random.
-	1924 Can move Bit in random mode. 
+	1924 Can move Bit in random mode.
+	1027 Try to move Worm.
+	1943 Worm can move, Cell not yet. Fin for today. Muede.
 */
 
 
@@ -42,10 +44,10 @@ function main() {
 	
 	var b1 = new Bit(xmin + 1, ymin + 1, 1);
 	var w1 = new Worm(xmin + 1, ymin + 3, 5);
-	var c1 = new Cell(xmin + 9, ymin + 5, 4);
+	var c1 = new Cell(xmin + 5, ymin + 8, 4);
 	var b2 = new Bit(xmin + 16, ymin + 11, 1);
-	var b3 = new Bit(xmin + 2, ymin + 9, 1);
-	var w2 = new Worm(xmin + 7, ymin + 10, 5);
+	var b3 = new Bit(xmin + 12, ymin + 2, 1);
+	var w2 = new Worm(xmin + 11, ymin + 8, 5, 8);
 	
 	b1.pushToCollection();
 	w1.pushToCollection();
@@ -82,6 +84,8 @@ function main() {
 			
 			moveBitRandomInWorld(world, b1, b2, b3);
 			
+			moveWormRandomInWorld(world, w1, w2);
+			
 			viewWorld(world).inElement(p);
 		}
 		
@@ -89,6 +93,59 @@ function main() {
 		
 		if(iter >= maxIter) {
 			clearInterval(proc);
+		}
+	}
+}
+
+
+// Move Worm in random
+function moveWormRandomInWorld() {
+	var N = arguments.length;
+	var world = arguments[0];
+	
+	for(var i = 1; i < N; i++) {
+		var obj = arguments[i];
+		
+		var M = obj.agents.length;
+		
+		var b = obj.agents[0];
+
+		var O = 8;
+		var j = Math.round(Math.random() * (O - 1));
+		var q = j * Math.PI * 2 / O;
+		
+		var dx = Math.round(Math.cos(q));
+		var dy = Math.round(Math.sin(q));
+		
+		var xsrc = b.x;
+		var ysrc = b.y;
+		
+		var xdest = xsrc + dx;
+		var ydest = ysrc + dy;
+		
+		if(world[ydest][xdest] == -1) {
+			
+			world[ysrc][xsrc] = -1;
+			world[ydest][xdest] = b.id;
+			
+			b.x = xdest;
+			b.y = ydest;
+			
+			
+			for(var k = 1; k < M; k++) {
+				xdest = xsrc;
+				ydest = ysrc;
+				
+				b = obj.agents[k];
+				xsrc = b.x; 
+				ysrc = b.y;
+				
+				world[ysrc][xsrc] = -1;
+				world[ydest][xdest] = b.id;
+				
+				b.x = xdest;
+				b.y = ydest;
+			}
 		}
 	}
 }
