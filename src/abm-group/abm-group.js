@@ -8,6 +8,8 @@
 	1236 Clean from abm-nibbles.js and it works.
 	1646 Simplify to viewWorld2 only in p tag.
 	1656 Remove abm-base.js file, will be updated.
+	1728 Can add agent to world but not the color.
+	1738 Obtain color for each agent but not in efficient way.
 */
 
 
@@ -33,7 +35,7 @@ function main() {
 	var xmax = 19;
 	var ymax = 14;
 	world = createEmptyWorld(xmin, ymin, xmax, ymax);
-	addBorderTo(world);
+	addBorderToWorld(world);
 	
 	var b1 = new Bit(xmin + 1, ymin + 1, 1);
 	var w1 = new Worm(xmin + 1, ymin + 3, 2);
@@ -49,9 +51,9 @@ function main() {
 	b3.pushToCollection();
 	w2.pushToCollection();
 	
-	addAgentTo(world);
+	addAgentToWorld(world);
 	
-	view(world).inElement(p);
+	viewWorld(world).inElement(p);
 	
 	console.log(pname);
 	
@@ -91,7 +93,7 @@ function main() {
 
 
 // Add agents from ABMCollection to existing world
-function addAgentTo() {
+function addAgentToWorld() {
 	var world = arguments[0];
 	
 	var N = ABMCollection.length;
@@ -130,33 +132,11 @@ function addAgentTo() {
 			}
 		}
 	}
-	
-	
-	
-	/*
-	var agents = arguments[0];
-	var N = agents.length;
-	
-	
-	
-	var val = {
-		toWorld: function() {
-			var world = arguments[0];
-			for(var k = 0; k < N; k++) {
-				var i = agents[k].x;
-				var j = agents[k].y;
-				world[j][i] = k;
-			}
-		}
-	}
-	*/
-	
-	//return val;
 }
 
 
 // View world
-function view() {
+function viewWorld() {
 	var world = arguments[0];
 	var rows = world.length;
 	var cols = world[0].length;
@@ -174,11 +154,16 @@ function view() {
 				} else if(point == -2) {
 					mark = "<a style='letter-spacing:0.985em'>&#9639;</a>";
 				} else if(point >= 0) {
-					//var cs = colors[agents[point].c];
-					mark = ("0" + point).slice(-2) + "&nbsp;";
-					//var m = "<font color='" + cs + "'";
-					//m += "><b>" + mark + "</b></font>";
-					//mark = m;
+					var m = ("0" + point).slice(-2) + "&nbsp;";
+					
+					var id = point;
+					var c = getAgentColorWithId(id);
+					
+					var cs = colors[c];
+					m = "<font color='" + cs + "'"
+					+ "><b>" + m + "</b></font>";
+					
+					mark = m;
 				}
 				line += mark;
 				if(i < cols - 1) {
@@ -201,6 +186,52 @@ function view() {
 	}
 	
 	return val;
+}
+
+
+// Get color from all Agent
+function getAgentColorWithId() {
+	var targetId = arguments[0];
+	var color;
+	
+	var N = ABMCollection.length;
+	for(var i = 0; i < N; i++) {
+
+		var obj = ABMCollection[i];
+		
+		if(obj instanceof Bit) {
+			var c = obj.c;
+			var id = obj.id;
+			if(targetId == id) {
+				color = c;
+			}
+		}
+		
+		if(obj instanceof Worm) {
+			var M = obj.agents.length;
+			for(var l = 0; l < M; l++) {
+				var c = obj.agents[l].c;
+				var id = obj.agents[l].id;
+				if(targetId == id) {
+					color = c;
+				}
+			}
+		}
+		
+		if(obj instanceof Cell) {
+			var M = obj.agents.length;
+			for(var l = 0; l < M; l++) {
+				var c = obj.agents[l].c;
+				var id = obj.agents[l].id;
+				if(targetId == id) {
+					color = c;
+				}
+			}
+		}
+
+	}
+	
+	return color;
 }
 
 
@@ -228,7 +259,7 @@ function createEmptyWorld() {
 
 
 // Add border to a world with value -2
-function	addBorderTo() {
+function	addBorderToWorld() {
 	var world = arguments[0];
 	var rows = world.length;
 	var cols = world[0].length;
