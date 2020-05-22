@@ -12,6 +12,7 @@
 	1236 Think of make a group of agent, event single one.
 	1340 Show bold font tyle using deprecated b tag.
 	1404 Advance color table to 16 entries.
+	1529 Fix constructor of Agent, Worm, and Cell.
 */
 
 
@@ -22,12 +23,73 @@ var colors = [
 	"#999", "#99f", "#9f9", "#9ff",
 	"#f99", "#f9f", "#ff9", "#eee",
 ];
+var allAgents = [];
 
 
-// Create organims (a group of single agents)
-class Organism {
-		
+// Class of Agent
+class Agent {
+	constructor(x, y, c) {
+		if(arguments.length == 3) {
+			this.x = x;
+			this.y = y;
+			this.c = c;
+		} else {
+			this.x = 0;
+			this.y = 0;
+			this.c = 0;
+		}
+	}
+	//allAgents.push(this);
 };
+
+// Class of Worm
+class Worm extends Agent {
+	constructor(x, y, c, N) {
+		if(arguments.length < 3) {
+			super()
+		} else {
+			super(x, y, c);
+		}
+		this.agents = [];
+		var N = arguments[3];
+		if(N == undefined) {
+			N = 4;
+		}
+		for(var i = 0; i < N; i++) {
+			var a = new Agent(this.x + i, this.y, this.c);
+			this.agents.push(a);
+		}
+		allAgents.push(this);
+	}
+}
+
+
+// Class of Cell
+class Cell extends Agent {
+	constructor(x, y, c, N) {
+		if(arguments.length < 3) {
+			super()
+		} else {
+			super(x, y, c);
+		}
+		this.agents = [];
+		var N = arguments[3];
+		if(N == undefined) {
+			N = 16;
+		}
+		if(N < 16) N = 16
+		var R = Math.round(N / 2 / Math.PI);
+		var dq = 2 * Math.PI / N;
+		for(var i = 0; i < N; i++) {
+			var q = i * dq;
+			var xx = Math.round(this.x + R * Math.cos(q));
+			var yy = Math.round(this.x + R * Math.sin(q));
+			var a = new Agent(xx, yy, this.c);
+			this.agents.push(a);
+		}
+		allAgents.push(this);
+	}
+}
 
 
 // Move worm as connected agents
@@ -69,7 +131,6 @@ function moveWorm() {
 		}	
 	}
 }
-
 
 
 // Create a worm
