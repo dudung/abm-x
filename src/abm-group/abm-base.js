@@ -17,6 +17,7 @@
 	1624 Change Dot to Bit as first implementation of Agent.
 	1631 Put all to ABMCollection array.
 	1634 Move the four classes to abm-class.js file.
+	1945 This file actuallya is no longer used. For history only.
 	
 	References
 	1. url https://stackoverflow.com/a/48428063/9475509
