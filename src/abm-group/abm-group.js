@@ -10,6 +10,7 @@
 	1656 Remove abm-base.js file, will be updated.
 	1728 Can add agent to world but not the color.
 	1738 Obtain color for each agent but not in efficient way.
+	1741 Still do not know how to move Cell (and Worm).
 */
 
 
@@ -38,11 +39,11 @@ function main() {
 	addBorderToWorld(world);
 	
 	var b1 = new Bit(xmin + 1, ymin + 1, 1);
-	var w1 = new Worm(xmin + 1, ymin + 3, 2);
-	var c1 = new Cell(xmin + 9, ymin + 5, 3);
+	var w1 = new Worm(xmin + 1, ymin + 3, 5);
+	var c1 = new Cell(xmin + 9, ymin + 5, 4);
 	var b2 = new Bit(xmin + 16, ymin + 11, 1);
 	var b3 = new Bit(xmin + 2, ymin + 9, 1);
-	var w2 = new Worm(xmin + 7, ymin + 10, 2);
+	var w2 = new Worm(xmin + 7, ymin + 10, 5);
 	
 	b1.pushToCollection();
 	w1.pushToCollection();
