@@ -12,6 +12,7 @@
 	0711 Move worm in horizontal or vertical direction in a step.
 	0717 Set random direction, worm may be trapped with its tail.
 	0726 Add event for pause the simulation.
+	0745 Program start by clicking the body.
 	
 	References
 	1. url https://en.wikipedia.org/w/index.php?oldid=945651481
