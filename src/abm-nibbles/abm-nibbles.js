@@ -58,7 +58,7 @@ function main() {
 	console.log(pname);
 	
 	var PAUSE = false;
-	var proc = setInterval(simulate, 20);
+	var proc = setInterval(simulate, 1000);
 	
 	var iter = 0
 	var maxIter = 500;
