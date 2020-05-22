@@ -105,7 +105,6 @@ function moveWorm() {
 	if(dir == 11) { di = 0; dj = -1; }
 	if(dir >= 12) { di = -1; dj = 0; }
 	
-	
 	var k = 0;
 	var i = agents[k].x;
 	var j = agents[k].y;

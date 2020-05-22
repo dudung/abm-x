@@ -7,6 +7,7 @@
 	20200522
 	0609 Derive it from abm-in-rect.js program.
 	0618 Test it and it works as previous abm-in-rect.js.
+	0758 Finish this and to-do move some from abm-mibbles.js.
 */
 
 
