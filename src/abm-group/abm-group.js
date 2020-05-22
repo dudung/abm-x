@@ -11,6 +11,8 @@
 	1728 Can add agent to world but not the color.
 	1738 Obtain color for each agent but not in efficient way.
 	1741 Still do not know how to move Cell (and Worm).
+	1900 Start to move Bit in random.
+	1924 Can move Bit in random mode. 
 */
 
 
@@ -61,14 +63,13 @@ function main() {
 	var PAUSE = true;
 	var proc;
 	
-	/*
 	document.body.addEventListener("click", function() {
 		if(!PAUSE) {
 			PAUSE = true;
 			clearInterval(proc);
 		} else {
 			PAUSE = false;
-			proc = setInterval(simulate, 20);
+			proc = setInterval(simulate, 100);
 		}
 	});
 	
@@ -78,9 +79,10 @@ function main() {
 	
 	function simulate() {
 		if(iter > startIter) {
-			moveWorm(worm, world);
 			
-			viewWorld(world, worm).inElement(p);
+			moveBitRandomInWorld(world, b1, b2, b3);
+			
+			viewWorld(world).inElement(p);
 		}
 		
 		iter++;
@@ -89,7 +91,40 @@ function main() {
 			clearInterval(proc);
 		}
 	}
-	*/
+}
+
+
+// Move Bit in random
+function moveBitRandomInWorld() {
+	var N = arguments.length;
+	var world = arguments[0];
+	
+	for(var i = 1; i < N; i++) {
+		var b = arguments[i];
+		
+		var M = 8;
+		var j = Math.round(Math.random() * (M - 1));
+		var q = j * Math.PI * 2 / M;
+		
+		var dx = Math.round(Math.cos(q));
+		var dy = Math.round(Math.sin(q));
+		
+		var xsrc = b.x;
+		var ysrc = b.y;
+		
+		var xdest = xsrc + dx;
+		var ydest = ysrc + dy;
+		
+		if(world[ydest][xdest] == -1) {
+			
+			world[ysrc][xsrc] = -1;
+			world[ydest][xdest] = b.id;
+			
+			b.x = xdest;
+			b.y = ydest;
+		}
+		
+	}
 }
 
 

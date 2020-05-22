@@ -19,7 +19,7 @@ var colors = [
 	"#f99", "#f9f", "#ff9", "#eee",
 ];
 
-var ABMCollection= [];
+var ABMCollection = [];
 var ABMId = 0;
 
 // Abstract Class Agent
