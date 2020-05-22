@@ -57,12 +57,22 @@ function main() {
 	
 	console.log(pname);
 	
-	var PAUSE = false;
-	var proc = setInterval(simulate, 1000);
+	var PAUSE = true;
+	var proc;
+	
+	document.body.addEventListener("click", function() {
+		if(!PAUSE) {
+			PAUSE = true;
+			clearInterval(proc);
+		} else {
+			PAUSE = false;
+			proc = setInterval(simulate, 20);
+		}
+	});
 	
 	var iter = 0
 	var maxIter = 500;
-	var startIter = 20;
+	var startIter = 10;
 	
 	function simulate() {
 		if(iter > startIter) {
@@ -76,17 +86,7 @@ function main() {
 		if(iter >= maxIter) {
 			clearInterval(proc);
 		}
-	}
-	
-	document.body.addEventListener("click", function() {
-		if(!PAUSE) {
-			PAUSE = true;
-			clearInterval(proc);
-		} else {
-			PAUSE = false;
-			proc = setInterval(simulate, 20);
-		}
-	});
+	}	
 }
 
 
