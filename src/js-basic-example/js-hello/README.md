@@ -44,12 +44,12 @@ function main() {
 ## Question
 1. Change the previous JS code to produce "Hello, Your-Name!" in JS console of an internet browser application. Use your own name as `Your-Name`.
 2. Use following lines
- ```javascript
+	```javascript
 console.log("One, two, three\n");
 console.log("One sees a tree\n");
 console.log("Four, five six\nLet's do the mix");
 ```
- in your JS code. Explain about the result.
+in your JS code. Explain about the result.
 
 3. What is the purpose of character `\n` while using `console.log()` in previous question?
 
