@@ -50,3 +50,5 @@ main();
 ```
 whose content is what we are interested in. To run `example`, download both files, `example.html` and `example.js`, open the first file with Chrome, press `Ctrl + Shift + J` for console, and see the result. Let's start with [js-hello](js-hello).
 
+## Examples
+[js-hello](js-hello), [js-textarea](js-textarea)
