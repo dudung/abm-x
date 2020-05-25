@@ -1,5 +1,5 @@
 /*
-	js-hello.js-hello
+	js-hello.js
 	Display message "Hello, World!" in JS console
 	
 	Sparisoma Virid | https://github.com/abm-x
