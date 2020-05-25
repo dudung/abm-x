@@ -49,7 +49,7 @@ console.log("One, two, three\n");
 console.log("One sees a tree\n");
 console.log("Four, five six\nLet's do the mix");
 ```
-	in your JS code. Explain about the result.
+in your JS code. Explain about the result.
 
 3. What is the purpose of character `\n` while using `console.log()` in previous question?
 
