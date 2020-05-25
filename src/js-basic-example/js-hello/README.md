@@ -41,7 +41,7 @@ function main() {
 ## Result
 ![](js-hello.png)
 
-## Question
+## Exercise
 1. Change the previous JS code to produce "Hello, Your-Name!" in JS console of an internet browser application. Use your own name as `Your-Name`.
 2. Use following lines
 ```javascript
