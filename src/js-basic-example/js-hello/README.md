@@ -50,10 +50,13 @@ console.log("One sees a tree\n");
 console.log("Four, five six\nLet's do the mix");
 ```
 in your JS code. Explain about the result.
+
 3. What is the purpose of character `\n` while using `console.log()` in previous question?
+
 4. What is the shortcut to show JS console in Google Chrome?
+
 5. Make a code to produce following result
-```
+	```
 A
 BB
 CCC
