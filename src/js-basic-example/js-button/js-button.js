@@ -6,6 +6,9 @@
 	
 	20200525
 	1827 Create this example.
+	1956 Test and make documentation.
+	2009 Finish documentation.
+	2024 Finish exercise.
 	
 	References
 	1. url https://www.w3schools.com/jsref/dom_obj_all.asp
