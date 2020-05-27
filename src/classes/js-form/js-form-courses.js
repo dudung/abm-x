@@ -15,7 +15,7 @@
 	1753 Modify document title [4].
 	1917 Try to produce adaptive textarea height [5].
 	1934 Create resize and delayedResize and they work.
-	2012 Resize parent-parent-parent.
+	2012 Resize parent-parent-parent [6].
 	
 	References
 	1. url https://akademik.itb.ac.id/app/ka-tpb+2019-3/kelas
@@ -27,7 +27,9 @@
 	4. url https://www.w3schools.com/jsref/prop_doc_title.asp
 	   [20200527].
 	5. url https://stackoverflow.com/a/5346855/9475509
-	   [20200527].		 
+	   [20200527].
+	6. url https://www.w3schools.com/jsref/prop_node_parentnode
+	   .asp [20200527].
 */
 
 // Define global variabeles
