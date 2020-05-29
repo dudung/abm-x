@@ -1,1 +1,1 @@
-var data = 86;
+var data = 0
