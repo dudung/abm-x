@@ -15,7 +15,7 @@ Simulating a traveling wave on a string
 Thera are three files and one temporary file required for the system to work, where the details are are available [[1]](#ref1). And the files are `cpp-gen-wave.cpp`, `js-cpp-wave.html`, and `js-view-wave.js`; and also `data.txt`.
 
 ## Processes
-How this works is shon in following Fig 1.
+How this works is shown in following Fig 1.
 
 ![](https://github.com/dudung/abm-x/raw/master/src/js-cpp/js-cpp-wave/system.png)
 
