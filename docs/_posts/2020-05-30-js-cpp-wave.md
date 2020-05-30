@@ -24,7 +24,7 @@ Fig 1 Interaction between `cpp-gen-wave.cpp`, `js-cpp-wave.html`, and `js-view-w
 There are two independent processes that work at the same time, where the first is compiled `cpp-gen-wave.cpp` that is continuously producing wave curve data in `data.txt` file with JSON format, and the second is `js-cpp-wave.html` that calls `js-view-wave.js` in an internet browser monitoring `data.txt` file by including it with `script` HTML DOM element. When it is ready, the JSON object will be read and used to draw the wave curve in `canvas` HTML DOM element.
 
 ## Note
-Better monitoring way is required. And when it is successful, every old programming language with ability in producing file, e.g. `data.txt`, can interact with HTML + CSS + JS files and shown someting using an internet browser.
+Better monitoring way is required. And when it is successful, every old programming language with ability in producing file, e.g. `data.txt`, can interact with HTML + CSS + JS files and show something using an internet browser.
 
 ## Edit
 2020-05-30 Create this post. <br />
