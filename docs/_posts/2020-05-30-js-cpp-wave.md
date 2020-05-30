@@ -7,7 +7,7 @@ ptext: false
 x3dom: false
 threejs: false
 category: www
-tags: [chrome]
+tags: [js]
 ---
 Simulating a traveling wave on a string
 

@@ -7,7 +7,7 @@ ptext: false
 x3dom: false
 threejs: false
 category: www
-tags: [chrome]
+tags: [js]
 ---
 Output of a C++ program is monitored and shown using JS in an internet browser
 
@@ -83,6 +83,7 @@ The important part of the code is how the `script` event `onload` make sure that
 
 ## Edit
 2020-05-29 Create this post. <br />
+2020-05-29 Change tag from chrome to js. <br />
 
 ## References
 1. <a name="ref1"></a>. url <https://github.com/dudung/abm-x/tree/master/src/js-basic-example/js-cpp-experiment>
