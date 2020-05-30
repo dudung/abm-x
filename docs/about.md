@@ -4,4 +4,4 @@ title: About
 ---
 # abm-x
 
-It a project about Agent-Based Model (ABM) to use in <i>x</i>.
+It a project about agent-based model (ABM) to use in <i>x</i>.

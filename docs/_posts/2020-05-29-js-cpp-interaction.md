@@ -86,5 +86,5 @@ The important part of the code is how the `script` event `onload` make sure that
 2020-05-29 Change tag from chrome to js. <br />
 
 ## References
-1. <a name="ref1"></a>. url <https://github.com/dudung/abm-x/tree/master/src/js-basic-example/js-cpp-experiment>
+1. <a name="ref1"></a> url <https://github.com/dudung/abm-x/tree/master/src/js-basic-example/js-cpp-experiment>
 
