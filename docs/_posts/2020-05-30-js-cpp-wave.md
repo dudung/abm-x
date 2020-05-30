@@ -27,8 +27,8 @@ There are two independent processes that work at the same time, where the first 
 Better monitoring way is required. And when it is successful, every old programming language with ability in producing file, e.g. `data.txt`, can interact with HTML + CSS + JS files and show something using an internet browser.
 
 ## Edit
-2020-05-30 Create this post. <br />
+2020-05-30 Create this post. Fix typo. <br />
 
 ## References
-1. <a name="ref1"></a>. url <https://github.com/dudung/abm-x/tree/master/src/js-cpp/js-cpp-wave>
+1. <a name="ref1"></a> url <https://github.com/dudung/abm-x/tree/master/src/js-cpp/js-cpp-wave>
 
