@@ -14,6 +14,7 @@
 	0849 Finish first version of plot function.
 	1625 Change functions to in x and y for parametric ones.
 	1704 Rename jsPlot to jsPlotParametric.
+	1716 Finish producing Lissajous pattern.
 	
 	References
 	1. url https://stackoverflow.com/a/881556/9475509
@@ -162,7 +163,7 @@ function main2() {
 	function x1(t) {
 		var T = 1;
 		var omega = 2 * Math.PI * T;
-		var x = Math.cos(omega * t);
+		var x = Math.cos(3 * omega * t);
 		return x;
 	}
 	
@@ -170,7 +171,7 @@ function main2() {
 	function y1(t) {
 		var T = 1;
 		var omega = 2 * Math.PI * T;
-		var y = Math.sin(omega * t);
+		var y = Math.sin(1 * omega * t);
 		return y;
 	}
 }
