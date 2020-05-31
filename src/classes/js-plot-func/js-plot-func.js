@@ -161,17 +161,21 @@ function main2() {
 	
 	// Define 1st function of x(t)
 	function x1(t) {
+		var A = 1;
 		var T = 1;
 		var omega = 2 * Math.PI * T;
-		var x = Math.cos(3 * omega * t);
+		var omega1 = 3 * omega;
+		var x = A * Math.cos(omega1 * t);
 		return x;
 	}
 	
 	// Define 1st function of y(t)
 	function y1(t) {
+		var A = 1;
 		var T = 1;
 		var omega = 2 * Math.PI * T;
-		var y = Math.sin(1 * omega * t);
+		var omega2 = 1 * omega;
+		var y = A * Math.sin(omega2 * t);
 		return y;
 	}
 }

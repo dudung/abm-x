@@ -68,7 +68,8 @@ function x1(t) {
 	var A = 1;
 	var T = 1;
 	var omega = 2 * Math.PI * T;
-	var x = A 8 Math.cos(3 * omega * t);
+	var omega1 = 3 * omega;
+	var x = A * Math.cos(omega1 * t);
 	return x;
 }
 ```
@@ -81,7 +82,8 @@ function y1(t) {
 	var A = 1;
 	var T = 1;
 	var omega = 2 * Math.PI * T;
-	var y = A * Math.sin(1 * omega * t);
+	var omega2 = 1 * omega;
+	var y = A * Math.sin(omega2 * t);
 	return y;
 }
 ```
@@ -98,7 +100,38 @@ with the last parameter `#f00` is color of drawn function. Then
 jsPlotParametric.plot(0);
 ```
 
-is how to plot the function of the first element in array or with index `0`. Complete JS code is available [[1](#ref1)].
+is how to plot the function of the first element in array or with index `0`. In the `jsPlotParametric` there are three arrays
+
+```javascript
+// Add function to be plotted
+addFunction: function() {
+	// Push function x(t)
+	if(this.functionsx == undefined) {
+		this.functionsx = [];
+	}
+	this.functionsx.push(arguments[0]);
+	
+	// Push function y(t)
+	if(this.functionsy == undefined) {
+		this.functionsy = [];
+	}
+	this.functionsy.push(arguments[1]);
+	
+	// Push color or #000 if not provided
+	if(this.colors == undefined) {
+		this.colors = [];
+	}
+	if(arguments[2] == undefined) {
+		this.colors.push("#000");			
+	} else {
+		this.colors.push(arguments[2]);
+	}
+},
+```
+
+which area `functionsx`, `functionsy`, and `colors` that store parametric functions $x(t)$ and $y(t)$, and color for plotting. If the last arguments for color not provided, it will be set as `#000` by default.
+
+Complete JS code is available [[1](#ref1)].
 
 ## Edit
 2020-05-31 Create this post. <br />
