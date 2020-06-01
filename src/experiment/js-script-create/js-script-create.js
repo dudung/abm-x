@@ -22,6 +22,8 @@ function main() {
 	script.src = "data.js";
 	document.body.append(script);
 	
+	
+	
 	console.log(data_js);
 }
 
