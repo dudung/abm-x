@@ -8,6 +8,7 @@
 	1655 Create this example.
 	1730 Try onload but not yet implement [1].
 	1736 Implement [2] for checking inexisting variables [2].
+	1829 Previous in main does not work in function.
 	
 	References
 	1. url https://stackoverflow.com/a/27000218/9475509
@@ -23,6 +24,10 @@ main();
 
 // Define main function
 function main() {
+	
+	var js_data = scriptGetVar("data.js", "js_data");
+	console.log(js_data);
+	
 	/*
 	// Create HTML DOM element
 	var script = document.createElement("script");
@@ -45,7 +50,7 @@ function main() {
 
 
 // Include script and get variables with name
-function isngvwn() {
+function scriptGetVar() {
 	var src = arguments[0];
 	var name = arguments[1];
 	
@@ -56,12 +61,23 @@ function isngvwn() {
 	
 	var value;
 	
+	var proc = setInterval(retVal, 100);
+	var i = 0;
+	
+	function retVal() {
+		if(window.hasOwnProperty(name)) {
+			value = window[name];
+			clearInterval(proc);
+		}
+		console.log(i);
+		i++;
+	}
+	/*
 	script.onload = function() {
 		if(window.hasOwnProperty(name)) {
 			value = window[name];
 		}
 	}
-	
-	return value;
+	*/
 }
 
