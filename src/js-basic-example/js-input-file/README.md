@@ -1,5 +1,5 @@
-# js-file-read
-Read file using FileReader
+# js-input-file
+Explore HTML DOM element `input` with type file
 
 ## HTML file
 ```html
