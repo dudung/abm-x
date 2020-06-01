@@ -1,0 +1,14 @@
+INSTITUT TEKNOLOGI BANDUNG,,,
+Daftar Nilai Akhir,,,
+ ,,,
+Mata Kuliah: FI1102 Fisika Dasar IB,,,
+No Kelas: 10,,,
+Semester: 1 - 2014/2015,,,
+"Dosen: Dr.rer.nat. Sparisoma Viridi, S.Si.",,,
+ ,,,
+NO,NIM,NAMA,NILAI
+1,15214003,Ulama Andika,AB
+2,15214004,Lady Viona Yacup,A
+3,15214005,Mitra Sehari,C
+4,15214006,Papan Pan,E
+5,15214007,Beowulf Wolf,BC
