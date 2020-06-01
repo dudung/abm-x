@@ -25,10 +25,12 @@ Explore HTML DOM element `input` with type file
 	1534 Create this example.
 	1607 Test input file [1] and it works.
 	1619 Finish the example.
+	1634 Add 2nd reference [2].
 	
 	References
 	1. url https://www.w3schools.com/jsref/dom_obj_fileupload.asp
 	   [20200601].
+	2. url https://www.javascripture.com/File [20200601].
 */
 
 
