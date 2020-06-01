@@ -1,0 +1,557 @@
+[20200602]
+0351 Test for latex
+L:\home\butiran>pdflatex
+Usage: butiran-latex [n]
+n    location 0 campus, 1 home
+
+L:\home\butiran>pdflatex 1
+location=1
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6730)
+entering extended mode
+(butiran.tex
+LaTeX2e <2018-04-01> patch level 5
+(i:\texmfs\install\tex\latex\base\book.cls
+Document Class: book 2014/09/29 v1.4h Standard LaTeX document class
+(i:\texmfs\install\tex\latex\base\bk10.clo))
+(i:\texmfs\install\tex\latex\tools\array.sty)
+(i:\texmfs\install\tex\latex\xcolor\xcolor.sty
+(i:\texmfs\install\tex\latex\graphics-cfg\color.cfg)
+(i:\texmfs\install\tex\latex\graphics-def\pdftex.def)
+(i:\texmfs\install\tex\latex\graphics\dvipsnam.def))
+(i:\texmfs\install\tex\latex\listings\listings.sty
+(i:\texmfs\install\tex\latex\graphics\keyval.sty)
+(i:\texmfs\install\tex\latex\listings\lstmisc.sty)
+(i:\texmfs\install\tex\latex\listings\listings.cfg))
+(i:\texmfs\install\tex\latex\breakurl\breakurl.sty
+(i:\texmfs\install\tex\latex\xkeyval\xkeyval.sty
+(i:\texmfs\install\tex\generic\xkeyval\xkeyval.tex
+(i:\texmfs\install\tex\generic\xkeyval\xkvutils.tex)))
+(i:\texmfs\install\tex\generic\oberdiek\ifpdf.sty)
+
+Package breakurl Warning: You are using breakurl while processing via pdflatex.
+
+(breakurl)                \burl will be just a synonym of \url.
+(breakurl)                 on input line 48.
+
+) (i:\texmfs\install\tex\latex\hyperref\hyperref.sty
+(i:\texmfs\install\tex\generic\oberdiek\hobsub-hyperref.sty
+(i:\texmfs\install\tex\generic\oberdiek\hobsub-generic.sty))
+(i:\texmfs\install\tex\generic\ifxetex\ifxetex.sty)
+(i:\texmfs\install\tex\latex\oberdiek\auxhook.sty)
+(i:\texmfs\install\tex\latex\oberdiek\kvoptions.sty)
+(i:\texmfs\install\tex\latex\hyperref\pd1enc.def)
+(i:\texmfs\install\tex\latex\00miktex\hyperref.cfg)
+(i:\texmfs\install\tex\latex\url\url.sty))
+(i:\texmfs\install\tex\latex\hyperref\hpdftex.def
+(i:\texmfs\install\tex\latex\oberdiek\rerunfilecheck.sty))
+(i:\texmfs\install\tex\latex\pgf\frontendlayer\tikz.sty
+(i:\texmfs\install\tex\latex\pgf\basiclayer\pgf.sty
+(i:\texmfs\install\tex\latex\pgf\utilities\pgfrcs.sty
+(i:\texmfs\install\tex\generic\pgf\utilities\pgfutil-common.tex
+(i:\texmfs\install\tex\generic\pgf\utilities\pgfutil-common-lists.tex))
+(i:\texmfs\install\tex\generic\pgf\utilities\pgfutil-latex.def
+(i:\texmfs\install\tex\latex\ms\everyshi.sty))
+(i:\texmfs\install\tex\generic\pgf\utilities\pgfrcs.code.tex))
+(i:\texmfs\install\tex\latex\pgf\basiclayer\pgfcore.sty
+(i:\texmfs\install\tex\latex\graphics\graphicx.sty
+(i:\texmfs\install\tex\latex\graphics\graphics.sty
+(i:\texmfs\install\tex\latex\graphics\trig.sty)
+(i:\texmfs\install\tex\latex\graphics-cfg\graphics.cfg)))
+(i:\texmfs\install\tex\latex\pgf\systemlayer\pgfsys.sty
+(i:\texmfs\install\tex\generic\pgf\systemlayer\pgfsys.code.tex
+(i:\texmfs\install\tex\generic\pgf\utilities\pgfkeys.code.tex
+(i:\texmfs\install\tex\generic\pgf\utilities\pgfkeysfiltered.code.tex))
+(i:\texmfs\install\tex\generic\pgf\systemlayer\pgf.cfg)
+(i:\texmfs\install\tex\generic\pgf\systemlayer\pgfsys-pdftex.def
+(i:\texmfs\install\tex\generic\pgf\systemlayer\pgfsys-common-pdf.def)))
+(i:\texmfs\install\tex\generic\pgf\systemlayer\pgfsyssoftpath.code.tex)
+(i:\texmfs\install\tex\generic\pgf\systemlayer\pgfsysprotocol.code.tex))
+(i:\texmfs\install\tex\generic\pgf\basiclayer\pgfcore.code.tex
+(i:\texmfs\install\tex\generic\pgf\math\pgfmath.code.tex
+(i:\texmfs\install\tex\generic\pgf\math\pgfmathcalc.code.tex
+(i:\texmfs\install\tex\generic\pgf\math\pgfmathutil.code.tex)
+(i:\texmfs\install\tex\generic\pgf\math\pgfmathparser.code.tex)
+(i:\texmfs\install\tex\generic\pgf\math\pgfmathfunctions.code.tex
+(i:\texmfs\install\tex\generic\pgf\math\pgfmathfunctions.basic.code.tex)
+(i:\texmfs\install\tex\generic\pgf\math\pgfmathfunctions.trigonometric.code.tex
+) (i:\texmfs\install\tex\generic\pgf\math\pgfmathfunctions.random.code.tex)
+(i:\texmfs\install\tex\generic\pgf\math\pgfmathfunctions.comparison.code.tex)
+(i:\texmfs\install\tex\generic\pgf\math\pgfmathfunctions.base.code.tex)
+(i:\texmfs\install\tex\generic\pgf\math\pgfmathfunctions.round.code.tex)
+(i:\texmfs\install\tex\generic\pgf\math\pgfmathfunctions.misc.code.tex)
+(i:\texmfs\install\tex\generic\pgf\math\pgfmathfunctions.integerarithmetics.cod
+e.tex))) (i:\texmfs\install\tex\generic\pgf\math\pgfmathfloat.code.tex))
+(i:\texmfs\install\tex\generic\pgf\basiclayer\pgfcorepoints.code.tex)
+(i:\texmfs\install\tex\generic\pgf\basiclayer\pgfcorepathconstruct.code.tex)
+(i:\texmfs\install\tex\generic\pgf\basiclayer\pgfcorepathusage.code.tex)
+(i:\texmfs\install\tex\generic\pgf\basiclayer\pgfcorescopes.code.tex)
+(i:\texmfs\install\tex\generic\pgf\basiclayer\pgfcoregraphicstate.code.tex)
+(i:\texmfs\install\tex\generic\pgf\basiclayer\pgfcoretransformations.code.tex)
+(i:\texmfs\install\tex\generic\pgf\basiclayer\pgfcorequick.code.tex)
+(i:\texmfs\install\tex\generic\pgf\basiclayer\pgfcoreobjects.code.tex)
+(i:\texmfs\install\tex\generic\pgf\basiclayer\pgfcorepathprocessing.code.tex)
+(i:\texmfs\install\tex\generic\pgf\basiclayer\pgfcorearrows.code.tex)
+(i:\texmfs\install\tex\generic\pgf\basiclayer\pgfcoreshade.code.tex)
+(i:\texmfs\install\tex\generic\pgf\basiclayer\pgfcoreimage.code.tex
+(i:\texmfs\install\tex\generic\pgf\basiclayer\pgfcoreexternal.code.tex))
+(i:\texmfs\install\tex\generic\pgf\basiclayer\pgfcorelayers.code.tex)
+(i:\texmfs\install\tex\generic\pgf\basiclayer\pgfcoretransparency.code.tex)
+(i:\texmfs\install\tex\generic\pgf\basiclayer\pgfcorepatterns.code.tex)))
+(i:\texmfs\install\tex\generic\pgf\modules\pgfmoduleshapes.code.tex)
+(i:\texmfs\install\tex\generic\pgf\modules\pgfmoduleplot.code.tex)
+(i:\texmfs\install\tex\latex\pgf\compatibility\pgfcomp-version-0-65.sty)
+(i:\texmfs\install\tex\latex\pgf\compatibility\pgfcomp-version-1-18.sty))
+(i:\texmfs\install\tex\latex\pgf\utilities\pgffor.sty
+(i:\texmfs\install\tex\latex\pgf\utilities\pgfkeys.sty
+(i:\texmfs\install\tex\generic\pgf\utilities\pgfkeys.code.tex))
+(i:\texmfs\install\tex\latex\pgf\math\pgfmath.sty
+(i:\texmfs\install\tex\generic\pgf\math\pgfmath.code.tex))
+(i:\texmfs\install\tex\generic\pgf\utilities\pgffor.code.tex
+(i:\texmfs\install\tex\generic\pgf\math\pgfmath.code.tex)))
+(i:\texmfs\install\tex\generic\pgf\frontendlayer\tikz\tikz.code.tex
+(i:\texmfs\install\tex\generic\pgf\libraries\pgflibraryplothandlers.code.tex)
+(i:\texmfs\install\tex\generic\pgf\modules\pgfmodulematrix.code.tex)
+(i:\texmfs\install\tex\generic\pgf\frontendlayer\tikz\libraries\tikzlibrarytopa
+ths.code.tex))) (i:\texmfs\install\tex\latex\algorithms\algorithm.sty
+(i:\texmfs\install\tex\latex\float\float.sty)
+(i:\texmfs\install\tex\latex\base\ifthen.sty))
+(i:\texmfs\install\tex\latex\algorithmicx\algpseudocode.sty
+(i:\texmfs\install\tex\latex\algorithmicx\algorithmicx.sty
+Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
+)
+Document Style - pseudocode environments for use with the `algorithmicx' style
+) (i:\texmfs\install\tex\latex\base\inputenc.sty
+(i:\texmfs\install\tex\latex\base\latin1.def))
+(i:\texmfs\install\tex\generic\pgf\frontendlayer\tikz\libraries\tikzlibraryshap
+es.code.tex
+(i:\texmfs\install\tex\generic\pgf\frontendlayer\tikz\libraries\tikzlibraryshap
+es.geometric.code.tex
+(i:\texmfs\install\tex\generic\pgf\libraries\shapes\pgflibraryshapes.geometric.
+code.tex))
+(i:\texmfs\install\tex\generic\pgf\frontendlayer\tikz\libraries\tikzlibraryshap
+es.misc.code.tex
+(i:\texmfs\install\tex\generic\pgf\libraries\shapes\pgflibraryshapes.misc.code.
+tex))
+(i:\texmfs\install\tex\generic\pgf\frontendlayer\tikz\libraries\tikzlibraryshap
+es.symbols.code.tex
+(i:\texmfs\install\tex\generic\pgf\libraries\shapes\pgflibraryshapes.symbols.co
+de.tex))
+(i:\texmfs\install\tex\generic\pgf\frontendlayer\tikz\libraries\tikzlibraryshap
+es.arrows.code.tex
+(i:\texmfs\install\tex\generic\pgf\libraries\shapes\pgflibraryshapes.arrows.cod
+e.tex))
+(i:\texmfs\install\tex\generic\pgf\frontendlayer\tikz\libraries\tikzlibraryshap
+es.callouts.code.tex
+(i:\texmfs\install\tex\generic\pgf\libraries\shapes\pgflibraryshapes.callouts.c
+ode.tex))
+(i:\texmfs\install\tex\generic\pgf\frontendlayer\tikz\libraries\tikzlibraryshap
+es.multipart.code.tex
+(i:\texmfs\install\tex\generic\pgf\libraries\shapes\pgflibraryshapes.multipart.
+code.tex)))
+(i:\texmfs\install\tex\generic\pgf\frontendlayer\tikz\libraries\tikzlibraryarro
+ws.code.tex
+(i:\texmfs\install\tex\generic\pgf\libraries\pgflibraryarrows.code.tex))
+(i:\texmfs\install\tex\generic\pgf\frontendlayer\tikz\libraries\tikzlibraryposi
+tioning.code.tex)
+(i:\texmfs\install\tex\generic\pgf\frontendlayer\tikz\libraries\tikzlibraryplot
+marks.code.tex
+(i:\texmfs\install\tex\generic\pgf\libraries\pgflibraryplotmarks.code.tex))
+(i:\texmfs\install\tex\latex\pgfplots\pgfplots.sty
+(i:\texmfs\install\tex\generic\pgfplots\pgfplots.revision.tex)
+(i:\texmfs\install\tex\generic\pgfplots\pgfplots.code.tex
+(i:\texmfs\install\tex\generic\pgfplots\pgfplotscore.code.tex
+(i:\texmfs\install\tex\generic\pgfplots\sys\pgfplotssysgeneric.code.tex))
+(i:\texmfs\install\tex\generic\pgfplots\libs\pgfplotslibrary.code.tex)
+(i:\texmfs\install\tex\generic\pgfplots\oldpgfcompatib\pgfplotsoldpgfsupp_loade
+r.code.tex (i:\texmfs\install\tex\generic\pgf\libraries\pgflibraryfpu.code.tex)
+Package pgfplots: loading complementary arithmetics for your pgf version...
+
+(i:\texmfs\install\tex\generic\pgfplots\oldpgfcompatib\pgfplotsoldpgfsupp_pgfli
+braryfpu.code.tex)
+(i:\texmfs\install\tex\generic\pgfplots\oldpgfcompatib\pgfplotsoldpgfsupp_pgfma
+thfloat.code.tex)
+(i:\texmfs\install\tex\generic\pgfplots\oldpgfcompatib\pgfplotsoldpgfsupp_leq.c
+ode.tex)) (i:\texmfs\install\tex\generic\pgfplots\util\pgfplotsutil.code.tex
+(i:\texmfs\install\tex\generic\pgfplots\liststructure\pgfplotsliststructure.cod
+e.tex)
+(i:\texmfs\install\tex\generic\pgfplots\liststructure\pgfplotsliststructureext.
+code.tex)
+(i:\texmfs\install\tex\generic\pgfplots\liststructure\pgfplotsarray.code.tex)
+(i:\texmfs\install\tex\generic\pgfplots\liststructure\pgfplotsmatrix.code.tex)
+(i:\texmfs\install\tex\generic\pgfplots\numtable\pgfplotstableshared.code.tex)
+(i:\texmfs\install\tex\generic\pgfplots\liststructure\pgfplotsdeque.code.tex)
+(i:\texmfs\install\tex\generic\pgfplots\util\pgfplotsbinary.code.tex
+(i:\texmfs\install\tex\generic\pgfplots\util\pgfplotsbinary.data.code.tex))
+(i:\texmfs\install\tex\generic\pgfplots\util\pgfplotsutil.verb.code.tex)
+(i:\texmfs\install\tex\generic\pgfplots\libs\pgflibrarypgfplots.surfshading.cod
+e.tex
+(i:\texmfs\install\tex\generic\pgfplots\sys\pgflibrarypgfplots.surfshading.pgfs
+ys-pdftex.def)))
+(i:\texmfs\install\tex\generic\pgfplots\util\pgfplotscolormap.code.tex
+(i:\texmfs\install\tex\generic\pgfplots\util\pgfplotscolor.code.tex))
+(i:\texmfs\install\tex\generic\pgfplots\pgfplotsstackedplots.code.tex)
+(i:\texmfs\install\tex\generic\pgfplots\pgfplotsplothandlers.code.tex
+(i:\texmfs\install\tex\generic\pgfplots\pgfplotsmeshplothandler.code.tex
+(i:\texmfs\install\tex\generic\pgfplots\pgfplotsmeshplotimage.code.tex)))
+(i:\texmfs\install\tex\generic\pgfplots\pgfplots.scaling.code.tex)
+(i:\texmfs\install\tex\generic\pgfplots\pgfplotscoordprocessing.code.tex)
+(i:\texmfs\install\tex\generic\pgfplots\pgfplots.errorbars.code.tex)
+(i:\texmfs\install\tex\generic\pgfplots\pgfplots.markers.code.tex)
+(i:\texmfs\install\tex\generic\pgfplots\pgfplotsticks.code.tex)
+(i:\texmfs\install\tex\generic\pgfplots\pgfplots.paths.code.tex)
+(i:\texmfs\install\tex\generic\pgf\frontendlayer\tikz\libraries\tikzlibrarydeco
+rations.code.tex
+(i:\texmfs\install\tex\generic\pgf\modules\pgfmoduledecorations.code.tex))
+(i:\texmfs\install\tex\generic\pgf\frontendlayer\tikz\libraries\tikzlibrarydeco
+rations.pathmorphing.code.tex
+(i:\texmfs\install\tex\generic\pgf\libraries\decorations\pgflibrarydecorations.
+pathmorphing.code.tex))
+(i:\texmfs\install\tex\generic\pgf\frontendlayer\tikz\libraries\tikzlibrarydeco
+rations.pathreplacing.code.tex
+(i:\texmfs\install\tex\generic\pgf\libraries\decorations\pgflibrarydecorations.
+pathreplacing.code.tex))))
+(i:\texmfs\install\tex\latex\pgfplots\pgfplotstable.sty
+(i:\texmfs\install\tex\generic\pgfplots\pgfplots.revision.tex)
+(i:\texmfs\install\tex\generic\pgfplots\numtable\pgfplotstable.code.tex
+(i:\texmfs\install\tex\generic\pgfplots\numtable\pgfplotstable.coltype.code.tex
+))) (i:\texmfs\install\tex\latex\filecontents\filecontents.sty)
+(i:\texmfs\install\tex\latex\multirow\multirow.sty)
+(i:\texmfs\install\tex\latex\amsfonts\amssymb.sty
+(i:\texmfs\install\tex\latex\amsfonts\amsfonts.sty))
+(i:\texmfs\install\tex\latex\tools\verbatim.sty)
+(i:\texmfs\install\tex\latex\amsmath\amsmath.sty
+For additional information on amsmath, use the `?' option.
+(i:\texmfs\install\tex\latex\amsmath\amstext.sty
+(i:\texmfs\install\tex\latex\amsmath\amsgen.sty))
+(i:\texmfs\install\tex\latex\amsmath\amsbsy.sty)
+(i:\texmfs\install\tex\latex\amsmath\amsopn.sty))
+(i:\texmfs\install\tex\latex\tools\enumerate.sty)
+(i:\texmfs\install\tex\latex\amsfonts\umsa.fd)
+(i:\texmfs\install\tex\latex\amsfonts\umsb.fd) (butiran.aux)
+(i:\texmfs\install\tex\context\base\supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (i:\texmfs\install\tex\latex\oberdiek\epstopdf-base.sty
+(i:\texmfs\install\tex\latex\oberdiek\grfext.sty))
+(i:\texmfs\install\tex\latex\hyperref\nameref.sty
+(i:\texmfs\install\tex\generic\oberdiek\gettitlestring.sty)) (butiran.out)
+(butiran.out) ABD: EveryShipout initializing macros
+
+Package pgfplots Warning: running in backwards compatibility mode (unsuitable t
+ick labels; missing features). Consider writing \pgfplotsset{compat=1.16} into
+your preamble.
+ on input line 209.
+
+(butiran.toc) [1{i:/texmfs/data/pdftex/config/pdftex.map}] (butiran.aux) )<i:/t
+exmfs/install/fonts/type1/public/amsfonts/cm/cmbx12.pfb><i:/texmfs/install/font
+s/type1/public/amsfonts/cm/cmr10.pfb>
+Output written on butiran.pdf (1 page, 17347 bytes).
+Transcript written on butiran.log.
+
+latex at home
+2020-06-02 03:51
+
+Use in Chrome fi1101.pdf#page=50&zoom=120,140,300
+L:\home\butiran>
+
+0014 about finisih -- time the tmp folder.
+
+[20200601]
+2253 Reported before installing.
+Uninstall ImageMagick 6.9.10.11-1 (automatically added)
+Uninstall binutils 2.29-1 (automatically added)
+Uninstall ca-certificates 2.32-1 (automatically added)
+Uninstall cygwin 3.0.7-1 (automatically added)
+Uninstall cygwin-devel 3.0.7-1 (automatically added)
+Uninstall ed 1.15-1 (automatically added)
+Uninstall gawk 5.0.1-1 (automatically added)
+Uninstall gcc-core 7.4.0-1 (automatically added)
+Uninstall gcc-fortran 7.4.0-1 (automatically added)
+Uninstall gcc-g++ 7.4.0-1 (automatically added)
+Uninstall ghostscript 9.27-1 (automatically added)
+Uninstall gnuplot 5.2.7-1 (automatically added)
+Uninstall info 6.6-1 (automatically added)
+Uninstall less 530-1 (automatically added)
+Uninstall libMagickC++6_8 6.9.10.11-1 (automatically added)
+Uninstall libMagickCore6_6 6.9.10.11-1 (automatically added)
+Uninstall libMagickWand6_6 6.9.10.11-1 (automatically added)
+Uninstall libX11_6 1.6.8-1 (automatically added)
+Uninstall libXpm4 3.5.12-1 (automatically added)
+Uninstall libXrender1 0.9.9-1 (automatically added)
+Uninstall libatomic1 7.4.0-1 (automatically added)
+Uninstall libblkid1 2.33.1-1 (automatically added)
+Uninstall libfdisk1 2.33.1-1 (automatically added)
+Uninstall libfreetype6 2.9.1-1 (automatically added)
+Uninstall libgcc1 7.4.0-1 (automatically added)
+Uninstall libgd3 2.2.5-2 (automatically added)
+Uninstall libgmp10 6.1.2-1 (automatically added)
+Uninstall libgomp1 7.4.0-1 (automatically added)
+Uninstall libgraphite2_3 1.3.10-1 (automatically added)
+Uninstall libgs9 9.27-1 (automatically added)
+Uninstall libharfbuzz-icu0 2.5.3-1 (automatically added)
+Uninstall libharfbuzz0 2.5.3-1 (automatically added)
+Uninstall libkpathsea6 20190509-1 (automatically added)
+Uninstall liblapack0 3.8.0-1 (automatically added)
+Uninstall libmpfr6 4.0.2-1 (automatically added)
+Uninstall libopenldap2_4_2 2.4.48-1 (automatically added)
+Uninstall libopenssl100 1.0.2t-1
+Uninstall libp11-kit0 0.23.15-1 (automatically added)
+Uninstall libpaper-common 1.1.24-2 (automatically added)
+Uninstall libpaper1 1.1.24-2 (automatically added)
+Uninstall libpcre1 8.43-1 (automatically added)
+Uninstall libpkgconf3 1.6.0-1 (automatically added)
+Uninstall libptexenc1 20190509-1 (automatically added)
+Uninstall libquadmath0 7.4.0-1 (automatically added)
+Uninstall libsasl2_3 2.1.26-11 (automatically added)
+Uninstall libsmartcols1 2.33.1-1 (automatically added)
+Uninstall libsqlite3_0 3.28.0-1 (automatically added)
+Uninstall libssl1.1 1.1.1d-1 (automatically added)
+Uninstall libstdc++6 7.4.0-1 (automatically added)
+Uninstall libsynctex2 20190509-1 (automatically added)
+Uninstall libteckit0 2.5.9-1 (automatically added)
+Uninstall libtexlua53_5 20190509-1 (automatically added)
+Uninstall libtexluajit2 20190509-1 (automatically added)
+Uninstall libuuid-devel 2.33.1-1 (automatically added)
+Uninstall libuuid1 2.33.1-1 (automatically added)
+Uninstall libxcb-render0 1.13-1 (automatically added)
+Uninstall libxcb-shm0 1.13-1 (automatically added)
+Uninstall libxcb1 1.13-1 (automatically added)
+Uninstall libzzip0.13 0.13.68-1 (automatically added)
+Uninstall mintty 3.0.2-1 (automatically added)
+Uninstall openssl 1.1.1d-1 (automatically added)
+Uninstall p11-kit 0.23.15-1 (automatically added)
+Uninstall p11-kit-trust 0.23.15-1 (automatically added)
+Uninstall perl 5.26.3-2 (automatically added)
+Uninstall perl-Digest-SHA 6.02-1 (automatically added)
+Uninstall perl-Encode-Locale 1.05-2 (automatically added)
+Uninstall perl-File-Listing 6.04-6 (automatically added)
+Uninstall perl-File-Which 1.21-1 (automatically added)
+Uninstall perl-HTML-Parser 3.72-2 (automatically added)
+Uninstall perl-HTML-Tagset 3.20-6 (automatically added)
+Uninstall perl-HTTP-Cookies 6.04-2 (automatically added)
+Uninstall perl-HTTP-Daemon 6.06-1 (automatically added)
+Uninstall perl-HTTP-Date 6.02-6 (automatically added)
+Uninstall perl-HTTP-Message 6.18-1 (automatically added)
+Uninstall perl-HTTP-Negotiate 6.01-6 (automatically added)
+Uninstall perl-IO-HTML 1.001-3 (automatically added)
+Uninstall perl-IO-String 1.08-6 (automatically added)
+Uninstall perl-LWP-MediaTypes 6.04-1 (automatically added)
+Uninstall perl-Net-HTTP 6.19-1 (automatically added)
+Uninstall perl-Socket 2.029-1 (automatically added)
+Uninstall perl-Tk 804.034-1 (automatically added)
+Uninstall perl-Try-Tiny 0.30-1 (automatically added)
+Uninstall perl-URI 1.76-1 (automatically added)
+Uninstall perl-WWW-RobotRules 6.02-6 (automatically added)
+Uninstall perl-XML-Parser 2.44-3 (automatically added)
+Uninstall perl-libwww-perl 6.39-1 (automatically added)
+Uninstall perl_autorebase 5.26.3-2 (automatically added)
+Uninstall perl_base 5.26.3-2 (automatically added)
+Uninstall pkg-config 1.6.0-1 (automatically added)
+Uninstall pkgconf 1.6.0-1 (automatically added)
+Uninstall poppler-data 0.4.8-1 (automatically added)
+Uninstall preview-latex 11.91-1 (automatically added)
+Uninstall publicsuffix-list-dafsa 20190717-1 (automatically added)
+Uninstall texlive 20190509-1 (automatically added)
+Uninstall texlive-collection-basic 20190509-1 (automatically added)
+Uninstall texlive-collection-latex 20170520-2 (automatically added)
+Uninstall texlive-collection-latexextra 20170520-1 (automatically added)
+Uninstall texlive-collection-latexrecommended 20170520-1 (automatically added)
+Uninstall texlive-collection-pictures 20170520-1 (automatically added)
+Uninstall tzdata 2019c-1 (automatically added)
+Uninstall util-linux 2.33.1-1 (automatically added)
+Uninstall vim-minimal 8.1.1772-1 (automatically added)
+Uninstall w32api-headers 5.0.4-1 (automatically added)
+Uninstall w32api-runtime 5.0.4-1 (automatically added)
+Install ImageMagick 6.9.10.11-2
+Install adwaita-icon-theme 3.26.1-1 (automatically added)
+Install at-spi2-core 2.26.2-1 (automatically added)
+Install binutils 2.34+1git.de9c1b7cfe-1
+Install ca-certificates 2.40-1
+Install cygwin 3.1.5-1
+Install cygwin-devel 3.1.5-1
+Install dconf-service 0.26.1-1 (automatically added)
+Install dri-drivers 19.1.6-1 (automatically added)
+Install ed 1.16-1
+Install gawk 5.1.0-1
+Install gcc-core 9.3.0-2
+Install gcc-fortran 9.3.0-2
+Install gcc-g++ 9.3.0-2
+Install gdk-pixbuf2.0-svg 2.40.20-1 (automatically added)
+Install ghostscript 9.52-1
+Install glib2.0-networking 2.54.1-1 (automatically added)
+Install gnumeric 1.12.38-1
+Install gnuplot 5.2.8-1
+Install gtk-update-icon-cache 3.22.28-1 (automatically added)
+Install hicolor-icon-theme 0.15-1 (automatically added)
+Install info 6.7-1
+Install less 551-1
+Install libGL1 19.1.6-1 (automatically added)
+Install libMagickC++6_8 6.9.10.11-2
+Install libMagickCore6_6 6.9.10.11-2
+Install libMagickWand6_6 6.9.10.11-2
+Install libX11-xcb1 1.6.9-1 (automatically added)
+Install libX11_6 1.6.9-1
+Install libXcomposite1 0.4.5-1 (automatically added)
+Install libXcursor1 1.2.0-1 (automatically added)
+Install libXdamage1 1.1.5-1 (automatically added)
+Install libXfixes3 5.0.3-1 (automatically added)
+Install libXinerama1 1.1.4-1 (automatically added)
+Install libXpm4 3.5.13-1
+Install libXrandr2 1.5.2-1 (automatically added)
+Install libXrender1 0.9.10-1
+Install libXtst6 1.2.3-1 (automatically added)
+Install libatk-bridge2.0_0 2.26.1-1 (automatically added)
+Install libatk1.0_0 2.26.1-1 (automatically added)
+Install libatomic1 9.3.0-2
+Install libatspi0 2.26.2-1 (automatically added)
+Install libblkid1 2.33.1-2
+Install libdbus1_3 1.10.22-1 (automatically added)
+Install libedit0 20130712-1 (automatically added)
+Install libepoxy0 1.4.3-1 (automatically added)
+Install libfdisk1 2.33.1-2
+Install libfpx1 1.3.1.4-1
+Install libfreetype6 2.10.2-1
+Install libfribidi0 0.19.7-1
+Install libgcc1 9.3.0-2
+Install libgcrypt20 1.8.2-1 (automatically added)
+Install libgd3 2.3.0-1
+Install libgfortran5 9.3.0-2
+Install libglapi0 19.1.6-1 (automatically added)
+Install libgmp10 6.2.0-2
+Install libgoffice0.10_10 0.10.38-1 (automatically added)
+Install libgomp1 9.3.0-2
+Install libgpg-error0 1.37-1 (automatically added)
+Install libgraphite2_3 1.3.14-1
+Install libgs9 9.52-1
+Install libgsf-common 1.14.42-1 (automatically added)
+Install libgsf1_114 1.14.42-1 (automatically added)
+Install libgtk3_0 3.22.28-1 (automatically added)
+Install libharfbuzz-icu0 2.6.6-1
+Install libharfbuzz0 2.6.6-1
+Install libicu65 65.1-1
+Install libisl22 0.22.1-2
+Install libjson-glib1.0_0 1.4.2-1 (automatically added)
+Install libkpathsea6 20200406-1
+Install liblapack0 3.9.0-2
+Install liblasem0.4_4 0.4.3-1 (automatically added)
+Install libllvm8 8.0.1-1 (automatically added)
+Install libmpfr6 4.0.2-2p6
+Install libopenldap2_4_2 2.4.50-1
+Install libp11-kit0 0.23.20-1
+Install libpaper-common 1.1.28-1
+Install libpaper1 1.1.28-1
+Install libpcre1 8.44-1
+Install libpkgconf3 1.6.3-1
+Install libproxy1 0.4.14-2 (automatically added)
+Install libptexenc1 20200406-1
+Install libquadmath0 9.3.0-2
+Install libraqm0 0.7.0-1
+Install librest0.7_0 0.8.1-1 (automatically added)
+Install libsasl2_3 2.1.27-1
+Install libsmartcols1 2.33.1-2
+Install libsoup-gnome2.4_1 2.60.3-1 (automatically added)
+Install libsoup2.4_1 2.60.3-1 (automatically added)
+Install libspectre1 0.2.8-1 (automatically added)
+Install libsqlite3_0 3.30.0-1
+Install libssl1.0 1.0.2t-1
+Install libssl1.1 1.1.1f-1
+Install libstdc++6 9.3.0-2
+Install libsynctex2 20200406-1
+Install libteckit0 2.5.10-1
+Install libtexlua53_5 20200406-1
+Install libtexluajit2 20200406-1
+Install libuuid-devel 2.33.1-2
+Install libuuid1 2.33.1-2
+Install libwebpdemux2 0.6.1-2
+Install libxcb-glx0 1.14-1 (automatically added)
+Install libxcb-render0 1.14-1
+Install libxcb-shm0 1.14-1
+Install libxcb1 1.14-1
+Install libxslt 1.1.29-1 (automatically added)
+Install libzzip0.13 0.13.71-1
+Install mintty 3.1.6-1
+Install openssl 1.1.1f-1
+Install p11-kit 0.23.20-1
+Install p11-kit-trust 0.23.20-1
+Install perl 5.30.2-1
+Install perl-Clone 0.45-1
+Install perl-Digest-SHA 6.02-2
+Install perl-Digest-SHA1 2.13-7
+Install perl-Encode-Locale 1.05-3
+Install perl-File-Listing 6.04-7
+Install perl-File-Which 1.23-2
+Install perl-HTML-Parser 3.72-3
+Install perl-HTML-Tagset 3.20-7
+Install perl-HTTP-Cookies 6.08-1
+Install perl-HTTP-Daemon 6.06-2
+Install perl-HTTP-Date 6.05-1
+Install perl-HTTP-Message 6.24-1
+Install perl-HTTP-Negotiate 6.01-7
+Install perl-IO-HTML 1.001-4
+Install perl-IO-String 1.08-7
+Install perl-LWP-MediaTypes 6.04-2
+Install perl-Net-HTTP 6.19-2
+Install perl-Socket 2.029-2
+Install perl-TimeDate 2.33-1
+Install perl-Tk 804.035-1
+Install perl-Try-Tiny 0.30-2
+Install perl-URI 1.76-2
+Install perl-WWW-RobotRules 6.02-7
+Install perl-XML-Parser 2.46-2
+Install perl-libwww-perl 6.44-1
+Install perl_autorebase 5.30.2-1
+Install perl_base 5.30.2-1
+Install pkg-config 1.6.3-1
+Install pkgconf 1.6.3-1
+Install poppler-data 0.4.9-1
+Install preview-latex 11.92-1
+Install publicsuffix-list-dafsa 20200326-1
+Install python27-cffi 1.12.2-1
+Install python27-chardet 3.0.4-1
+Install python27-imaging 5.4.1-1
+Install python27-olefile 0.46-1
+Install python27-ply 3.11-1
+Install python27-pycparser 2.19-1
+Install python27-pygments 2.3.1-1
+Install texlive 20200406-1
+Install texlive-collection-basic 20200406-1
+Install texlive-collection-fontsrecommended 20200406-1
+Install texlive-collection-latex 20200406-1
+Install texlive-collection-latexextra 20200406-1
+Install texlive-collection-latexrecommended 20200406-1
+Install texlive-collection-mathscience 20200406-1
+Install texlive-collection-pictures 20200406-1
+Install tzdata 2020a-1
+Install util-linux 2.33.1-2
+Install vim-minimal 8.2.0486-1
+Install w32api-headers 7.0.0-1
+Install w32api-runtime 7.0.0-1
+Install xlsx2csv 0.11+20120814+gitf54ab78-2
+
+2348 Stage 2
+gnumeric 1.12.38-1
+perl 5.26.3-2
+xlsx2csv 0.11+20120814+gitf54ab78-2
+
+xxyy Choose version.
+bash 4.4.12-3
+g++ 7.4.0-1
+gnuplot 5.2.7-1
+gcc-fortran 7.4.0-1
+fftw3 3.3.8-1
+texlive-collection-latex 20170520-2
+texlive-collection-latexextra 20170520-1
+texlive-collection-latexrecommended 20170520-1
+texlive-collection-basic 20190509-1
+gawk 5.0.1-1
+python3 3.6.8-1
+gcc-java 5.4.0-1
+imageMagick 6.9.10.11-1
+bc 1.06.95-2
+ghostscript 9.27-1
+perl 5.26.3-2
+
+Download again from https://cygwin.com/install.html the  setup-x86.exe installer.
+
+Cygwin error.
+reinstall due to error message:
+line 11: syntax error, unexpected INCLUDE SETUP, expecting $end
