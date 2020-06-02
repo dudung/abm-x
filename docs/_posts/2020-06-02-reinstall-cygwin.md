@@ -6,8 +6,8 @@ mathjax: false
 ptext: false
 x3dom: false
 threejs: false
-category: www
-tags: [js]
+category: cli
+tags: [cygwin]
 ---
 Reinstall cygwin after obtaining error message while updating packages
 
