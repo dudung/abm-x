@@ -1,0 +1,24 @@
+main();
+// Define main function
+function main() {
+    var p = "1010110";
+    [xs, ys, cs] = getValues(p);
+    var hasil = 1/(1+fitness(xs,ys));			//fungsi utuh fitting
+    console.log("p =",p);
+    console.log("x =",xs);
+    console.log("y =",ys);
+    console.log("c =",cs);
+    console.log("hasil = ",hasil);
+}
+
+function getValues() {
+    var p = arguments[0];
+    var xs = p.slice(0, 3);
+    var ys = p.slice(3, 6);
+    var cs = p.slice(6);
+    return [xs, ys, cs];
+}
+
+function fitness(a, b) {			//fungsi untuk fitting (hanya bagian akar)
+  return(Math.sqrt(Math.pow((a - 111), 2) + Math.pow((b - 111),2)));
+}

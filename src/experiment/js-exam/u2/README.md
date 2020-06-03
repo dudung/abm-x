@@ -347,3 +347,23 @@ Ujian dikumpulkan dengan menggunakan format Markdown markup language dan tersimp
 
 Contoh tampilan berkas [README.md](0/README.md) dengan [isinya](https://raw.githubusercontent.com/dudung/jsxphys/master/0.0.2/u2/0/README.md).
 
+
+# Results
+1. 821-2079-xxxx https://github.com/Wasesatama/U2Fiskom
+2. 821-3484-xxxx https://github.com/tegarpmbd/ujian-fiskom-2020
+3. 878-8775-xxxx https://github.com/pautha/UAS-FISKOM
+4. 895-1780-xxxx Nazla
+5. 853-1186-xxxx https://github.com/mnauvalfr/uasfiskom
+6. 822-1676-xxxx Adnan
+7. 851-5543-xxxx https://github.com/nadifwahdi/u2-fiskom
+8. 822-5656-xxxx https://github.com/johnsonfernando/Ujian2Fiskom
+
+
+
+
+
+
+
+
+
+

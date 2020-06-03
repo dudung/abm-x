@@ -1,0 +1,28 @@
+main();
+
+// Define main function
+function main() {
+    var p = "1011001";    //input kromoson yang diuji
+    [xs, ys, cs] = getValues(p);
+    var hasil = 1/(1+fitness(xs,ys));
+    console.log("p =",p);
+    console.log("x =",xs);
+    console.log("y =",ys);
+    console.log("c =",cs);
+    console.log("hasil = ",hasil);
+
+}
+
+function getValues() {
+    var p = arguments[0];
+
+    var xs = p.slice(0, 3);
+    var ys = p.slice(3, 6);
+    var cs = p.slice(6);
+
+    return [xs, ys, cs];
+}
+
+function fitness(a, b) {
+  return(Math.sqrt(Math.pow((a - 101), 2) + Math.pow((b - 100),2)));	//ganti nilai dalam akar untuk kromoson referensi
+}

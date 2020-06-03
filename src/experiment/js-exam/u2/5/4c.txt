@@ -1,0 +1,76 @@
+main();
+
+
+//
+// Define main function 
+function main() 
+{ var p = "1010110";
+  var q = "1011111";
+  var r = "1111011";
+  var s = "1110110";
+  var t = "1111101";
+  var threshold= 0.5;
+[x1, y1, c1] = getValues(p); 
+[x2, y2, c2] = getValues(q); 
+[x3, y3, c3] = getValues(r); 
+[x4, y4, c4] = getValues(s); 
+[x5, y5, c5] = getValues(t); 
+var hasil1 = 1/(1+fitness(x1,y1));
+var seleksi1 = selection(threshold, hasil1, p)
+console.log("p =",p); 
+console.log("x =",x1); 
+console.log("y =",y1); 
+console.log("c =",c1);
+console.log("hasil = ",hasil1);
+console.log("seleksi = ",p," ",  seleksi1);
+var hasil2 = 1/(1+fitness(x2,y2));
+var seleksi2 = selection(threshold, hasil2, q)
+console.log("q =",q); 
+console.log("x =",x2); 
+console.log("y =",y2); 
+console.log("c =",c2); 
+console.log("hasil = ",hasil2);
+console.log("seleksi = ",q," ",  seleksi2);
+var hasil3 = 1/(1+fitness(x3,y3));
+var seleksi3 = selection(threshold, hasil3, r)
+console.log("r =",r); 
+console.log("x =",x3); 
+console.log("y =",y3); 
+console.log("c =",c3); 
+console.log("hasil = ",hasil3);
+console.log("seleksi = ",r," ",  seleksi3);
+var hasil4 = 1/(1+fitness(x4,y4));
+var seleksi4 = selection(threshold, hasil4, s)
+console.log("s =",s); 
+console.log("x =",x4); 
+console.log("y =",y4); 
+console.log("c =",c4); 
+console.log("hasil = ",hasil4);
+console.log("seleksi = ",s," ", seleksi4);
+var hasil5 = 1/(1+fitness(x5,y5));
+var seleksi5 = selection(threshold, hasil5, t)
+console.log("t =",t); 
+console.log("x =",x5); 
+console.log("y =",y5); 
+console.log("c =",c5); 
+console.log("hasil = ",hasil5);
+console.log("seleksi = ",t," ", seleksi5);
+}
+
+function getValues() 
+{ var p = arguments[0];
+var xs = p.slice(0, 3); 
+var ys = p.slice(3, 6); 
+var cs = p.slice(6);
+return [xs, ys, cs]; 
+}
+function fitness(a, b) 
+{ return(Math.sqrt(Math.pow((a - 111), 2) + Math.pow((b - 111),2))); 
+}
+
+function selection(threshold, a, p)
+{ if (a>=threshold) { result="pass the selection";
+} else { result="didnt pass the selection";
+}
+return (result);
+}
