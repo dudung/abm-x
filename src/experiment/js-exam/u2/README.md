@@ -349,21 +349,13 @@ Contoh tampilan berkas [README.md](0/README.md) dengan [isinya](https://raw.gith
 
 
 # Results
-1. 821-2079-xxxx https://github.com/Wasesatama/U2Fiskom
-2. 821-3484-xxxx https://github.com/tegarpmbd/ujian-fiskom-2020
-3. 878-8775-xxxx https://github.com/pautha/UAS-FISKOM
-4. 895-1780-xxxx Nazla
-5. 853-1186-xxxx https://github.com/mnauvalfr/uasfiskom
-6. 822-1676-xxxx Adnan
-7. 851-5543-xxxx https://github.com/nadifwahdi/u2-fiskom
-8. 822-5656-xxxx https://github.com/johnsonfernando/Ujian2Fiskom
-
-
-
-
-
-
-
-
-
+0. `000-0000-0000` [Format](0) | url -
+1. `821-2079-0000` [Answer](1) | url https://github.com/Wasesatama/U2Fiskom
+2. `821-3484-0000` [Answer](2) | url https://github.com/tegarpmbd/ujian-fiskom-2020
+3. `878-8775-0000` [Answer](3) | url https://github.com/pautha/UAS-FISKOM
+4. `812-8792-0000` [Answer](4) | url -
+5. `853-1186-0000` [Answer](5) | url https://github.com/mnauvalfr/uasfiskom
+6. `822-1676-0000` [Answer](6) | url -
+7. `851-5543-0000` [Answer](7) | url https://github.com/nadifwahdi/u2-fiskom
+8. `822-5656-0000` [Answer](1) | url https://github.com/johnsonfernando/Ujian2Fiskom
 
