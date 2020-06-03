@@ -349,7 +349,9 @@ Contoh tampilan berkas [README.md](0/README.md) dengan [isinya](https://raw.gith
 
 
 # Results
-0. `000-0000-0000` [Format](0) | url -
+
+## Answers
+0. `000-0000-0000` [Format](0) | url https://github.com/dudung/abm-x/tree/master/src/experiment/js-exam/u2/0
 1. `821-2079-0000` [Answer](1) | url https://github.com/Wasesatama/U2Fiskom
 2. `821-3484-0000` [Answer](2) | url https://github.com/tegarpmbd/ujian-fiskom-2020
 3. `878-8775-0000` [Answer](3) | url https://github.com/pautha/UAS-FISKOM
@@ -359,3 +361,25 @@ Contoh tampilan berkas [README.md](0/README.md) dengan [isinya](https://raw.gith
 7. `851-5543-0000` [Answer](7) | url https://github.com/nadifwahdi/u2-fiskom
 8. `822-5656-0000` [Answer](8) | url https://github.com/johnsonfernando/Ujian2Fiskom
 
+## Element
+Tab 1 Group, README.md file only, Images, md: Use Markdown, Load table, 
+
+G..    | README.md ..  | Images    | md      | Loa.. |
+:----: | ------------- | --------- | ------- | ----- |
+       |               |           |         |       |
+[1](1) | no (+6 files) | not shown | yes     | no    |
+       | jpg js html   | `/` ?     |     		 |       |
+[2](2) | yes           | shown     | yes     | yes   |
+       | &nbsp;        |           |         |       |
+[3](3) | yes           | no images | yes     | no    |
+       | &nbsp;        |           |         |       |
+[4](4) | yes           | no images | no      | no    |
+       | &nbsp;        |           |         |       |
+[5](5) | no (+28 files)| shown     | yes     | yes   |
+       | txt tex png rar cpp |     |         |       |
+[6](6) | yes           | no images | yes     | yes   |
+       |               |           | partial |       |
+[7](7) | no (+1 files) | shown     | yes     | no    |
+       | rar           |           |         |       |
+[8](8) | no (+16 files)| shown     | yes     | yes   |
+       | png           |           |         |       |
