@@ -357,5 +357,5 @@ Contoh tampilan berkas [README.md](0/README.md) dengan [isinya](https://raw.gith
 5. `853-1186-0000` [Answer](5) | url https://github.com/mnauvalfr/uasfiskom
 6. `822-1676-0000` [Answer](6) | url -
 7. `851-5543-0000` [Answer](7) | url https://github.com/nadifwahdi/u2-fiskom
-8. `822-5656-0000` [Answer](1) | url https://github.com/johnsonfernando/Ujian2Fiskom
+8. `822-5656-0000` [Answer](8) | url https://github.com/johnsonfernando/Ujian2Fiskom
 
