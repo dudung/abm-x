@@ -368,18 +368,18 @@ G..    | README.md ..  | Images    | md      | Loa.. |
 :----: | ------------- | --------- | ------- | ----- |
 |               |           |         |       |
 [1](1) | no (+6 files) | not shown | yes     | no    |
-       | jpg js html   | `/` ?     |     		 |       |
+&nbsp; | jpg js html   | `/` ?     |     		 |       |
 [2](2) | yes           | shown     | yes     | yes   |
-       | &nbsp;        |           |         |       |
+&nbsp; |               |           |         |       |
 [3](3) | yes           | no images | yes     | no    |
-       | &nbsp;        |           |         |       |
+&nbsp; |               |           |         |       |
 [4](4) | yes           | no images | no      | no    |
-       | &nbsp;        |           |         |       |
+&nbsp; |               |           |         |       |
 [5](5) | no (+28 files)| shown     | yes     | yes   |
-       | txt tex png rar cpp |     |         |       |
+&nbsp; | txt tex png rar cpp |     |         |       |
 [6](6) | yes           | no images | yes     | yes   |
-       |               |           | partial |       |
+&nbsp; |               |           | partial |       |
 [7](7) | no (+1 files) | shown     | yes     | no    |
-       | rar           |           |         |       |
+&nbsp; | rar           |           |         |       |
 [8](8) | no (+16 files)| shown     | yes     | yes   |
-       | png           |           |         |       |
+&nbsp; | png           |           |         |       |
