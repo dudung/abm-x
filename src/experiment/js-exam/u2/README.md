@@ -366,7 +366,7 @@ Tab 1 Group, README.md file only, Images, md: Use Markdown, Load table,
 
 G..    | README.md ..  | Images    | md      | Loa.. |
 :----: | ------------- | --------- | ------- | ----- |
-       |               |           |         |       |
+|               |           |         |       |
 [1](1) | no (+6 files) | not shown | yes     | no    |
        | jpg js html   | `/` ?     |     		 |       |
 [2](2) | yes           | shown     | yes     | yes   |
