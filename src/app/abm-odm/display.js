@@ -7,6 +7,7 @@
 	20200604
 	1927 Create this.
 	2012 Paint a matrix on a canvas.
+	2022 Draw grid over the painted matrix.
 	
 	References
 	1. 
@@ -19,11 +20,11 @@ var matrixPixelSize = 10;
 // Define colors for matrix painting
 var matrixColor = [
 	"#fff", // Empty space
-	"#000", // Wall
-	"#00f", // Agent type 1
-	"#0f0", // Agent type 2
-	"#f00", // Agent type 3
-	"#f0f", // Agent type 4
+	"#ccc", // Wall
+	"#ccf", // Agent type 1
+	"#cfc", // Agent type 2
+	"#fcc", // Agent type 3
+	"#ffc", // Agent type 4
 ];
 
 
@@ -46,7 +47,6 @@ function paintMatrix() {
 			for(var r = 0; r < rows; r++) {
 				for(var c = 0; c < cols; c++) {
 					
-					
 					var x = c * dx;
 					var y = r * dy;
 					var cval = m[r][c];
@@ -56,9 +56,13 @@ function paintMatrix() {
 					cx.fillRect(x, y, x + dx, y + dy);
 					cx.fill();
 					
+					cx.strokeStyle = "#fff";
+					cx.lineWidth = 0.2;
+					cx.beginPath();
+					cx.rect(x, y, x + dx, y + dy);
+					cx.stroke();
 				}
-			}
-			
+			}			
 		}
 	};
 	
