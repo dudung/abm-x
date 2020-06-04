@@ -25,8 +25,23 @@ main();
 
 // Define main function
 function main() {
+	var canId = "can0";
+	
+	var can = document.createElement("canvas");
+	can.id = canId;
+	can.width = 500;
+	can.height = 500;
+	can.style.width = can.width + "px";
+	can.style.height = can.height + "px";
+	can.style.border = "1px solid #eee";
+	document.body.append(can);
+	
+	var m = new Matrix(50, 50, 0);
+	m.setCol(0).to(1);
+	m.setRow(0).to(2);
+	m.setCol(49).to(3);
+	m.setRow(49).to(4);
+	m.setRows(20, 30).cols(20, 30).to(5);
+	paintMatrix(m).onCanvas(canId);
 }
-
-
-
 
