@@ -362,7 +362,7 @@ Contoh tampilan berkas [README.md](0/README.md) dengan [isinya](https://raw.gith
 8. `822-5656-0000` [Answer](8) | url https://github.com/johnsonfernando/Ujian2Fiskom
 
 ## Element
-Tab 1 Group, README.md file only, Images, md: Use Markdown, Load table, Must fix,
+Tab 1 Group, README.md file only, Images, md: Use Markdown, Load table, Fix (yes, nc: not necessary),
 
 G..    | README.md ..  | Images    | md      | Loa.. | Fix |
 :----: | ------------- | --------- | ------- | ----- | --- |
@@ -377,7 +377,7 @@ G..    | README.md ..  | Images    | md      | Loa.. | Fix |
 &nbsp; |               |           |         |       |     |
 [5](5) | no (+28 files)| shown     | yes     | yes   | nc  |
 &nbsp; | txt tex png rar cpp |     |         |       |     |
-[6](6) | yes           | no images | yes     | yes   | ??  |
+[6](6) | yes           | no images | yes     | yes   | [yes](6/README--corrected.md)  |
 &nbsp; |               |           | partial |       |     |
 [7](7) | no (+1 files) | shown     | yes     | no    | nc  |
 &nbsp; | rar           |           |         |       |     |
