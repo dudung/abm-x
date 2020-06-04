@@ -367,19 +367,19 @@ Tab 1 Group, README.md file only, Images, md: Use Markdown, Load table, Must fix
 G..    | README.md ..  | Images    | md      | Loa.. | Fix |
 :----: | ------------- | --------- | ------- | ----- | --- |
 |                      |           |         |       |     |
-[1](1) | no (+6 files) | not shown | yes     | no    | yes |
+[1](1) | no (+6 files) | not shown | yes     | no    | [yes](1/README--corrected.md) |
 &nbsp; | jpg js html   | `/` ?     |     		 |       |     |
-[2](2) | yes           | shown     | yes     | yes   | no  |
+[2](2) | yes           | shown     | yes     | yes   | nc  |
 &nbsp; |               |           |         |       |     |
-[3](3) | yes           | no images | yes     | no    | no  |
+[3](3) | yes           | no images | yes     | no    | nc  |
 &nbsp; |               |           |         |       |     |
-[4](4) | yes           | no images | no      | no    | no  |
-&nbsp; |               |           |         |       |
-[5](5) | no (+28 files)| shown     | yes     | yes   |
-&nbsp; | txt tex png rar cpp |     |         |       |
-[6](6) | yes           | no images | yes     | yes   |
-&nbsp; |               |           | partial |       |
-[7](7) | no (+1 files) | shown     | yes     | no    |
-&nbsp; | rar           |           |         |       |
-[8](8) | no (+16 files)| shown     | yes     | yes   |
-&nbsp; | png           |           |         |       |
+[4](4) | yes           | no images | no      | no    | ??  |
+&nbsp; |               |           |         |       |     |
+[5](5) | no (+28 files)| shown     | yes     | yes   | nc  |
+&nbsp; | txt tex png rar cpp |     |         |       |     |
+[6](6) | yes           | no images | yes     | yes   | ??  |
+&nbsp; |               |           | partial |       |     |
+[7](7) | no (+1 files) | shown     | yes     | no    | nc  |
+&nbsp; | rar           |           |         |       |     |
+[8](8) | no (+16 files)| shown     | yes     | yes   | nc  |
+&nbsp; | png           |           |         |       |     |
