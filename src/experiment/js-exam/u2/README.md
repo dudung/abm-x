@@ -362,18 +362,18 @@ Contoh tampilan berkas [README.md](0/README.md) dengan [isinya](https://raw.gith
 8. `822-5656-0000` [Answer](8) | url https://github.com/johnsonfernando/Ujian2Fiskom
 
 ## Element
-Tab 1 Group, README.md file only, Images, md: Use Markdown, Load table, 
+Tab 1 Group, README.md file only, Images, md: Use Markdown, Load table, Must fix,
 
-G..    | README.md ..  | Images    | md      | Loa.. |
-:----: | ------------- | --------- | ------- | ----- |
-|               |           |         |       |
-[1](1) | no (+6 files) | not shown | yes     | no    |
-&nbsp; | jpg js html   | `/` ?     |     		 |       |
-[2](2) | yes           | shown     | yes     | yes   |
-&nbsp; |               |           |         |       |
-[3](3) | yes           | no images | yes     | no    |
-&nbsp; |               |           |         |       |
-[4](4) | yes           | no images | no      | no    |
+G..    | README.md ..  | Images    | md      | Loa.. | Fix |
+:----: | ------------- | --------- | ------- | ----- | --- |
+|                      |           |         |       |     |
+[1](1) | no (+6 files) | not shown | yes     | no    | yes |
+&nbsp; | jpg js html   | `/` ?     |     		 |       |     |
+[2](2) | yes           | shown     | yes     | yes   | no  |
+&nbsp; |               |           |         |       |     |
+[3](3) | yes           | no images | yes     | no    | no  |
+&nbsp; |               |           |         |       |     |
+[4](4) | yes           | no images | no      | no    | no  |
 &nbsp; |               |           |         |       |
 [5](5) | no (+28 files)| shown     | yes     | yes   |
 &nbsp; | txt tex png rar cpp |     |         |       |
