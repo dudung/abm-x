@@ -269,7 +269,7 @@ Dari tabel diplot scatter di excell dan kelas yang berbeda diberi warna berbeda 
     \end{equation}
     
 Gambar yang mendukung dapat dilihat dibawah ini
-![alt text](/3a.jpg)
+![alt text](3a.jpg)
 
 ### b.
 Dari tabel diplot scatter di excell dan kelas yang berbeda diberi warna berbeda untuk memberikan bantuan visual dari data set untuk 
@@ -283,7 +283,7 @@ Dari tabel diplot scatter di excell dan kelas yang berbeda diberi warna berbeda 
     \end{equation}
     
 Gambar yang mendukung dapat dilihat dibawah ini
-![alt text](/3b.jpg)
+![alt text](3b.jpg)
     
 ### c.
 Dari tabel diplot scatter di excell dan kelas yang berbeda diberi warna berbeda untuk memberikan bantuan visual dari data set untuk 
@@ -297,7 +297,7 @@ Dari tabel diplot scatter di excell dan kelas yang berbeda diberi warna berbeda 
     \end{equation}
 
 Gambar yang mendukung dapat dilihat dibawah ini
-![alt text](/3c.jpg)
+![alt text](3c.jpg)
 
 ### d.
 Kaitan antara arsitektur yang diperlukan dengan fungsi ANN memisahkan data dengan baik adalah. Input dari ANN bergantung pada jumlah 
@@ -644,7 +644,7 @@ perhitungan yang telah dilakukan.
 Analisa ketakstabilan penyelesaian numerik pada kasus ini juga diperlihatkan
 oleh Gambar di bawah.
 
-![alt text](/5data.jpg)
+![alt text](5data.jpg)
 
 Gambar tersebut menganalisa perbandingan antara penyelesaian numerik dan penyelesaian eksak saat t = 0.28 dengan perhitungan 
 penyelesaian eksaknya sampai n = 200. Terlihat bahwa penyelesaian numeriknya sama sekali tidak mendekati penyelesaian eksaknya. Dengan 
