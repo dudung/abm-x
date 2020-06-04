@@ -38,7 +38,7 @@ function main() {
 	can.style.height = can.height + "px";
 	can.style.border = "1px solid #444";
 	document.body.append(can);
-		
+	
 	// Define border -- actually not necessary
 	m.setCol(0).to(1);
 	m.setRow(0).to(1);
@@ -72,6 +72,12 @@ function main() {
 	// Define NE -- SE two ways
 	m.setRows(11, 42).cols(47, 48).to(0);
 	m.setRows(11, 42).cols(44, 45).to(0);
+	
+	// Define NW -- SE two ways
+	m.drawLine(10, 11, 41, 42).withColor(0);
+	m.drawLine(11, 11, 42, 42).withColor(0);
+	m.drawLine(07, 11, 40, 44).withColor(0);
+	m.drawLine(08, 11, 41, 44).withColor(0);
 	
 	// Paint the matrix on canvas
 	paintMatrix(m).onCanvas(canId);

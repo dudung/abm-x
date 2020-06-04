@@ -15,6 +15,9 @@
 	1101 Test setRows.to and setCols.to functions and ok.
 	1118 Test setRows.cols.to and ok.
 	1127 Break a while after modify README for this.
+	20200605
+	0413 Draw a line in marix, still not work.
+	0437 Can draw line but not so good, at least it works.
 	
 	References
 	1. url https://developer.mozilla.org/en-US/docs/Web
@@ -181,7 +184,31 @@ class Matrix {
 					}
 				}
 			}
-		}
+		};
+		return o;
+	}
+	
+	drawLine() {
+		var x1 = arguments[0];
+		var y1 = arguments[1];
+		var x2 = arguments[2];
+		var y2 = arguments[3];
+		var m = this.m;
+		
+		var o = {
+			withColor: function() {
+				var color = arguments[0];
+				
+				var Nx = x2 - x1 + 1;
+				var Ny = y2 - y1 + 1;
+				var dydx = Ny / Nx; 
+				
+				for(var x = x1; x <= x2; x++) {
+					var y = Math.round(y1 + (x - x1) * dydx);
+					m[y][x] = color;
+				}
+			}
+		};
 		return o;
 	}
 	
