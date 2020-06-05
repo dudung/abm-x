@@ -9,10 +9,15 @@
 	1619 Start this app.
 	1912 Using map to conver string to int [1].
 	2009 Create textarea for output.
+	2207 Can get the ODM :-), finally.
 	
 	References
 	1. url https://stackoverflow.com/a/61116417/9475509
 */
+
+
+// Define global variables
+var ODM, data2, data3;
 
 
 // Call main function
@@ -29,7 +34,7 @@ function main() {
 		data1.push(rd);
 	}
 	
-	var data2 = [];
+	data2 = [];
 	for(var i = 0; i < data1.length; i++) {
 		var rd = keepLinesWithMark(data1[i], "|");
 		data2.push(rd);
@@ -47,19 +52,76 @@ function main() {
 	txa.style.width = parseInt(window.innerWidth - 22) + "px";
 	txa.style.height = parseInt(window.innerHeight - 26) + "px";
 	txa.value = "";
+
+	//txa.value = calculateODM();
+	txa.value = calculateAgentCity();
+}
+
+
+// Calculate each agent city
+function calculateAgentCity() {
+	var value = "";
 	
-	for(var j = 0; j < data2.length * 0 + 1; j++) {
+	for(var j = 0; j < data2.length; j++) {
+		value += j + "\n";
+		
 		var a = data3[j][0];
 		var c = data3[j][1];
 		var i = data3[j][2];
 		
 		var N = a.length;
-		for(var n = 0; n < N * 1 + 0; n++) {
-			txa.value += a[n] + "\t" + c[n].length + "\n";
+		for(var n = 0; n < N; n++) {
+			value += a[n] + "\t";
+			
+			var sumC = 0;
+			var sumI = 0;
+			for(var cc = 0; cc < c[n].length; cc++) {
+				sumC += c[n][cc];
+				sumI += i[n][cc];
+			}
+			value += sumC + "\t";
+			value += sumI + "\n";
 		}
+		
+		value += "\n";
 	}
-	
+	return value;
 }
+
+// Calculate ODM
+function calculateODM() {
+	var value = "";
+	
+	for(var j = 0; j < data2.length; j++) {
+		ODM = new Matrix(4, 4);
+		value += j + "\n";
+		
+		var a = data3[j][0];
+		var c = data3[j][1];
+		var i = data3[j][2];
+		
+		var N = a.length;
+		for(var n = 0; n < N; n++) {
+			for(var cc = 0; cc < c[n].length - 1; cc++) {
+				var row = c[n][cc];
+				var col = c[n][cc + 1];
+				
+				ODM.m[row][col]++;
+			}
+		}
+		
+		for(var r = 0; r < ODM.m.length; r++) {
+			for(var c = 0; c < ODM.m[0].length; c++) {
+				value += ODM.m[r][c];
+				if(c < ODM.m[0].length - 1) value += "\t";
+			}
+			value += "\n";
+		}
+		
+		if(j < data2.length - 1) value += "\n";
+	}
+	return value;
+}	
 
 
 // Convert to column data with separator mark
