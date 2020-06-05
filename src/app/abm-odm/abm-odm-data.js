@@ -6,7 +6,12 @@
 	Tatang Suheri | https://repository.unikom.ac.id/54572 
 	
 	20200605
-	1619 Start this app.	
+	1619 Start this app.
+	1912 Using map to conver string to int [1].
+	2009 Create textarea for output.
+	
+	References
+	1. url https://stackoverflow.com/a/61116417/9475509
 */
 
 
@@ -35,6 +40,25 @@ function main() {
 		var rd = toColumnData(data2[i], "|");
 		data3.push(rd);
 	}
+	
+	txa = document.createElement("textarea");
+	txa.style.overflowY = "scroll";
+	document.body.append(txa);
+	txa.style.width = parseInt(window.innerWidth - 22) + "px";
+	txa.style.height = parseInt(window.innerHeight - 26) + "px";
+	txa.value = "";
+	
+	for(var j = 0; j < data2.length * 0 + 1; j++) {
+		var a = data3[j][0];
+		var c = data3[j][1];
+		var i = data3[j][2];
+		
+		var N = a.length;
+		for(var n = 0; n < N * 1 + 0; n++) {
+			txa.value += a[n] + "\t" + c[n].length + "\n";
+		}
+	}
+	
 }
 
 
@@ -53,9 +77,11 @@ function toColumnData() {
 		var cols = row.split(mark);
 		
 		agent.push(cols[0].trim());
+		city.push(cols[1].trim().split(",").map((e)=>parseInt(e)));
+		iter.push(cols[2].trim().split(",").map((e)=>parseInt(e)));
 	}
 	
-	return [agent];
+	return [agent, city, iter];
 }
 
 
@@ -90,6 +116,10 @@ function readAllRawData() {
 	raw.push(data04);
 	raw.push(data05);
 	raw.push(data06);
+	raw.push(data07);
+	raw.push(data08);
+	raw.push(data09);
+	raw.push(data10);
 	return raw;
 }
 

@@ -22,6 +22,7 @@
 	1321 Finish four ring roads and seem good.
 	1342 Finish two additional road, but wierd intersection.
 	1420 Start collecting first data.
+	1904 Increase number of agent, denser.
 	
 	References
 	1. Martin L. Hazelton, "Some comments on origin–destination
@@ -293,6 +294,11 @@ function main() {
 		[02, 04], [04, 04], [06, 04], [08, 04],
 		[02, 06], [04, 06], [06, 06], [08, 06],
 		[02, 08], [04, 08], [06, 08], [08, 08],
+		
+		[03, 03], [05, 03], [07, 03], [09, 03],
+		[03, 05], [05, 05], [07, 05], [09, 05],
+		[03, 07], [05, 07], [07, 07], [09, 07],
+		[03, 09], [05, 09], [07, 09], [09, 09],
 	];
 	var type1 = 12;
 	for(var i = 0; i < posType1.length; i++) {
@@ -312,6 +318,11 @@ function main() {
 		[43, 04], [45, 04], [47, 04],
 		[43, 06], [45, 06], [47, 06],
 		[43, 08], [45, 08], [47, 08],
+		
+		[44, 03], [46, 03],
+		[44, 05], [46, 05],
+		[44, 07], [46, 07],
+		[44, 09], [46, 09],
 	];
 	var type2 = 13;
 	for(var i = 0; i < posType2.length; i++) {
@@ -329,6 +340,9 @@ function main() {
 	var posType3 = [
 		[02, 45], [04, 45], [06, 45], [08, 45],
 		[02, 47], [04, 47], [06, 47], [08, 47],
+
+		[03, 46], [05, 46], [07, 46], [09, 46],
+		[03, 44], [05, 44], [07, 44], [09, 44],
 	];
 	var type3 = 14;
 	for(var i = 0; i < posType3.length; i++) {
@@ -346,6 +360,9 @@ function main() {
 	var posType4 = [
 		[43, 45], [45, 45], [47, 45],
 		[43, 47], [45, 47], [47, 47],
+
+		[44, 46], [46, 46],
+		[44, 44], [46, 44],
 	];
 	var type4 = 15;
 	for(var i = 0; i < posType4.length; i++) {
