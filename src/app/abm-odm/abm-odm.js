@@ -15,6 +15,10 @@
 	0747 Test of array of Agents.
 	0811 Create many agents for random motion test.
 	0814 Can do random motion.
+	0916 Can record visited city in agent.
+	200605
+	1051 Finisih testDrawingLines function which works.
+	1056 Fix testDrawingLines.
 	
 	References
 	1. Martin L. Hazelton, "Some comments on origin–destination
@@ -58,7 +62,7 @@ function main() {
 	world.setRow(49).to(0);
 	
 	// Define cities region
-	city = [];
+	var city = [];
 	
 	// Define NW city
 	var c1 = new City;
@@ -96,9 +100,48 @@ function main() {
 	c4.paint();
 	city.push(c4);
 	
+	
+	// Define roads
+	road = [];
+	
 	// Define NW -- NE two ways
-	world.setRows(01, 02).cols(11, 41).to(1);
-	world.setRows(04, 05).cols(11, 41).to(1);
+	/*
+	world.drawLine2(11, 02, 41, 02).withColor(1);
+	world.drawLine2(11, 03, 41, 03).withColor(1);
+	world.drawLine2(11, 05, 41, 05).withColor(1);
+	world.drawLine2(11, 06, 41, 06).withColor(1);
+	*/
+	
+	// Define road from city 0 to city 1
+	var lane01a = world.coordLine2(11, 02, 41, 02);
+	var lane01b = world.coordLine2(11, 03, 41, 03);
+	var lane01 = lane01a.concat(lane01b);
+	var r01 = new Road();
+	r01.setName("0->1");
+	r01.setType(1);
+	r01.setWorld(world);
+	r01.setRegionXY(lane01);
+	r01.setDirection([1, 2, 4], [0.6, 0.2, 0.2]);
+	r01.paint();
+	road.push(r01);
+	
+	// Define road from city 1 to city 2
+	var lane10a = world.coordLine2(11, 05, 41, 05);
+	var lane10b = world.coordLine2(11, 06, 41, 06);
+	var lane10 = lane10a.concat(lane10b);
+	var r10 = new Road();
+	r10.setName("1->0");
+	r10.setType(1);
+	r10.setWorld(world);
+	r10.setRegionXY(lane10);
+	r01.setDirection([3, 4, 2], [0.6, 0.2, 0.2]);
+	r10.paint();
+	road.push(r10);
+	
+	/*
+	// Define NW -- NE two ways
+	world.setRows(02, 03).cols(11, 41).to(1);
+	world.setRows(05, 06).cols(11, 41).to(1);
 	
 	// Define SW -- SE two ways
 	world.setRows(48, 48).cols(11, 41).to(1);
@@ -121,12 +164,12 @@ function main() {
 	// Define SW -- NE two ways
 	world.drawLine(11, 43, 43, 11).withColor(1);
 	world.drawLine(11, 44, 43, 12).withColor(1);
-	
 	world.drawLine(08, 42, 41, 09).withColor(1);
 	world.drawLine(09, 42, 41, 10).withColor(1);
+	*/
 	
 	// Create agents of type Agent
-	agent = [];
+	var agent = [];
 	
 	// Create agents of type 1
 	var posType1 = [
@@ -207,7 +250,10 @@ function main() {
 	
 	if(START) {
 		proc = setInterval(
-			function() { simulate(agent, world, "can0") },
+			function() { 
+				simulate(
+					agent, road, city, 
+					world, "can0") },
 			1
 		);
 		START = false;
@@ -238,12 +284,14 @@ function main() {
 // Simulate
 function simulate() {
 	var a = arguments[0];
-	var w = arguments[1];
-	var id = arguments[2];
+	var r = arguments[1];
+	var c = arguments[2];
+	var w = arguments[3];
+	var id = arguments[4];
 	
 	for(var i = 0; i < a.length; i++) {
-		a[i].moveRandom();
-		a[i].checkCity(city, iter);
+		a[i].moveOnRoad(r);
+		a[i].checkCity(c, iter);
 	}
 	paintMatrix(w).onCanvas(id), 
 	
@@ -253,4 +301,31 @@ function simulate() {
 	if(iter > iterMax) {
 		clearInterval(proc);
 	}
+}
+
+
+// Function test drawing lines
+function testDrawingLines() {
+	var world = arguments[0];
+	
+	world.drawLine2(20, 20, 30, 29).withColor(1); // SE
+	world.drawLine2(20, 24, 30, 34).withColor(1); // SE
+	world.drawLine2(20, 28, 30, 39).withColor(1); // SE
+	
+	world.drawLine2(20, 20, 30, 09).withColor(3); // NE
+	world.drawLine2(20, 24, 30, 14).withColor(3); // NE
+	world.drawLine2(20, 28, 30, 19).withColor(3); // NE
+	
+	world.drawLine2(20, 20, 10, 29).withColor(4); // SW
+	world.drawLine2(20, 24, 10, 34).withColor(4); // SW
+	world.drawLine2(20, 28, 10, 39).withColor(4); // SW
+	
+	world.drawLine2(20, 20, 10, 11).withColor(5); // NW
+	world.drawLine2(20, 24, 10, 14).withColor(5); // NW
+	world.drawLine2(20, 28, 10, 19).withColor(5); // NW
+
+	world.drawLine2(20, 19, 20, 09).withColor(6); // N
+	world.drawLine2(21, 20, 31, 20).withColor(7); // E
+	world.drawLine2(19, 20, 09, 20).withColor(8); // W
+	world.drawLine2(20, 21, 20, 31).withColor(9); // S
 }

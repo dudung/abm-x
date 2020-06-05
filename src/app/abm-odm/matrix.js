@@ -19,6 +19,10 @@
 	0413 Draw a line in marix, still not work.
 	0437 Can draw line but not so good, at least it works.
 	0516 Fix draw line for y2 < y1 (canvas coordinate).
+	0937 Create drawLine2 for createing coordinates.
+	0954 Test drawLine2 for dydx > 1 and < 1. Ok until now.
+	1054 Fix drawLine2 for all directions.
+	1059 Remove some temporary lines of code.
 	
 	References
 	1. url https://developer.mozilla.org/en-US/docs/Web
@@ -212,6 +216,156 @@ class Matrix {
 			}
 		};
 		return o;
+	}
+	
+	drawLineX() {
+		var x1 = arguments[0];
+		var y1 = arguments[1];
+		var x2 = arguments[2];
+		var y2 = arguments[3];
+		var m = this.m;
+		
+		var o = {
+			withColor: function() {
+				var color = arguments[0];
+				
+				var Nx = x2 - x1 + 0;
+				var Ny = y2 - y1 + 0;
+				if(y2 < y1) Ny = y2 - y1 - 1
+				var dydx = Ny / Nx; 
+				
+				for(var x = x1; x <= x2; x++) {
+					var y = Math.round(y1 + (x - x1) * dydx);
+					m[y][x] = color;
+				}
+			}
+		};
+		return o;
+	}
+
+	drawLineY() {
+		var x1 = arguments[0];
+		var y1 = arguments[1];
+		var x2 = arguments[2];
+		var y2 = arguments[3];
+		var m = this.m;
+		
+		var o = {
+			withColor: function() {
+				var color = arguments[0];
+				
+				var Nx = x2 - x1 + 0;
+				var Ny = y2 - y1 + 0;
+				if(x2 < x1) Nx = x2 - x1 - 1
+				var dxdy = Nx / Ny; 
+				
+				for(var y = y1; y <= y2; y++) {
+					var x = Math.round(x1 + (y - y1) * dxdy);
+					m[y][x] = color;
+				}
+			}
+		};
+		return o;
+	}
+
+	drawLine2() {
+		var x1 = arguments[0];
+		var y1 = arguments[1];
+		var x2 = arguments[2];
+		var y2 = arguments[3];
+		var m = this.m;
+		
+		var o = {
+			withColor: function() {
+				var color = arguments[0];
+				
+				var Nx = x2 - x1;
+				var Ny = y2 - y1;
+				
+				var grad = Ny/Nx;
+				if(Math.abs(grad) <= 1) {
+					if(Nx > 0) {
+						for(var x = x1; x <= x2; x++) {
+							var y = Math.round(y1 + (x - x1) * grad);
+							m[y][x] = color;
+						}
+					} else {
+						console.log(Nx, Ny, grad);
+						for(var x = x1; x >= x2; x--) {
+							var y = Math.round(y1 + (x - x1) * grad);
+							m[y][x] = color;
+						}
+					}
+				} else if(Math.abs(grad) > 1) {
+					//console.log(Nx, Ny, grad);
+					if(grad > 0 || Nx < 0) {
+						for(var y = y1; y <= y2; y++) {
+							var x = Math.round(x1 + (y - y1) / grad);
+							m[y][x] = color;
+						}
+					} else {
+						for(var y = y1; y >= y2; y--) {
+							var x = Math.round(x1 + (y - y1) / grad);
+							m[y][x] = color;
+						}
+					}
+				}
+				
+			}
+		};
+		return o;	
+	}
+	
+	coordLine2() {
+		var x1 = arguments[0];
+		var y1 = arguments[1];
+		var x2 = arguments[2];
+		var y2 = arguments[3];
+		var m = this.m;
+		
+		var coords = [];
+		
+		var Nx = x2 - x1;
+		var Ny = y2 - y1;
+		
+		var grad = Ny/Nx;
+		if(Math.abs(grad) <= 1) {
+			if(Nx > 0) {
+				for(var x = x1; x <= x2; x++) {
+					var y = Math.round(y1 + (x - x1) * grad);
+					//m[y][x] = color;
+					var coord = [x, y];
+					coords.push(coord);
+				}
+			} else {
+				console.log(Nx, Ny, grad);
+				for(var x = x1; x >= x2; x--) {
+					var y = Math.round(y1 + (x - x1) * grad);
+					//m[y][x] = color;
+					var coord = [x, y];
+					coords.push(coord);
+				}
+			}
+		} else if(Math.abs(grad) > 1) {
+			//console.log(Nx, Ny, grad);
+			if(grad > 0 || Nx < 0) {
+				for(var y = y1; y <= y2; y++) {
+					var x = Math.round(x1 + (y - y1) / grad);
+					//m[y][x] = color;
+					var coord = [x, y];
+					coords.push(coord);
+				}
+			} else {
+				for(var y = y1; y >= y2; y--) {
+					var x = Math.round(x1 + (y - y1) / grad);
+					//m[y][x] = color;
+					var coord = [x, y];
+					coords.push(coord);
+				}
+			}
+		}
+		
+		return coords;	
 	}
 	
 }

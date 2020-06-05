@@ -11,6 +11,7 @@
 	0905 Add checkCity function to record in visitedCity.
 	0908 Add visitedIter for time record.
 	0916 Can record visited city in agent.
+	1155 Try to implement Road direction for agent motion.
 */
 
 
@@ -110,6 +111,10 @@ class Agent {
 				}
 			}
 		}
+	}
+	
+	moveOnRoad() {
+		var road = arguments[0];
 	}
 	
 }
