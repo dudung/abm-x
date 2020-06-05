@@ -8,6 +8,7 @@
 	0552 Start this library.
 	0740 Test random move but not painted.
 	0742 Fix color from object type.
+	0905 Add checkCity function to record in visitedCity.
 */
 
 
@@ -30,6 +31,7 @@ class Agent {
 			this.x = arguments[0];
 			this.y = arguments[1];
 		}
+		this.visitedCity = [];
 	}
 	
 	setWorld() {
@@ -72,7 +74,38 @@ class Agent {
 			this.x = xdest;
 			this.y = ydest;
 		}
-		
 	}
+		
+	checkCity() {
+		var c = arguments[0];
+		for(var i = 0; i < c.length; i++) {
+			var xmin = c[i].region[0];
+			var ymin = c[i].region[1];
+			var xmax = c[i].region[2];
+			var ymax = c[i].region[3];
+			
+			var x = this.x;
+			var y = this.y;
+			
+			var inXRange = (xmin <= x) && (x <= xmax);
+			var inYRange = (ymin <= y) && (y <= ymax);
+			var inRange = inXRange && inYRange;
+			
+			if(inRange) {
+				var currentCity = i;
+				var visitedCityRecord = this.visitedCity.length;
+				if(visitedCityRecord > 0) {
+					var lastCity = this.visitedCity[visitedCityRecord - 1];
+					if(lastCity != currentCity) {
+						this.visitedCity.push(currentCity);
+					}
+				} else if(visitedCityRecord == 0) {
+					this.visitedCity.push(currentCity);
+				}
+			}
+			
+		}
+	}
+	
 }
 

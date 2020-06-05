@@ -55,13 +55,13 @@ function main() {
 	world.setRow(49).to(0);
 	
 	// Define cities region
-	var city = [];
+	city = [];
 	
 	// Define NW city
 	var c1 = new City;
 	c1.setName("NW");
 	c1.setType(2);
-	c1.setRegion([01, 10, 01, 10]);
+	c1.setRegion([01, 01, 10, 10]);
 	c1.setWorld(world);
 	c1.paint();
 	city.push(c1);
@@ -70,7 +70,7 @@ function main() {
 	var c2 = new City;
 	c2.setName("NE");
 	c2.setType(3);
-	c2.setRegion([01, 10, 42, 48]);
+	c2.setRegion([42, 01, 48, 10]);
 	c2.setWorld(world);
 	c2.paint();
 	city.push(c2);
@@ -79,7 +79,7 @@ function main() {
 	var c3 = new City;
 	c3.setName("SW");
 	c3.setType(4);
-	c3.setRegion([43, 48, 01, 10]);
+	c3.setRegion([01, 43, 10, 48]);
 	c3.setWorld(world);
 	c3.paint();
 	city.push(c3);
@@ -88,7 +88,7 @@ function main() {
 	var c4 = new City;
 	c4.setName("SE");
 	c4.setType(5);
-	c4.setRegion([43, 48, 42, 48]);
+	c4.setRegion([42, 43, 48, 48]);
 	c4.setWorld(world);
 	c4.paint();
 	city.push(c4);
@@ -139,6 +139,7 @@ function main() {
 		var a = new Agent(x, y);
 		a.setWorld(world);
 		a.setType(type1);
+		a.checkCity(city);
 		a.paint();
 		agent.push(a);
 	}
@@ -157,6 +158,7 @@ function main() {
 		var a = new Agent(x, y);
 		a.setWorld(world);
 		a.setType(type2);
+		a.checkCity(city);
 		a.paint();
 		agent.push(a);
 	}
@@ -173,6 +175,7 @@ function main() {
 		var a = new Agent(x, y);
 		a.setWorld(world);
 		a.setType(type3);
+		a.checkCity(city);
 		a.paint();
 		agent.push(a);
 	}
@@ -189,6 +192,7 @@ function main() {
 		var a = new Agent(x, y);
 		a.setWorld(world);
 		a.setType(type4);
+		a.checkCity(city);
 		a.paint();
 		agent.push(a);
 	}
@@ -196,7 +200,7 @@ function main() {
 	// Paint the matrix on canvas
 	paintMatrix(world).onCanvas(canId);
 	
-	START = true;
+	START = false;
 	
 	iter = 0;
 	iterMax = 1000;

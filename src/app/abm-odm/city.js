@@ -23,6 +23,8 @@ class City {
 		this.type = arguments[0];
 	}
 	
+	// [xmin, ymin, xmax, ymax]
+	// [col1, row1, col2, row2]
 	setRegion() {
 		this.region = arguments[0];
 	}
@@ -31,10 +33,12 @@ class City {
 		this.world = arguments[0];
 	}
 	
+	// [xmin, ymin, xmax, ymax]
+	// [col1, row1, col2, row2]
 	paint() {
 		this.world
-			.setRows(this.region[0], this.region[1])
-			.cols(this.region[2], this.region[3])
+			.setRows(this.region[1], this.region[3])
+			.cols(this.region[0], this.region[2])
 			.to(this.type);
 	}	
 }
