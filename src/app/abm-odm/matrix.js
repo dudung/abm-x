@@ -18,6 +18,7 @@
 	20200605
 	0413 Draw a line in marix, still not work.
 	0437 Can draw line but not so good, at least it works.
+	0516 Fix draw line for y2 < y1 (canvas coordinate).
 	
 	References
 	1. url https://developer.mozilla.org/en-US/docs/Web
@@ -201,6 +202,7 @@ class Matrix {
 				
 				var Nx = x2 - x1 + 1;
 				var Ny = y2 - y1 + 1;
+				if(y2 < y1) Ny = y2 - y1 - 1
 				var dydx = Ny / Nx; 
 				
 				for(var x = x1; x <= x2; x++) {

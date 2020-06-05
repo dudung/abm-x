@@ -9,6 +9,11 @@
 	20200603
 	0812 Start this app.
 	0913 Put a ref [1].
+	20200604
+	0511 Test of line with -y.
+	0601 Test object with type Agent.
+	0747 Test of array of Agents.
+	0811 Create many agents for random motion test.
 	
 	References
 	1. Martin L. Hazelton, "Some comments on origin–destination
@@ -18,9 +23,9 @@
 		 https://doi.org/10.1016/S0965-8564(03)00044-2
 */
 
-// Define world
-m = new Matrix(50, 50, 1);
 
+// Define global variabels
+var proc, iter, iterMax;
 
 // Call main function
 main();
@@ -39,48 +44,141 @@ function main() {
 	can.style.border = "1px solid #444";
 	document.body.append(can);
 	
+	// Define world
+	var world = new Matrix(50, 50, 0);
+	
 	// Define border -- actually not necessary
-	m.setCol(0).to(1);
-	m.setRow(0).to(1);
-	m.setCol(49).to(1);
-	m.setRow(49).to(1);
+	world.setCol(0).to(0);
+	world.setRow(0).to(0);
+	world.setCol(49).to(0);
+	world.setRow(49).to(0);
 	
 	// Define NW city
-	m.setRows(01, 10).cols(01, 10).to(2);
+	world.setRows(01, 10).cols(01, 10).to(2);
 	
 	// Define NE city
-	m.setRows(01, 10).cols(42, 48).to(3);
+	world.setRows(01, 10).cols(42, 48).to(3);
 	
 	// Define SW city
-	m.setRows(43, 48).cols(01, 10).to(4);
+	world.setRows(43, 48).cols(01, 10).to(4);
 	
 	// Define SE city
-	m.setRows(43, 48).cols(42, 48).to(5);
+	world.setRows(43, 48).cols(42, 48).to(5);
 	
 	// Define NW -- NE two ways
-	m.setRows(01, 02).cols(11, 41).to(0);
-	m.setRows(04, 05).cols(11, 41).to(0);
+	world.setRows(01, 02).cols(11, 41).to(1);
+	world.setRows(04, 05).cols(11, 41).to(1);
 	
 	// Define SW -- SE two ways
-	m.setRows(48, 48).cols(11, 41).to(0);
-	m.setRows(45, 45).cols(11, 41).to(0);
+	world.setRows(48, 48).cols(11, 41).to(1);
+	world.setRows(45, 45).cols(11, 41).to(1);
 
 	// Define NW -- SW two ways
-	m.setRows(11, 42).cols(01, 02).to(0);
-	m.setRows(11, 42).cols(04, 05).to(0);
+	world.setRows(11, 42).cols(01, 02).to(1);
+	world.setRows(11, 42).cols(04, 05).to(1);
 	
 	// Define NE -- SE two ways
-	m.setRows(11, 42).cols(47, 48).to(0);
-	m.setRows(11, 42).cols(44, 45).to(0);
+	world.setRows(11, 42).cols(47, 48).to(1);
+	world.setRows(11, 42).cols(44, 45).to(1);
 	
 	// Define NW -- SE two ways
-	m.drawLine(10, 11, 41, 42).withColor(0);
-	m.drawLine(11, 11, 42, 42).withColor(0);
-	m.drawLine(07, 11, 40, 44).withColor(0);
-	m.drawLine(08, 11, 41, 44).withColor(0);
+	world.drawLine(10, 11, 41, 42).withColor(1);
+	world.drawLine(11, 11, 42, 42).withColor(1);
+	world.drawLine(07, 11, 40, 44).withColor(1);
+	world.drawLine(08, 11, 41, 44).withColor(1);
 	
+	// Define SW -- NE two ways
+	world.drawLine(11, 43, 43, 11).withColor(1);
+	world.drawLine(11, 44, 43, 12).withColor(1);
+	
+	world.drawLine(08, 42, 41, 09).withColor(1);
+	world.drawLine(09, 42, 41, 10).withColor(1);
+	
+	// Create agents of type Agent
+	agents = [];
+	
+	// Create agents of type 1
+	var posType1 = [
+		[02, 02], [04, 02], [06, 02], [08, 02],
+		[02, 04], [04, 04], [06, 04], [08, 04],
+		[02, 06], [04, 06], [06, 06], [08, 06],
+		[02, 08], [04, 08], [06, 08], [08, 08],
+	];
+	var type1 = 12;
+	for(var i = 0; i < posType1.length; i++) {
+		var x = posType1[i][0];
+		var y = posType1[i][1];
+		var a = new Agent(x, y);
+		a.setWorld(world);
+		a.setType(type1);
+		a.paint();
+		agents.push(a);
+	}
+	
+	// Create agents of type 2
+	var posType2 = [
+		[43, 02], [45, 02], [47, 02],
+		[43, 04], [45, 04], [47, 04],
+		[43, 06], [45, 06], [47, 06],
+		[43, 08], [45, 08], [47, 08],
+	];
+	var type2 = 13;
+	for(var i = 0; i < posType2.length; i++) {
+		var x = posType2[i][0];
+		var y = posType2[i][1];
+		var a = new Agent(x, y);
+		a.setWorld(world);
+		a.setType(type2);
+		a.paint();
+		agents.push(a);
+	}
+	
+	// Create agents of type 3
+	var posType3 = [
+		[02, 44], [04, 44], [06, 44], [08, 44],
+		[02, 46], [04, 46], [06, 46], [08, 46],
+	];
+	var type3 = 14;
+	for(var i = 0; i < posType3.length; i++) {
+		var x = posType3[i][0];
+		var y = posType3[i][1];
+		var a = new Agent(x, y);
+		a.setWorld(world);
+		a.setType(type3);
+		a.paint();
+		agents.push(a);
+	}
+	
+	// Create agents of type 4
+	var posType4 = [
+		[43, 44], [45, 44], [47, 44],
+		[43, 46], [45, 46], [47, 46],
+	];
+	var type4 = 15;
+	for(var i = 0; i < posType4.length; i++) {
+		var x = posType4[i][0];
+		var y = posType4[i][1];
+		var a = new Agent(x, y);
+		a.setWorld(world);
+		a.setType(type4);
+		a.paint();
+		agents.push(a);
+	}
+
 	// Paint the matrix on canvas
-	paintMatrix(m).onCanvas(canId);
+	paintMatrix(world).onCanvas(canId);
+	
+	START = false;
+	
+	iter = 0;
+	iterMax = 1000;
+	if(START) {
+		proc = setInterval(
+			function() { simulate(agents, world, "can0") },
+			10
+		);
+		START = false;
+	}
 	
 	can.addEventListener("click", function() {
 		var e = arguments[0];
@@ -93,13 +191,32 @@ function main() {
 		
 		var c = Math.floor(x / dx);
 		var r = Math.floor(y / dy);
-		if(m != undefined) {
-			m.m[r][c] = 0;
+		if(world != undefined) {
+			world.m[r][c] = 1;
 		}
 		
-		console.log(r, c);
-		paintMatrix(m).onCanvas(canId);
+		//console.log(r, c);
+		paintMatrix(world).onCanvas(canId);
 	});
 
 }
 
+
+// Simulate
+function simulate() {
+	var a = arguments[0];
+	var w = arguments[1];
+	var id = arguments[2];
+	
+	for(var i = 0; i < a.length; i++) {
+		a[i].moveRandom();
+	}
+	paintMatrix(w).onCanvas(id), 
+	
+	//console.log(iter);
+		
+	iter++;
+	if(iter > iterMax) {
+		clearInterval(proc);
+	}
+}
