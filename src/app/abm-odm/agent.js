@@ -12,6 +12,7 @@
 	0908 Add visitedIter for time record.
 	0916 Can record visited city in agent.
 	1155 Try to implement Road direction for agent motion.
+	1245 Fix random motion on a road.
 */
 
 
@@ -115,6 +116,71 @@ class Agent {
 	
 	moveOnRoad() {
 		var road = arguments[0];
+
+		var xsrc = this.x;
+		var ysrc = this.y;
+		
+		var k = -1;
+		for(var i = 0; i < road.length; i++) {
+			for(var j = 0; j < road[i].regionXY.length; j++) {
+				var xroad = road[i].regionXY[j][0];
+				var yroad = road[i].regionXY[j][1];
+				if(xsrc == xroad && ysrc == yroad) {
+					k = i;
+					break;
+				}
+			}
+			if(k > -1) break;
+		}
+		
+		var dx = 0;
+		var dy = 0;
+		
+		if(k > -1) {
+			var dir = road[k].direction;
+			var prob = road[k].probability;
+			
+			var rnd = Math.random();
+			
+			var j = -1;
+			var sum = 0;
+			for(var i = 0; i < prob.length; i++) {
+				sum += prob[i];
+				if(rnd < sum) {
+					j = i;
+					break;
+				}
+			}
+			
+			if(j > -1) {
+				var iDir = dir[j];
+				dx = agentDirection[iDir][0];
+				dy = agentDirection[iDir][1];
+			}
+			
+		} else {
+			var iDir = Math.floor(Math.random() * 5);
+			
+			dx = agentDirection[iDir][0];
+			dy = agentDirection[iDir][1];
+		}
+		
+		var xdest = xsrc + dx;
+		var ydest = ysrc + dy;
+		
+		var m = this.world.m;
+		var type = m[ydest][xdest];
+		if(0 < type && type < 12) {
+			
+			var previousType = this.previousType; 
+			this.previousType = m[ydest][xdest];
+			
+			m[ydest][xdest] = this.type;
+			m[ysrc][xsrc] = previousType;
+			
+			this.x = xdest;
+			this.y = ydest;
+		}
 	}
 	
 }

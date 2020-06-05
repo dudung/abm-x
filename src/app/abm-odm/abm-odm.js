@@ -19,6 +19,9 @@
 	200605
 	1051 Finisih testDrawingLines function which works.
 	1056 Fix testDrawingLines.
+	1321 Finish four ring roads and seem good.
+	1342 Finish two additional road, but wierd intersection.
+	1420 Start collecting first data.
 	
 	References
 	1. Martin L. Hazelton, "Some comments on origin–destination
@@ -32,6 +35,7 @@
 // Define global variabels
 var proc, iter, iterMax;
 
+
 // Call main function
 main();
 
@@ -42,7 +46,6 @@ function main() {
 	iterMax = 10000;
 
 	var canId = "can0";
-	
 	var can = document.createElement("canvas");
 	can.id = canId;
 	can.width = 500;
@@ -50,7 +53,46 @@ function main() {
 	can.style.width = can.width + "px";
 	can.style.height = can.height + "px";
 	can.style.border = "1px solid #444";
+	can.style.float = "left";
 	document.body.append(can);
+	
+	var div = document.createElement("div");
+	div.style.border = "0px solid #888";
+	div.style.height = "500px";
+	div.style.width = "270px";
+	div.style.float = "left";
+	document.body.append(div);
+		
+	var btn = document.createElement("button");
+	btn.innerHTML = "Start";
+	div.append(btn);
+	
+	btn.addEventListener("click", function() {
+		var e = arguments[0];
+		var t = e.target;
+		console.log(t.innerHTML);
+		if(t.innerHTML == "Start") {
+			proc = setInterval(
+				function() { 
+					simulate(
+						agent, road, city, 
+						world, "can0") 
+				},
+				10
+			);
+			
+			t.innerHTML = "Stop";
+		} else {
+			clearInterval(proc);
+			t.innerHTML = "Start";
+		}
+	});
+	
+	txa = document.createElement("textarea");
+	txa.style.width = "265px";
+	txa.style.height = "475px";
+	txa.style.overflowY = "scroll";
+	div.append(txa);
 	
 	// Define world
 	var world = new Matrix(50, 50, 0);
@@ -100,17 +142,8 @@ function main() {
 	c4.paint();
 	city.push(c4);
 	
-	
 	// Define roads
-	road = [];
-	
-	// Define NW -- NE two ways
-	/*
-	world.drawLine2(11, 02, 41, 02).withColor(1);
-	world.drawLine2(11, 03, 41, 03).withColor(1);
-	world.drawLine2(11, 05, 41, 05).withColor(1);
-	world.drawLine2(11, 06, 41, 06).withColor(1);
-	*/
+	var road = [];
 	
 	// Define road from city 0 to city 1
 	var lane01a = world.coordLine2(11, 02, 41, 02);
@@ -134,42 +167,125 @@ function main() {
 	r10.setType(1);
 	r10.setWorld(world);
 	r10.setRegionXY(lane10);
-	r01.setDirection([3, 4, 2], [0.6, 0.2, 0.2]);
+	r10.setDirection([3, 4, 2], [0.6, 0.2, 0.2]);
 	r10.paint();
 	road.push(r10);
-	
-	/*
-	// Define NW -- NE two ways
-	world.setRows(02, 03).cols(11, 41).to(1);
-	world.setRows(05, 06).cols(11, 41).to(1);
-	
-	// Define SW -- SE two ways
-	world.setRows(48, 48).cols(11, 41).to(1);
-	world.setRows(45, 45).cols(11, 41).to(1);
 
-	// Define NW -- SW two ways
-	world.setRows(11, 42).cols(01, 02).to(1);
-	world.setRows(11, 42).cols(04, 05).to(1);
+	// Define road from city 2 to city 3
+	var lane23 = world.coordLine2(11, 48, 41, 48);
+	var r23 = new Road();
+	r23.setName("2->3");
+	r23.setType(1);
+	r23.setWorld(world);
+	r23.setRegionXY(lane23);
+	r23.setDirection([3, 4, 2], [0.6, 0.2, 0.2]);
+	r23.paint();
+	road.push(r23);
+
+	// Define road from city 3 to city 2
+	var lane32 = world.coordLine2(11, 45, 41, 45);
+	var r32 = new Road();
+	r32.setName("3->2");
+	r32.setType(1);
+	r32.setWorld(world);
+	r32.setRegionXY(lane32);
+	r32.setDirection([1, 2, 4], [0.6, 0.2, 0.2]);
+	r32.paint();
+	road.push(r32);
 	
-	// Define NE -- SE two ways
-	world.setRows(11, 42).cols(47, 48).to(1);
-	world.setRows(11, 42).cols(44, 45).to(1);
+	// Define road from city 2 to city 0
+	var lane20a = world.coordLine2(01, 11, 01, 42);
+	var lane20b = world.coordLine2(02, 11, 02, 42);
+	var lane20 = lane20a.concat(lane20b);
+	var r20 = new Road();
+	r20.setName("2->0");
+	r20.setType(1);
+	r20.setWorld(world);
+	r20.setRegionXY(lane20);
+	r20.setDirection([2, 3, 1], [0.6, 0.2, 0.2]);
+	r20.paint();
+	road.push(r20);
 	
-	// Define NW -- SE two ways
-	world.drawLine(10, 11, 41, 42).withColor(1);
-	world.drawLine(11, 11, 42, 42).withColor(1);
-	world.drawLine(07, 11, 40, 44).withColor(1);
-	world.drawLine(08, 11, 41, 44).withColor(1);
-	
-	// Define SW -- NE two ways
-	world.drawLine(11, 43, 43, 11).withColor(1);
-	world.drawLine(11, 44, 43, 12).withColor(1);
-	world.drawLine(08, 42, 41, 09).withColor(1);
-	world.drawLine(09, 42, 41, 10).withColor(1);
-	*/
+	// Define road from city 0 to city 2
+	var lane02a = world.coordLine2(04, 11, 04, 42);
+	var lane02b = world.coordLine2(05, 11, 05, 42);
+	var lane02 = lane02a.concat(lane02b);
+	var r02 = new Road();
+	r02.setName("0->2");
+	r02.setType(1);
+	r02.setWorld(world);
+	r02.setRegionXY(lane02);
+	r02.setDirection([4, 1, 3], [0.6, 0.2, 0.2]);
+	r02.paint();
+	road.push(r02);
+
+	// Define road from city 1 to city 3
+	var lane13a = world.coordLine2(47, 11, 47, 42);
+	var lane13b = world.coordLine2(48, 11, 48, 42);
+	var lane13 = lane13a.concat(lane13b);
+	var r13 = new Road();
+	r13.setName("1->3");
+	r13.setType(1);
+	r13.setWorld(world);
+	r13.setRegionXY(lane13);
+	r13.setDirection([4, 1, 3], [0.6, 0.2, 0.2]);
+	r13.paint();
+	road.push(r13);
+
+	// Define road from city 0 to city 3
+	var lane03a = world.coordLine2(10, 11, 41, 42);
+	var lane03b = world.coordLine2(11, 11, 42, 42);
+	var lane03 = lane03a.concat(lane03b);
+	var r03 = new Road();
+	r03.setName("0->3");
+	r03.setType(1);
+	r03.setWorld(world);
+	r03.setRegionXY(lane03);
+	r03.setDirection([1, 3, 4], [0.4, 0.2, 0.4]);
+	r03.paint();
+	road.push(r03);
+
+	// Define road from city 3 to city 0
+	var lane30a = world.coordLine2(07, 11, 40, 44);
+	var lane30b = world.coordLine2(08, 11, 41, 44);
+	var lane30 = lane30a.concat(lane30b);
+	var r30 = new Road();
+	r30.setName("3->0");
+	r30.setType(1);
+	r30.setWorld(world);
+	r30.setRegionXY(lane30);
+	r30.setDirection([2, 3, 1], [0.4, 0.4, 0.2]);
+	r30.paint();
+	road.push(r30);
+
+	// Define road from city 2 to city 1
+	var lane21a = world.coordLine2(11, 43, 43, 11);
+	var lane21b = world.coordLine2(11, 44, 43, 12);
+	var lane21 = lane21a.concat(lane21b);
+	var r21 = new Road();
+	r21.setName("2->1");
+	r21.setType(1);
+	r21.setWorld(world);
+	r21.setRegionXY(lane21);
+	r21.setDirection([1, 2, 3], [0.4, 0.4, 0.2]);
+	r21.paint();
+	road.push(r21);
+
+	// Define road from city 1 to city 2
+	var lane12a = world.coordLine2(08, 42, 41, 09);
+	var lane12b = world.coordLine2(09, 42, 41, 10);
+	var lane12 = lane12a.concat(lane12b);
+	var r12 = new Road();
+	r12.setName("1->2");
+	r12.setType(1);
+	r12.setWorld(world);
+	r12.setRegionXY(lane12);
+	r12.setDirection([3, 4, 1], [0.4, 0.4, 0.2]);
+	r12.paint();
+	road.push(r12);
 	
 	// Create agents of type Agent
-	var agent = [];
+	agent = [];
 	
 	// Create agents of type 1
 	var posType1 = [
@@ -245,20 +361,7 @@ function main() {
 
 	// Paint the matrix on canvas
 	paintMatrix(world).onCanvas(canId);
-	
-	START = true;
-	
-	if(START) {
-		proc = setInterval(
-			function() { 
-				simulate(
-					agent, road, city, 
-					world, "can0") },
-			1
-		);
-		START = false;
-	}
-	
+		
 	can.addEventListener("click", function() {
 		var e = arguments[0];
 		var t = e.target;
@@ -293,9 +396,15 @@ function simulate() {
 		a[i].moveOnRoad(r);
 		a[i].checkCity(c, iter);
 	}
-	paintMatrix(w).onCanvas(id), 
+	paintMatrix(w).onCanvas(id);
 	
-	//console.log(iter);
+	var str = iter + "\n";
+	for(var i = 0; i < agent.length; i++) {
+		str += ("0" + i).slice(-2) + " | ";
+		str += agent[i].visitedCity + " | ";
+		str += agent[i].visitedIter + "\n";
+	}
+	txa.value = str;
 		
 	iter++;
 	if(iter > iterMax) {
@@ -328,4 +437,37 @@ function testDrawingLines() {
 	world.drawLine2(21, 20, 31, 20).withColor(7); // E
 	world.drawLine2(19, 20, 09, 20).withColor(8); // W
 	world.drawLine2(20, 21, 20, 31).withColor(9); // S
+}
+
+// Function test draw region
+function testDrawingRegion() {
+	var world = arguments[0];
+	
+	// Define NW -- NE two ways
+	world.setRows(02, 03).cols(11, 41).to(1);
+	world.setRows(05, 06).cols(11, 41).to(1);
+	
+	// Define SW -- SE two ways
+	world.setRows(48, 48).cols(11, 41).to(1);
+	world.setRows(45, 45).cols(11, 41).to(1);
+
+	// Define NW -- SW two ways
+	world.setRows(11, 42).cols(01, 02).to(1);
+	world.setRows(11, 42).cols(04, 05).to(1);
+	
+	// Define NE -- SE two ways
+	world.setRows(11, 42).cols(47, 48).to(1);
+	world.setRows(11, 42).cols(44, 45).to(1);
+	
+	// Define NW -- SE two ways
+	world.drawLine(10, 11, 41, 42).withColor(1);
+	world.drawLine(11, 11, 42, 42).withColor(1);
+	world.drawLine(07, 11, 40, 44).withColor(1);
+	world.drawLine(08, 11, 41, 44).withColor(1);
+	
+	// Define SW -- NE two ways
+	world.drawLine(11, 43, 43, 11).withColor(1);
+	world.drawLine(11, 44, 43, 12).withColor(1);
+	world.drawLine(08, 42, 41, 09).withColor(1);
+	world.drawLine(09, 42, 41, 10).withColor(1);
 }
