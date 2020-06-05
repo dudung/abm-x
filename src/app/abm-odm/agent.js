@@ -9,6 +9,8 @@
 	0740 Test random move but not painted.
 	0742 Fix color from object type.
 	0905 Add checkCity function to record in visitedCity.
+	0908 Add visitedIter for time record.
+	0916 Can record visited city in agent.
 */
 
 
@@ -32,6 +34,7 @@ class Agent {
 			this.y = arguments[1];
 		}
 		this.visitedCity = [];
+		this.visitedIter = [];
 	}
 	
 	setWorld() {
@@ -78,6 +81,7 @@ class Agent {
 		
 	checkCity() {
 		var c = arguments[0];
+		var iter = arguments[1];
 		for(var i = 0; i < c.length; i++) {
 			var xmin = c[i].region[0];
 			var ymin = c[i].region[1];
@@ -98,12 +102,13 @@ class Agent {
 					var lastCity = this.visitedCity[visitedCityRecord - 1];
 					if(lastCity != currentCity) {
 						this.visitedCity.push(currentCity);
+						this.visitedIter.push(iter);
 					}
 				} else if(visitedCityRecord == 0) {
 					this.visitedCity.push(currentCity);
+					this.visitedIter.push(iter);
 				}
 			}
-			
 		}
 	}
 	

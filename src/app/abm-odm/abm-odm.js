@@ -34,6 +34,9 @@ main();
 
 // Define main function
 function main() {
+	iter = 0;
+	iterMax = 10000;
+
 	var canId = "can0";
 	
 	var can = document.createElement("canvas");
@@ -139,7 +142,7 @@ function main() {
 		var a = new Agent(x, y);
 		a.setWorld(world);
 		a.setType(type1);
-		a.checkCity(city);
+		a.checkCity(city, iter);
 		a.paint();
 		agent.push(a);
 	}
@@ -158,7 +161,7 @@ function main() {
 		var a = new Agent(x, y);
 		a.setWorld(world);
 		a.setType(type2);
-		a.checkCity(city);
+		a.checkCity(city, iter);
 		a.paint();
 		agent.push(a);
 	}
@@ -175,7 +178,7 @@ function main() {
 		var a = new Agent(x, y);
 		a.setWorld(world);
 		a.setType(type3);
-		a.checkCity(city);
+		a.checkCity(city, iter);
 		a.paint();
 		agent.push(a);
 	}
@@ -192,7 +195,7 @@ function main() {
 		var a = new Agent(x, y);
 		a.setWorld(world);
 		a.setType(type4);
-		a.checkCity(city);
+		a.checkCity(city, iter);
 		a.paint();
 		agent.push(a);
 	}
@@ -200,14 +203,12 @@ function main() {
 	// Paint the matrix on canvas
 	paintMatrix(world).onCanvas(canId);
 	
-	START = false;
+	START = true;
 	
-	iter = 0;
-	iterMax = 1000;
 	if(START) {
 		proc = setInterval(
 			function() { simulate(agent, world, "can0") },
-			10
+			1
 		);
 		START = false;
 	}
@@ -242,6 +243,7 @@ function simulate() {
 	
 	for(var i = 0; i < a.length; i++) {
 		a[i].moveRandom();
+		a[i].checkCity(city, iter);
 	}
 	paintMatrix(w).onCanvas(id), 
 	
