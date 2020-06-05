@@ -14,6 +14,7 @@
 	0601 Test object with type Agent.
 	0747 Test of array of Agents.
 	0811 Create many agents for random motion test.
+	0814 Can do random motion.
 	
 	References
 	1. Martin L. Hazelton, "Some comments on origin–destination
@@ -53,17 +54,44 @@ function main() {
 	world.setCol(49).to(0);
 	world.setRow(49).to(0);
 	
-	// Define NW city
-	world.setRows(01, 10).cols(01, 10).to(2);
+	// Define cities region
+	var city = [];
 	
+	// Define NW city
+	var c1 = new City;
+	c1.setName("NW");
+	c1.setType(2);
+	c1.setRegion([01, 10, 01, 10]);
+	c1.setWorld(world);
+	c1.paint();
+	city.push(c1);
+
 	// Define NE city
-	world.setRows(01, 10).cols(42, 48).to(3);
+	var c2 = new City;
+	c2.setName("NE");
+	c2.setType(3);
+	c2.setRegion([01, 10, 42, 48]);
+	c2.setWorld(world);
+	c2.paint();
+	city.push(c2);
 	
 	// Define SW city
-	world.setRows(43, 48).cols(01, 10).to(4);
+	var c3 = new City;
+	c3.setName("SW");
+	c3.setType(4);
+	c3.setRegion([43, 48, 01, 10]);
+	c3.setWorld(world);
+	c3.paint();
+	city.push(c3);
 	
 	// Define SE city
-	world.setRows(43, 48).cols(42, 48).to(5);
+	var c4 = new City;
+	c4.setName("SE");
+	c4.setType(5);
+	c4.setRegion([43, 48, 42, 48]);
+	c4.setWorld(world);
+	c4.paint();
+	city.push(c4);
 	
 	// Define NW -- NE two ways
 	world.setRows(01, 02).cols(11, 41).to(1);
@@ -95,7 +123,7 @@ function main() {
 	world.drawLine(09, 42, 41, 10).withColor(1);
 	
 	// Create agents of type Agent
-	agents = [];
+	agent = [];
 	
 	// Create agents of type 1
 	var posType1 = [
@@ -112,7 +140,7 @@ function main() {
 		a.setWorld(world);
 		a.setType(type1);
 		a.paint();
-		agents.push(a);
+		agent.push(a);
 	}
 	
 	// Create agents of type 2
@@ -130,13 +158,13 @@ function main() {
 		a.setWorld(world);
 		a.setType(type2);
 		a.paint();
-		agents.push(a);
+		agent.push(a);
 	}
 	
 	// Create agents of type 3
 	var posType3 = [
-		[02, 44], [04, 44], [06, 44], [08, 44],
-		[02, 46], [04, 46], [06, 46], [08, 46],
+		[02, 45], [04, 45], [06, 45], [08, 45],
+		[02, 47], [04, 47], [06, 47], [08, 47],
 	];
 	var type3 = 14;
 	for(var i = 0; i < posType3.length; i++) {
@@ -146,13 +174,13 @@ function main() {
 		a.setWorld(world);
 		a.setType(type3);
 		a.paint();
-		agents.push(a);
+		agent.push(a);
 	}
 	
 	// Create agents of type 4
 	var posType4 = [
-		[43, 44], [45, 44], [47, 44],
-		[43, 46], [45, 46], [47, 46],
+		[43, 45], [45, 45], [47, 45],
+		[43, 47], [45, 47], [47, 47],
 	];
 	var type4 = 15;
 	for(var i = 0; i < posType4.length; i++) {
@@ -162,19 +190,19 @@ function main() {
 		a.setWorld(world);
 		a.setType(type4);
 		a.paint();
-		agents.push(a);
+		agent.push(a);
 	}
 
 	// Paint the matrix on canvas
 	paintMatrix(world).onCanvas(canId);
 	
-	START = false;
+	START = true;
 	
 	iter = 0;
 	iterMax = 1000;
 	if(START) {
 		proc = setInterval(
-			function() { simulate(agents, world, "can0") },
+			function() { simulate(agent, world, "can0") },
 			10
 		);
 		START = false;
