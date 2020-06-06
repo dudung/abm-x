@@ -166,7 +166,7 @@ function main() {
 	r01.paint();
 	road.push(r01);
 	
-	// Define road from city 1 to city 2
+	// Define road from city 1 to city 0
 	var lane10a = world.coordLine2(11, 05, 41, 05);
 	var lane10b = world.coordLine2(11, 06, 41, 06);
 	var lane10 = lane10a.concat(lane10b);
