@@ -10,14 +10,23 @@
 	1912 Using map to conver string to int [1].
 	2009 Create textarea for output.
 	2207 Can get the ODM :-), finally.
+	20xx Using [2] for output.
+	20200606
+	0947 Add dataSetId.
+	1105 Add note #1.
+	
+	Note
+	1. How to parse information depends on abm-odm app.
 	
 	References
 	1. url https://stackoverflow.com/a/61116417/9475509
+	2. url https://stackoverflow.com/a/14042818/9475509
 */
 
 
 // Define global variables
 var ODM, data2, data3;
+var dataSetId;
 
 
 // Call main function
@@ -26,6 +35,10 @@ main();
 
 // Define main function
 function main() {
+	
+	// Available 0, 1, 2
+	dataSetId = 2;
+	
 	var rawdata = readAllRawData();
 	
 	var data1 = [];
@@ -53,8 +66,8 @@ function main() {
 	txa.style.height = parseInt(window.innerHeight - 26) + "px";
 	txa.value = "";
 
-	//txa.value = calculateODM();
-	txa.value = calculateAgentCity();
+	txa.value = calculateODM();
+	//txa.value = calculateAgentCity();
 }
 
 
@@ -172,16 +185,45 @@ function removeEmptyLines() {
 // Read all raw data
 function readAllRawData() {
 	var raw = [];
-	raw.push(data01);
-	raw.push(data02);
-	raw.push(data03);
-	raw.push(data04);
-	raw.push(data05);
-	raw.push(data06);
-	raw.push(data07);
-	raw.push(data08);
-	raw.push(data09);
-	raw.push(data10);
+	
+	switch(dataSetId) {
+	case 0:
+		raw.push(data00);
+		raw.push(data01);
+		raw.push(data02);
+		raw.push(data03);
+		raw.push(data04);
+		raw.push(data05);
+		raw.push(data06);
+		raw.push(data07);
+		raw.push(data08);
+		raw.push(data09);
+		break;
+	case 1:
+		raw.push(data10);
+		raw.push(data11);
+		raw.push(data12);
+		raw.push(data13);
+		raw.push(data14);
+		raw.push(data15);
+		raw.push(data16);
+		raw.push(data17);
+		raw.push(data18);
+		raw.push(data19);
+		break;
+	case 2:
+		raw.push(data20);
+		raw.push(data21);
+		raw.push(data22);
+		raw.push(data23);
+		raw.push(data24);
+		raw.push(data25);
+		raw.push(data26);
+		raw.push(data27);
+		raw.push(data28);
+		raw.push(data29);
+		break;
+	}
 	return raw;
 }
 
