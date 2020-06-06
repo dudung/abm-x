@@ -14,6 +14,10 @@
 	20200606
 	0947 Add dataSetId.
 	1105 Add note #1.
+	1733 Produce time series of visited city.
+	2158 Can produce data agent in row and repetion in column.
+	2202 Try to implement [3], ok with value 6 character.
+	2211 Try to get visit iter data.
 	
 	Note
 	1. How to parse information depends on abm-odm app.
@@ -21,6 +25,7 @@
 	References
 	1. url https://stackoverflow.com/a/61116417/9475509
 	2. url https://stackoverflow.com/a/14042818/9475509
+	3. url https://www.w3schools.com/cssref/css3_pr_tab-size.asp
 */
 
 
@@ -37,7 +42,7 @@ main();
 function main() {
 	
 	// Available 0, 1, 2
-	dataSetId = 2;
+	dataSetId = 0;
 	
 	var rawdata = readAllRawData();
 	
@@ -65,9 +70,105 @@ function main() {
 	txa.style.width = parseInt(window.innerWidth - 22) + "px";
 	txa.style.height = parseInt(window.innerHeight - 26) + "px";
 	txa.value = "";
+	txa.style.tabSize = "6";
 
-	txa.value = calculateODM();
-	//txa.value = calculateAgentCity();
+	//txa.value = calculateODM();
+	//txa.value = calculateAgentNumberOfVisitedCity();
+	txa.value = calculateAgentDeltaIterOfVisitedCity();
+}
+
+/*
+	data3[0] ==> agent: 00 - 30
+	data3[1] ==> visited-city: [], [], [], ..
+	data3[2] ==> visited-iter: [], [], [], ..
+*/
+
+
+// Calculate each agent number of visited city
+function calculateAgentDeltaIterOfVisitedCity() {
+	var Ndata = data2.length;
+	
+	// Get number of agents form first data first element
+	var Nagent = data3[0][0].length;
+	
+	// Create array based on agent not repetion
+	var agentData = [];
+	
+	for(var i = 0; i < Ndata; i++) {
+		
+		for(var a = 0; a < Nagent; a++) {
+			var Nvisit = data3[i][2][a].length;
+			var avgVisitIter = 0;
+			for(var v = 0; v < Nvisit - 1; v++) {
+				var dIter = data3[i][2][a][v + 1] - data3[i][2][a][v];
+				avgVisitIter += dIter;
+			}
+			avgVisitIter /= Nvisit;
+			var strAvgVisitIter = avgVisitIter.toFixed(1);
+			
+			if(i == 0) {
+				// Ceate firt array of repetion
+				var arr = [strAvgVisitIter];
+				agentData.push(arr);
+			} else {
+				// Add repetition
+				agentData[a].push(strAvgVisitIter);
+			}
+		}
+		
+	}
+	
+	var value = "";
+	for(var a = 0; a < Nagent; a++) {
+		value += ("0000" + a).slice(-2) + "\t";
+		for(var i = 0; i < Ndata; i++) {
+			value += agentData[a][i];
+			if(i < Ndata - 1) value += "\t";
+		}
+		value += "\n";
+	}		
+	
+	return value;
+}
+
+
+// Calculate each agent number of visited city
+function calculateAgentNumberOfVisitedCity() {
+	var Ndata = data2.length;
+	
+	// Get number of agents form first data first element
+	var Nagent = data3[0][0].length;
+	
+	// Create array based on agent not repetion
+	var agentData = [];
+	
+	for(var i = 0; i < Ndata; i++) {
+		
+		for(var a = 0; a <Nagent; a++) {
+			var visitNumber = data3[i][1][a].length;
+			if(i == 0) {
+				// Ceate firt array of repetion
+				var arr = [visitNumber];
+				agentData.push(arr);
+			} else {
+				// Add repetition
+				agentData[a].push(visitNumber);
+			}
+		}
+		
+	}
+	
+	var value = "";
+	for(var a = 0; a < Nagent; a++) {
+		value += ("0000" + a).slice(-2) + "\t";
+		for(var i = 0; i < Ndata; i++) {
+			value += agentData[a][i];
+			if(i < Ndata - 1) value += "\t";
+		}
+		value += "\n";
+	}		
+	
+	return value;
 }
 
 
