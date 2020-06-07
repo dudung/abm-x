@@ -18,7 +18,9 @@
 	2158 Can produce data agent in row and repetion in column.
 	2202 Try to implement [3], ok with value 6 character.
 	2211 Try to get visit iter data.
-	
+	20200607
+	0524 Start collecting data again.
+		
 	Note
 	1. How to parse information depends on abm-odm app.
 	
@@ -42,7 +44,7 @@ main();
 function main() {
 	
 	// Available 0, 1, 2
-	dataSetId = 0;
+	dataSetId = 2;
 	
 	var rawdata = readAllRawData();
 	
