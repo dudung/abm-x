@@ -9,6 +9,7 @@
 	20200608
 	2040 Start this app using abm-odm as the base.
 	2047 Clean some lines.
+	2101 Test and the old still works. Save for today. Pause.
 	
 	References
 	1.
@@ -396,8 +397,7 @@ function simulate() {
 	var a = arguments[0];
 	var r = arguments[1];
 	var c = arguments[2];
-	var w = argume
-	nts[3];
+	var w = arguments[3];
 	var id = arguments[4];
 	
 	for(var i = 0; i < a.length; i++) {
