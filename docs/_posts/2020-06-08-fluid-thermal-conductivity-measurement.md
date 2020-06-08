@@ -30,7 +30,7 @@ by determining the coefficients $A$, $B$, and $C$ through least square method.
 Purpose of this post is the future plan to produce Fig 1 using JS, X3DOM, Three.js, or SVG, with a real problem. In `js-draw-apparatus` there is only the image file without any JS files for description.
 
 ## Edit
-2020-06-08 Create this post. Require further action. <br />
+2020-06-08 Create this post. Require further action for implementation. <br />
 
 ## References
 1. <a name="ref1"></a> Yunita Anggraini, "Effects of Methylation on Chemical Bond and Thermophysical Properties of Ionic Based Imidazolium Cation", Tesis Magister, Institut Teknologi Bandung, Indonesia, 6 Jun 2018, url <https://digilib.itb.ac.id/index.php/gdl/view/47481>.
