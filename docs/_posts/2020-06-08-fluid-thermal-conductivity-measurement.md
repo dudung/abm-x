@@ -9,7 +9,6 @@ threejs: false
 category: www
 tags: [js]
 ---
-
 Effects of Methylation on Chemical Bond and Thermophysical Properties of Ionic Based Imidazolium Cation
 
 Above was the title of presentation [[1](#ref1)] from Yunita Anggraini, where following is the measurement system supervised mainly by Dr. Daniel Kurnia.
