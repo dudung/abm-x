@@ -10,6 +10,8 @@
 	2040 Start this app using abm-odm as the base.
 	2047 Clean some lines.
 	2101 Test and the old still works. Save for today. Pause.
+	20200611
+	0849 Create center free area.
 	
 	References
 	1.
@@ -129,6 +131,15 @@ function main() {
 	c4.setWorld(world);
 	c4.paint();
 	city.push(c4);
+	
+	// Define OO city
+	var c5 = new City;
+	c5.setName("OO");
+	c5.setType(1);
+	c5.setRegion([22, 23, 28, 30]);
+	c5.setWorld(world);
+	c5.paint();
+	city.push(c5);
 	
 	// Define roads
 	var road = [];
