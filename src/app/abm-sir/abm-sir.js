@@ -22,6 +22,7 @@
 	1733 Make four equal region with the same population density.
 	1741 Simplify code, general vars, func for cities and agents.
 	1753 Create vertical wall. Pause.
+	1927 Set wall hole with dataSetId.
 	
 	References
 	1. url https://stackoverflow.com/a/48906011/9475509
@@ -62,8 +63,8 @@ function main() {
 	var canId = "can0";
 	var can = document.createElement("canvas");
 	can.id = canId;
-	can.width = 255 * 2;
-	can.height = 255 * 2;
+	can.width = 245 * 2;
+	can.height = 245 * 2;
 	can.style.width = can.width + "px";
 	can.style.height = can.height + "px";
 	can.style.border = "1px solid #444";
@@ -112,17 +113,26 @@ function main() {
 	div.append(txa);
 	
 	// Define world
-	world = new Matrix(51, 51, 1);
+	world = new Matrix(49, 49, 1);
 	
 	// Define border -- actually not necessary
 	world.setCol(0).to(0);
 	world.setRow(0).to(0);
-	world.setCol(50).to(0);
-	world.setRow(50).to(0);
+	world.setCol(48).to(0);
+	world.setRow(48).to(0);
 	
 	// Select case according to dataSetId
-	if(dataSetId == 5) {
-		world.setRow(24).to(0);
+	world.setRow(24).to(0);
+	world.setCol(24).to(0);
+	
+	dataSetId = 2;
+	for(var i = 0; i < 4; i++) {
+		for(var j = 0; j < dataSetId; j++) {
+			world.m[24][3 + i * 5 + j] = 1;
+			world.m[3 + i * 5 + j][24] = 1;
+			world.m[24][45 - (i * 5 + j)] = 1;
+			world.m[45 - (i * 5 + j)][24] = 1;
+		}
 	}
 	
 	// Define cities region
@@ -135,12 +145,15 @@ function main() {
 	
 	// Defina agent type
 	typeS = 12;
-	typeI = 13;
-	typeR = 14;
+	typeI = 14;
+	typeR = 13;
 	
-	// Create agents of type Agent
+	// Create agents of type Agent, typeS
 	agent = [];
 	createAllAgents();
+	
+	// Set infection agent
+	agent[0].type = typeI; agent[0].paint();
 	
 	// Paint the matrix on canvas
 	paintMatrix(world).onCanvas(canId);
@@ -217,7 +230,7 @@ function createAllAgents() {
 	
 	// Create of agent in NE region, typeS
 	var xmin = 26;
-	var xmax = 48;
+	var xmax = 47;
 	var dx = 2;
 	var ymin = 2;
 	var ymax = 23;
@@ -238,7 +251,7 @@ function createAllAgents() {
 	var xmax = 23;
 	var dx = 2;
 	var ymin = 26;
-	var ymax = 49;
+	var ymax = 47;
 	var dy = 2;
 	for(var y = ymin; y <= ymax; y += dy) {
 		for(var x = xmin; x <= xmax; x += dx) {
@@ -253,10 +266,10 @@ function createAllAgents() {
 	
 	// Create of agent in SE region, typeS
 	var xmin = 26;
-	var xmax = 48;
+	var xmax = 47;
 	var dx = 2;
 	var ymin = 26;
-	var ymax = 49;
+	var ymax = 47;
 	var dy = 2;
 	for(var y = ymin; y <= ymax; y += dy) {
 		for(var x = xmin; x <= xmax; x += dx) {
@@ -291,7 +304,7 @@ function createAllCities() {
 	var c1 = new City;
 	c1.setName("NW");
 	c1.setType(5);
-	c1.setRegion([25, 01, 49, 23]);
+	c1.setRegion([25, 01, 47, 23]);
 	c1.setWorld(world);
 	c1.paint();
 	city.push(c1);
@@ -300,7 +313,7 @@ function createAllCities() {
 	var c1 = new City;
 	c1.setName("NW");
 	c1.setType(5);
-	c1.setRegion([01, 26, 23, 49]);
+	c1.setRegion([01, 25, 23, 47]);
 	c1.setWorld(world);
 	c1.paint();
 	city.push(c1);
@@ -309,7 +322,7 @@ function createAllCities() {
 	var c1 = new City;
 	c1.setName("NW");
 	c1.setType(5);
-	c1.setRegion([25, 25, 49, 49]);
+	c1.setRegion([25, 25, 47, 47]);
 	c1.setWorld(world);
 	c1.paint();
 	city.push(c1);
