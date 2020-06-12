@@ -7,6 +7,8 @@
 	20200604
 	0825 Start this library.
 	0837 It work just fine. It can be painted on canvas.
+	20200612
+	2142 Extend City to CitySIR for tomorrow.
 */
 
 
@@ -43,3 +45,14 @@ class City {
 	}	
 }
 
+
+// Define CitySIR class
+class CitySIR extends City {
+	constructor() {
+	}
+	
+	calcSIR() {
+		var iter = arguments[0];
+		var a = arguments[1];
+	}
+}

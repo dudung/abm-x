@@ -23,6 +23,8 @@
 	1741 Simplify code, general vars, func for cities and agents.
 	1753 Create vertical wall. Pause.
 	1927 Set wall hole with dataSetId.
+	20200612
+	2141 Pause. To-Do is listing S, I, R in each city.
 	
 	References
 	1. url https://stackoverflow.com/a/48906011/9475509
@@ -45,8 +47,7 @@
 var proc, iter, iterMax;
 var dataSetId;
 var world, city, road, agent;
-var typeS, typeI, typeR;
-
+var healingTime;
 
 // Call main function
 main();
@@ -55,11 +56,13 @@ main();
 // Define main function
 function main() {
 	// Available 0, 1, 2, 4, 5
-	dataSetId = 5;
+	dataSetId = 1;
+	
+	healingTime = 14;
 	
 	iter = 0;
 	iterMax = 10000;
-
+	
 	var canId = "can0";
 	var can = document.createElement("canvas");
 	can.id = canId;
@@ -96,7 +99,7 @@ function main() {
 						agent, road, city, 
 						world, "can0") 
 				},
-				10
+				1000
 			);
 			
 			t.innerHTML = "Stop";
@@ -125,7 +128,6 @@ function main() {
 	world.setRow(24).to(0);
 	world.setCol(24).to(0);
 	
-	dataSetId = 2;
 	for(var i = 0; i < 4; i++) {
 		for(var j = 0; j < dataSetId; j++) {
 			world.m[24][3 + i * 5 + j] = 1;
@@ -143,17 +145,19 @@ function main() {
 	road = [];
 	createAllRoads();
 	
-	// Defina agent type
-	typeS = 12;
-	typeI = 14;
-	typeR = 13;
-	
 	// Create agents of type Agent, typeS
 	agent = [];
 	createAllAgents();
 	
 	// Set infection agent
-	agent[0].type = typeI; agent[0].paint();
+	agent[0].setInfected(iter);
+	agent[121].setInfected(iter);
+	
+	// Display agents
+	var N = agent.length;
+	for(var i = 0; i < N; i++) {
+		agent[i].paint();
+	}
 	
 	// Paint the matrix on canvas
 	paintMatrix(world).onCanvas(canId);
@@ -190,6 +194,8 @@ function simulate() {
 	for(var i = 0; i < a.length; i++) {
 		a[i].moveOnRoad(r);
 		a[i].checkCity(c, iter);
+		a[i].heal(iter);
+		a[i].spreadInfection(iter, a);
 	}
 	paintMatrix(w).onCanvas(id);
 	
@@ -219,11 +225,11 @@ function createAllAgents() {
 	var dy = 2;
 	for(var y = ymin; y <= ymax; y += dy) {
 		for(var x = xmin; x <= xmax; x += dx) {
-			var a = new Agent(x, y);
+			var a = new AgentSIR(x, y);
 			a.setWorld(world);
-			a.setType(typeS);
+			a.setSusceptible(iter);
+			a.setHealingTime(healingTime);
 			a.checkCity(city, iter);
-			a.paint();
 			agent.push(a);
 		}
 	}
@@ -237,11 +243,11 @@ function createAllAgents() {
 	var dy = 2;
 	for(var y = ymin; y <= ymax; y += dy) {
 		for(var x = xmin; x <= xmax; x += dx) {
-			var a = new Agent(x, y);
+			var a = new AgentSIR(x, y);
 			a.setWorld(world);
-			a.setType(typeS);
+			a.setSusceptible(iter);
+			a.setHealingTime(healingTime);
 			a.checkCity(city, iter);
-			a.paint();
 			agent.push(a);
 		}
 	}
@@ -255,11 +261,11 @@ function createAllAgents() {
 	var dy = 2;
 	for(var y = ymin; y <= ymax; y += dy) {
 		for(var x = xmin; x <= xmax; x += dx) {
-			var a = new Agent(x, y);
+			var a = new AgentSIR(x, y);
 			a.setWorld(world);
-			a.setType(typeS);
+			a.setSusceptible(iter);
+			a.setHealingTime(healingTime);
 			a.checkCity(city, iter);
-			a.paint();
 			agent.push(a);
 		}
 	}
@@ -273,11 +279,11 @@ function createAllAgents() {
 	var dy = 2;
 	for(var y = ymin; y <= ymax; y += dy) {
 		for(var x = xmin; x <= xmax; x += dx) {
-			var a = new Agent(x, y);
+			var a = new AgentSIR(x, y);
 			a.setWorld(world);
-			a.setType(typeS);
+			a.setSusceptible(iter);
+			a.setHealingTime(healingTime);
 			a.checkCity(city, iter);
-			a.paint();
 			agent.push(a);
 		}
 	}

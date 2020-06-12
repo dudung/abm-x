@@ -13,6 +13,15 @@
 	0916 Can record visited city in agent.
 	1155 Try to implement Road direction for agent motion.
 	1245 Fix random motion on a road.
+	20200612
+	1933 Extend Agent to AgenSIR according to [1].
+	2036 Create setSusceptible, setInfected, setRecovered.
+	2119 Fix how to use paint() in displaying agents in world.
+	2136 Problem: infected can not heal itself.
+	2139 Fix previous problem.
+	
+	References
+	1. https://stackoverflow.com/a/46244457/9475509
 */
 
 
@@ -181,7 +190,93 @@ class Agent {
 			this.x = xdest;
 			this.y = ydest;
 		}
+	}	
+}
+
+
+// Defina agent type
+typeS = 12;
+typeI = 14;
+typeR = 13;
+
+
+// Define AgentSIR class
+class AgentSIR extends Agent {
+	constructor() {
+		if(arguments.length == 2) {
+			var x = arguments[0];
+			var y = arguments[1];
+			super(x, y);
+		} else {
+			super();
+		}
+		this.timeSusceptible = -1;
+		this.timeInfected = -1;
+		this.timeRecovered = -1;
+		this.timeForHealing = 0;
 	}
 	
+	setHealingTime() {
+		this.timeForHealing = arguments[0];
+	}
+	
+	setSusceptible() {
+		var iter = arguments[0];
+		this.type = typeS;
+		this.timeSusceptible = iter;
+	}
+	
+	setInfected() {
+		var iter = arguments[0];
+		if(this.timeSusceptible > -1 && this.timeInfected == -1) {
+			this.type = typeI;
+			this.timeInfected = iter;
+		}
+	}
+	
+	setRecovered() {
+		var iter = arguments[0];
+		if(this.timeInfected > -1) {
+			this.type = typeR;
+			this.timeRecovered = iter;
+		}
+	}
+	
+	heal() {
+		var iter = arguments[0];
+		if(this.timeInfected > -1 &&
+			iter - this.timeInfected >= this.timeForHealing) {
+			this.setRecovered(iter);
+		}
+	}
+	
+	spreadInfection() {
+		var iter = arguments[0];
+		var a = arguments[1];
+		var N = a.length;
+		
+		if(this.timeInfected > -1 && this.timeRecovered == -1) {
+			var xinf = this.x;
+			var yinf = this.y;
+			
+			for(var i = 0; i < N; i++) {
+				var xi = a[i].x;
+				var yi = a[i].y;
+				var NEAREST_NEIGBOR =
+					(Math.abs(xi - xinf) == 1 &&
+					Math.abs(yi - yinf) == 0)
+					||
+					(Math.abs(xi - xinf) == 0 &&
+					Math.abs(yi - yinf) == 1)
+					||
+					(Math.abs(xi - xinf) == 1 &&
+					Math.abs(yi - yinf) == 1);
+				
+				if(NEAREST_NEIGBOR) {
+					a[i].setInfected(iter);
+				}
+			}
+		}
+	}
 }
 
