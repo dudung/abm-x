@@ -11,6 +11,7 @@
 	2142 Extend City to CitySIR for tomorrow.
 	20200613
 	0518 Continue calcSIR function.
+	0621 Can produce SIR per city at time iter.
 */
 
 
@@ -63,6 +64,10 @@ class CitySIR extends City {
 		var a = arguments[1];
 		var N = a.length;
 		
+		var S = 0;
+		var I = 0;
+		var R = 0;
+		
 		for(var i = 0; i < N; i++) {
 			var xmin = this.region[0];
 			var ymin = this.region[1];
@@ -76,15 +81,29 @@ class CitySIR extends City {
 			var inYRange = (ymin <= y) && (y <= ymax);
 			var inRange = inXRange && inYRange;
 			
-			if(inRange) {
-				var S = 0;
-				var I = 0;
-				var R = 0;
-				var N = S + I + R + N;
-				
-				
-			}
+			var SUSCEPTIBLE =
+				(a[i].timeSusceptible > -1) &&
+				(a[i].timeInfected == -1) &&
+				(a[i].timeRecovered == -1);
+			var INFECTED =
+				(a[i].timeSusceptible > -1) &&
+				(a[i].timeInfected > -1) &&
+				(a[i].timeRecovered == -1);
+			var RECOVERED =
+				(a[i].timeSusceptible > -1) &&
+				(a[i].timeInfected > -1) &&
+				(a[i].timeRecovered > -1);
 			
+			if(inRange) {
+				if(SUSCEPTIBLE) S++;
+				if(INFECTED) I++;
+				if(RECOVERED) R++;
+			}
 		}
+		var N = S + I + R;
+		this.S.push(S);
+		this.I.push(I);
+		this.R.push(R);
+		this.N.push(N);
 	}
 }

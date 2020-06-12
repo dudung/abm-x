@@ -139,15 +139,16 @@ function main() {
 				world.m[45 - (i * 5 + j)][24] = 1;
 			}
 		}
-	} else {
+	} else if(dataSetId < 11) {
 		for(var i = 0; i < 4; i++) {
-			for(var j = 0; j < dataSetId; j++) {
+			var jMax = dataSetId - 5;
+			for(var j = 0; j < jMax; j++) {
 				world.m[24][3 + i * 5 + j] = 1;
-				//world.m[3 + i * 5 + j][24] = 1;
 				world.m[24][45 - (i * 5 + j)] = 1;
-				//world.m[45 - (i * 5 + j)][24] = 1;
+				world.m[45 - (i * 5 + j)][24] = 1;
 			}
 		}
+	} else {
 	}
 	
 	// Define cities region
@@ -163,7 +164,7 @@ function main() {
 	createAllAgents();
 	
 	// Set infection agent
-	agent[10].setInfected(iter);
+	agent[0].setInfected(iter);
 	
 	// Display agents
 	var N = agent.length;
@@ -211,8 +212,9 @@ function simulate() {
 	}
 	paintMatrix(w).onCanvas(id);
 	
-	
-	
+	for(var i = 0; i < c.length; i++) {
+		c[i].calcSIR(iter, a);
+	}
 	
 	var str = iter + "\n";
 	for(var i = 0; i < agent.length; i++) {
@@ -246,6 +248,7 @@ function createAllAgents() {
 			a.setHealingTime(healingTime);
 			a.checkCity(city, iter);
 			agent.push(a);
+			a.id = agent.length - 1;
 		}
 	}
 	
@@ -264,6 +267,7 @@ function createAllAgents() {
 			a.setHealingTime(healingTime);
 			a.checkCity(city, iter);
 			agent.push(a);
+			a.id = agent.length - 1;
 		}
 	}
 	
@@ -282,6 +286,7 @@ function createAllAgents() {
 			a.setHealingTime(healingTime);
 			a.checkCity(city, iter);
 			agent.push(a);
+			a.id = agent.length - 1;
 		}
 	}
 	
@@ -300,6 +305,7 @@ function createAllAgents() {
 			a.setHealingTime(healingTime);
 			a.checkCity(city, iter);
 			agent.push(a);
+			a.id = agent.length - 1;
 		}
 	}
 }	
@@ -322,7 +328,7 @@ function createAllCities() {
 	city.push(c1);
 
 	// Define NE city
-	var c1 = new City;
+	var c1 = new CitySIR;
 	c1.setName("NW");
 	c1.setType(5);
 	c1.setRegion([25, 01, 47, 23]);
@@ -331,7 +337,7 @@ function createAllCities() {
 	city.push(c1);
 	
 	// Define SW city
-	var c1 = new City;
+	var c1 = new CitySIR;
 	c1.setName("NW");
 	c1.setType(5);
 	c1.setRegion([01, 25, 23, 47]);
@@ -340,7 +346,7 @@ function createAllCities() {
 	city.push(c1);
 	
 	// Define SE city
-	var c1 = new City;
+	var c1 = new CitySIR;
 	c1.setName("NW");
 	c1.setType(5);
 	c1.setRegion([25, 25, 47, 47]);

@@ -19,6 +19,8 @@
 	2119 Fix how to use paint() in displaying agents in world.
 	2136 Problem: infected can not heal itself.
 	2139 Fix previous problem.
+	20200613
+	0633 Add infectedByAgent information.
 	
 	References
 	1. https://stackoverflow.com/a/46244457/9475509
@@ -215,6 +217,7 @@ class AgentSIR extends Agent {
 		this.timeInfected = -1;
 		this.timeRecovered = -1;
 		this.timeForHealing = 0;
+		this.infectedByAgent = -1;
 	}
 	
 	setHealingTime() {
@@ -229,9 +232,15 @@ class AgentSIR extends Agent {
 	
 	setInfected() {
 		var iter = arguments[0];
+		var otherId = arguments[1];
 		if(this.timeSusceptible > -1 && this.timeInfected == -1) {
 			this.type = typeI;
 			this.timeInfected = iter;
+			if(otherId == undefined) {
+				this.infectedByAgent = this.id;
+			} else {
+				this.infectedByAgent = otherId;
+			}
 		}
 	}
 	
@@ -274,7 +283,7 @@ class AgentSIR extends Agent {
 					Math.abs(yi - yinf) == 1);
 				
 				if(NEAREST_NEIGBOR) {
-					a[i].setInfected(iter);
+					a[i].setInfected(iter, this.id);
 				}
 			}
 		}
