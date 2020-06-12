@@ -16,15 +16,35 @@
 	1032 Read [1].
 	1130 Move libraries to libs folder.
 	1133 Comment all cities and roads, make free space + border.
+	1137 Get solution for SIR from [2].
+	1638 Add referensi [3].
+	1657 Archive previous function and clear the code.
+	1733 Make four equal region with the same population density.
+	1741 Simplify code, general vars, func for cities and agents.
+	1753 Create vertical wall. Pause.
 	
 	References
 	1. url https://stackoverflow.com/a/48906011/9475509
+	2. Albert-László Barabási, "Spreading Phonomena", in Network
+	   Science, chapter 10, Cambridge University Press, 1st
+		 edition, Aug 2016,
+		 url https://isbnsearch.org/isbn/9781107076266,
+		 http://networksciencebook.com/chapter/10,
+		 https://barabasi.com/f/617.pdf.
+	3. Tiberiu Harko, Francisco S. N. Lobo, M. K. Mak, "Exact
+	   analytical solutions of the Susceptible-Infected-Recovered
+		 (SIR) epidemic model and of the SIR model with equal death
+		 and birth rates", Applied Mathematics and Computation
+		 [Appl. Math. Comput.], vol. 236, no., pp. 184-194, Jun
+		 2014, url https://doi.org/10.1016/j.amc.2014.03.030.
 */
 
 
 // Define global variabels
 var proc, iter, iterMax;
 var dataSetId;
+var world, city, road, agent;
+var typeS, typeI, typeR;
 
 
 // Call main function
@@ -33,8 +53,8 @@ main();
 
 // Define main function
 function main() {
-	// Available 0, 1, 2
-	dataSetId = 0;
+	// Available 0, 1, 2, 4, 5
+	dataSetId = 5;
 	
 	iter = 0;
 	iterMax = 10000;
@@ -42,13 +62,16 @@ function main() {
 	var canId = "can0";
 	var can = document.createElement("canvas");
 	can.id = canId;
-	can.width = 500;
-	can.height = 500;
+	can.width = 255 * 2;
+	can.height = 255 * 2;
 	can.style.width = can.width + "px";
 	can.style.height = can.height + "px";
 	can.style.border = "1px solid #444";
 	can.style.float = "left";
 	document.body.append(can);
+	
+	// Default value is 10 with w = 500, h = 500
+	matrixPixelSize = 5 * 2;
 	
 	var div = document.createElement("div");
 	div.style.border = "0px solid #888";
@@ -89,18 +112,215 @@ function main() {
 	div.append(txa);
 	
 	// Define world
-	var world = new Matrix(50, 50, 1);
+	world = new Matrix(51, 51, 1);
 	
 	// Define border -- actually not necessary
 	world.setCol(0).to(0);
 	world.setRow(0).to(0);
-	world.setCol(49).to(0);
-	world.setRow(49).to(0);
+	world.setCol(50).to(0);
+	world.setRow(50).to(0);
 	
+	// Select case according to dataSetId
+	if(dataSetId == 5) {
+		world.setRow(24).to(0);
+	}
+	
+	// Define cities region
+	city = [];
+	createAllCities();
+	
+	// Define roads
+	road = [];
+	createAllRoads();
+	
+	// Defina agent type
+	typeS = 12;
+	typeI = 13;
+	typeR = 14;
+	
+	// Create agents of type Agent
+	agent = [];
+	createAllAgents();
+	
+	// Paint the matrix on canvas
+	paintMatrix(world).onCanvas(canId);
+		
+	can.addEventListener("click", function() {
+		var e = arguments[0];
+		var t = e.target;
+		var x = e.offsetX;
+		var y = e.offsetY;
+		
+		var dx = matrixPixelSize;
+		var dy = matrixPixelSize;
+		
+		var c = Math.floor(x / dx);
+		var r = Math.floor(y / dy);
+		if(world != undefined) {
+			world.m[r][c] = 1;
+		}
+		
+		paintMatrix(world).onCanvas(canId);
+	});
+
+}
+
+
+// Simulate
+function simulate() {
+	var a = arguments[0];
+	var r = arguments[1];
+	var c = arguments[2];
+	var w = arguments[3];
+	var id = arguments[4];
+	
+	for(var i = 0; i < a.length; i++) {
+		a[i].moveOnRoad(r);
+		a[i].checkCity(c, iter);
+	}
+	paintMatrix(w).onCanvas(id);
+	
+	var str = iter + "\n";
+	for(var i = 0; i < agent.length; i++) {
+		str += ("0" + i).slice(-2) + " | ";
+		str += agent[i].visitedCity + " | ";
+		str += agent[i].visitedIter + "\n";
+	}
+	txa.value = str;
+		
+	iter++;
+	if(iter > iterMax) {
+		clearInterval(proc);
+	}
+}
+
+	
+// Create all agents
+function createAllAgents() {
+	// Create of agent in NW region, typeS
+	var xmin = 2;
+	var xmax = 23;
+	var dx = 2;
+	var ymin = 2;
+	var ymax = 23;
+	var dy = 2;
+	for(var y = ymin; y <= ymax; y += dy) {
+		for(var x = xmin; x <= xmax; x += dx) {
+			var a = new Agent(x, y);
+			a.setWorld(world);
+			a.setType(typeS);
+			a.checkCity(city, iter);
+			a.paint();
+			agent.push(a);
+		}
+	}
+	
+	// Create of agent in NE region, typeS
+	var xmin = 26;
+	var xmax = 48;
+	var dx = 2;
+	var ymin = 2;
+	var ymax = 23;
+	var dy = 2;
+	for(var y = ymin; y <= ymax; y += dy) {
+		for(var x = xmin; x <= xmax; x += dx) {
+			var a = new Agent(x, y);
+			a.setWorld(world);
+			a.setType(typeS);
+			a.checkCity(city, iter);
+			a.paint();
+			agent.push(a);
+		}
+	}
+	
+	// Create of agent in SW region, typeS
+	var xmin = 2;
+	var xmax = 23;
+	var dx = 2;
+	var ymin = 26;
+	var ymax = 49;
+	var dy = 2;
+	for(var y = ymin; y <= ymax; y += dy) {
+		for(var x = xmin; x <= xmax; x += dx) {
+			var a = new Agent(x, y);
+			a.setWorld(world);
+			a.setType(typeS);
+			a.checkCity(city, iter);
+			a.paint();
+			agent.push(a);
+		}
+	}
+	
+	// Create of agent in SE region, typeS
+	var xmin = 26;
+	var xmax = 48;
+	var dx = 2;
+	var ymin = 26;
+	var ymax = 49;
+	var dy = 2;
+	for(var y = ymin; y <= ymax; y += dy) {
+		for(var x = xmin; x <= xmax; x += dx) {
+			var a = new Agent(x, y);
+			a.setWorld(world);
+			a.setType(typeS);
+			a.checkCity(city, iter);
+			a.paint();
+			agent.push(a);
+		}
+	}
+}	
+
+	
+// Create all roads
+function createAllRoads() {
+}
+
+
+// Create all cities
+function createAllCities() {
+	// Define NW city
+	var c1 = new City;
+	c1.setName("NW");
+	c1.setType(5);
+	c1.setRegion([01, 01, 23, 23]);
+	c1.setWorld(world);
+	c1.paint();
+	city.push(c1);
+
+	// Define NE city
+	var c1 = new City;
+	c1.setName("NW");
+	c1.setType(5);
+	c1.setRegion([25, 01, 49, 23]);
+	c1.setWorld(world);
+	c1.paint();
+	city.push(c1);
+	
+	// Define SW city
+	var c1 = new City;
+	c1.setName("NW");
+	c1.setType(5);
+	c1.setRegion([01, 26, 23, 49]);
+	c1.setWorld(world);
+	c1.paint();
+	city.push(c1);
+	
+	// Define SE city
+	var c1 = new City;
+	c1.setName("NW");
+	c1.setType(5);
+	c1.setRegion([25, 25, 49, 49]);
+	c1.setWorld(world);
+	c1.paint();
+	city.push(c1);
+}
+
+
+// Archive previous version
+function previousFunction() {
 	// Define cities region
 	var city = [];
 	
-	/*
 	// Define NW city
 	var c1 = new City;
 	c1.setName("NW");
@@ -145,12 +365,10 @@ function main() {
 	c5.setWorld(world);
 	c5.paint();
 	city.push(c5);
-	*/
 	
 	// Define roads
 	var road = [];
 	
-	/*
 	// Define road from city 0 to city 1
 	var lane01a = world.coordLine2(11, 02, 41, 02);
 	var lane01b = world.coordLine2(11, 03, 41, 03);
@@ -289,7 +507,6 @@ function main() {
 	r12.setDirection([3, 4, 1], [0.4, 0.4, 0.2]);
 	r12.paint();
 	road.push(r12);
-	*/
 	
 	// Create agents of type Agent
 	agent = [];
@@ -385,56 +602,5 @@ function main() {
 		a.paint();
 		agent.push(a);
 	}
-
-	// Paint the matrix on canvas
-	paintMatrix(world).onCanvas(canId);
-		
-	can.addEventListener("click", function() {
-		var e = arguments[0];
-		var t = e.target;
-		var x = e.offsetX;
-		var y = e.offsetY;
-		
-		var dx = matrixPixelSize;
-		var dy = matrixPixelSize;
-		
-		var c = Math.floor(x / dx);
-		var r = Math.floor(y / dy);
-		if(world != undefined) {
-			world.m[r][c] = 1;
-		}
-		
-		//console.log(r, c);
-		paintMatrix(world).onCanvas(canId);
-	});
-
 }
 
-
-// Simulate
-function simulate() {
-	var a = arguments[0];
-	var r = arguments[1];
-	var c = arguments[2];
-	var w = arguments[3];
-	var id = arguments[4];
-	
-	for(var i = 0; i < a.length; i++) {
-		a[i].moveOnRoad(r);
-		a[i].checkCity(c, iter);
-	}
-	paintMatrix(w).onCanvas(id);
-	
-	var str = iter + "\n";
-	for(var i = 0; i < agent.length; i++) {
-		str += ("0" + i).slice(-2) + " | ";
-		str += agent[i].visitedCity + " | ";
-		str += agent[i].visitedIter + "\n";
-	}
-	txa.value = str;
-		
-	iter++;
-	if(iter > iterMax) {
-		clearInterval(proc);
-	}
-}
