@@ -20,6 +20,8 @@
 	2211 Try to get visit iter data.
 	20200607
 	0524 Start collecting data again.
+	20200612
+	1130 Move libraries to libs folder.
 		
 	Note
 	1. How to parse information depends on abm-odm app.

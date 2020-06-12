@@ -26,6 +26,8 @@
 	200606
 	0415 Realize that l31 is not created. But asymmetrical.
 	0947 Add dataSetId, but must be used comment manually.
+	20200612
+	1130 Move libraries to libs folder.
 	
 	References
 	1. Martin L. Hazelton, "Some comments on origin–destination

@@ -12,9 +12,13 @@
 	2101 Test and the old still works. Save for today. Pause.
 	20200611
 	0849 Create center free area.
+	20200612
+	1032 Read [1].
+	1130 Move libraries to libs folder.
+	1133 Comment all cities and roads, make free space + border.
 	
 	References
-	1.
+	1. url https://stackoverflow.com/a/48906011/9475509
 */
 
 
@@ -85,7 +89,7 @@ function main() {
 	div.append(txa);
 	
 	// Define world
-	var world = new Matrix(50, 50, 0);
+	var world = new Matrix(50, 50, 1);
 	
 	// Define border -- actually not necessary
 	world.setCol(0).to(0);
@@ -96,6 +100,7 @@ function main() {
 	// Define cities region
 	var city = [];
 	
+	/*
 	// Define NW city
 	var c1 = new City;
 	c1.setName("NW");
@@ -140,10 +145,12 @@ function main() {
 	c5.setWorld(world);
 	c5.paint();
 	city.push(c5);
+	*/
 	
 	// Define roads
 	var road = [];
 	
+	/*
 	// Define road from city 0 to city 1
 	var lane01a = world.coordLine2(11, 02, 41, 02);
 	var lane01b = world.coordLine2(11, 03, 41, 03);
@@ -282,6 +289,7 @@ function main() {
 	r12.setDirection([3, 4, 1], [0.4, 0.4, 0.2]);
 	r12.paint();
 	road.push(r12);
+	*/
 	
 	// Create agents of type Agent
 	agent = [];
