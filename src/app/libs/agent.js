@@ -110,7 +110,8 @@ class Agent {
 				var currentCity = i;
 				var visitedCityRecord = this.visitedCity.length;
 				if(visitedCityRecord > 0) {
-					var lastCity = this.visitedCity[visitedCityRecord - 1];
+					var lastCity =
+						this.visitedCity[visitedCityRecord - 1];
 					if(lastCity != currentCity) {
 						this.visitedCity.push(currentCity);
 						this.visitedIter.push(iter);

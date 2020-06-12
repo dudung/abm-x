@@ -99,7 +99,7 @@ function main() {
 						agent, road, city, 
 						world, "can0") 
 				},
-				1000
+				10
 			);
 			
 			t.innerHTML = "Stop";
@@ -128,12 +128,25 @@ function main() {
 	world.setRow(24).to(0);
 	world.setCol(24).to(0);
 	
-	for(var i = 0; i < 4; i++) {
-		for(var j = 0; j < dataSetId; j++) {
-			world.m[24][3 + i * 5 + j] = 1;
-			world.m[3 + i * 5 + j][24] = 1;
-			world.m[24][45 - (i * 5 + j)] = 1;
-			world.m[45 - (i * 5 + j)][24] = 1;
+	dataSetId = 6;
+	
+	if(dataSetId < 6) {
+		for(var i = 0; i < 4; i++) {
+			for(var j = 0; j < dataSetId; j++) {
+				world.m[24][3 + i * 5 + j] = 1;
+				world.m[3 + i * 5 + j][24] = 1;
+				world.m[24][45 - (i * 5 + j)] = 1;
+				world.m[45 - (i * 5 + j)][24] = 1;
+			}
+		}
+	} else {
+		for(var i = 0; i < 4; i++) {
+			for(var j = 0; j < dataSetId; j++) {
+				world.m[24][3 + i * 5 + j] = 1;
+				//world.m[3 + i * 5 + j][24] = 1;
+				world.m[24][45 - (i * 5 + j)] = 1;
+				//world.m[45 - (i * 5 + j)][24] = 1;
+			}
 		}
 	}
 	
@@ -150,8 +163,7 @@ function main() {
 	createAllAgents();
 	
 	// Set infection agent
-	agent[0].setInfected(iter);
-	agent[121].setInfected(iter);
+	agent[10].setInfected(iter);
 	
 	// Display agents
 	var N = agent.length;
@@ -198,6 +210,9 @@ function simulate() {
 		a[i].spreadInfection(iter, a);
 	}
 	paintMatrix(w).onCanvas(id);
+	
+	
+	
 	
 	var str = iter + "\n";
 	for(var i = 0; i < agent.length; i++) {
@@ -298,7 +313,7 @@ function createAllRoads() {
 // Create all cities
 function createAllCities() {
 	// Define NW city
-	var c1 = new City;
+	var c1 = new CitySIR;
 	c1.setName("NW");
 	c1.setType(5);
 	c1.setRegion([01, 01, 23, 23]);
