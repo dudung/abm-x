@@ -33,6 +33,9 @@
 	1310 Clear previousFunction.
 	1320 Fix 0-1 to -01 for S only agents.
 	1340 Make input textarea but not yet readable.
+	1704 Archive ref for nowrap in textarea [6].
+	1737 Convert array of string to number [7].
+	1746 Can set initial inf and rec, but not work in history.
 	
 	References
 	1. url https://stackoverflow.com/a/48906011/9475509
@@ -50,15 +53,17 @@
 		 2014, url https://doi.org/10.1016/j.amc.2014.03.030.
 	4. url https://stackoverflow.com/a/10073737/9475509
 	5. url https://stackoverflow.com/a/20014039/9475509
+	6. url https://stackoverflow.com/a/8136701/9475509
+	7. url https://stackoverflow.com/a/58833088/9475509
 */
 
 
 // Define global variabels
 var proc, iter, iterMax;
-var dataSetId;
+//var dataSetId;
 var world, city, road, agent;
 var healingTime;
-var txa1, txa2
+var txa1, txa2, txa3, canId;
 var oiAgent;
 
 // Call main function
@@ -136,12 +141,7 @@ function main() {
 		+ "RECAGENT 1,2,11,12,13,22,23,24";
 	txa3.style.overflowY = "scroll";
 	
-	dataSetId = 1;
-	healingTime = 14;
-	iter = 0;
-	iterMax = 300;
-	
-	var canId = "can0";
+	canId = "can0";
 	var can = document.createElement("canvas");
 	can.id = canId;
 	can.width = 245 * 1.5;
@@ -163,6 +163,39 @@ function main() {
 	btn0.innerHTML = "Read";
 	btn0.style.width = "70px";
 	divBtn.append(btn0);
+	
+	btn0.addEventListener("click", function() {
+		// Define world
+		world = new Matrix(49, 49, 1);
+		
+		// Define border -- actually not necessary
+		world.setCol(0).to(0);
+		world.setRow(0).to(0);
+		world.setCol(48).to(0);
+		world.setRow(48).to(0);
+		
+		iter = 0;
+
+		var temp = getValueFromTextarea("ITERTIME", txa3);
+		iterMax = parseInt(temp);
+
+		var temp = getValueFromTextarea("SCENARIO", txa3);
+		var dataSetId = parseInt(temp);
+		if(dataSetId > 10) {
+			console.log("WARNING: dataSetId > 10 will be set to 0");
+		}
+		
+		var temp = getValueFromTextarea("HEALTIME", txa3);
+		var healingTime = parseInt(temp);
+		
+		var temp = getValueFromTextarea("INFAGENT", txa3);
+		var infagent = temp.split(",").map(i => parseInt(i));
+		
+		var temp = getValueFromTextarea("RECAGENT", txa3);
+		var recagent = temp.split(",").map(i => parseInt(i));
+		
+		initialize(dataSetId, healingTime, infagent, recagent);	
+	});
 
 	var btn = document.createElement("button");
 	btn.innerHTML = "Start";
@@ -190,20 +223,38 @@ function main() {
 		}
 	});
 	
-	// Define world
-	world = new Matrix(49, 49, 1);
-	
-	// Define border -- actually not necessary
-	world.setCol(0).to(0);
-	world.setRow(0).to(0);
-	world.setCol(48).to(0);
-	world.setRow(48).to(0);
+	can.addEventListener("click", function() {
+		/*
+		var e = arguments[0];
+		var t = e.target;
+		var x = e.offsetX;
+		var y = e.offsetY;
+		
+		var dx = matrixPixelSize;
+		var dy = matrixPixelSize;
+		
+		var c = Math.floor(x / dx);
+		var r = Math.floor(y / dy);
+		if(world != undefined) {
+			world.m[r][c] = 1;
+		}
+		
+		paintMatrix(world).onCanvas(canId);
+		*/
+	});
+}
+
+
+// Initialize
+function initialize() {
+	var dataSetId = arguments[0];
+	var healingTime = arguments[1];
+	var infagent = arguments[2];
+	var recagent = arguments[3];
 	
 	// Select case according to dataSetId
 	world.setRow(24).to(0);
 	world.setCol(24).to(0);
-	
-	dataSetId = 6;
 	
 	if(dataSetId < 6) {
 		for(var i = 0; i < 4; i++) {
@@ -236,11 +287,22 @@ function main() {
 	
 	// Create agents of type Agent, typeS
 	agent = [];
-	createAllAgents();
+	createAllAgents(healingTime);
 	
 	// Set origin infection agent
-	oiAgent = 0;
-	agent[oiAgent].setInfected(iter);
+	//oiAgent = 0;
+	//agent[oiAgent].setInfected(iter);
+	for(var i = 0; i < infagent.length; i++) {
+		var id = infagent[i];
+		agent[id].setInfected(iter);
+	}
+	
+	// Set origin recovered agent
+	for(var i = 0; i < recagent.length; i++) {
+		var id = recagent[i];
+		agent[id].setInfected(iter);
+		agent[id].setRecovered(iter);
+	}
 	
 	// Display agents
 	var N = agent.length;
@@ -250,28 +312,8 @@ function main() {
 	
 	// Paint the matrix on canvas
 	paintMatrix(world).onCanvas(canId);
-		
-	can.addEventListener("click", function() {
-		/*
-		var e = arguments[0];
-		var t = e.target;
-		var x = e.offsetX;
-		var y = e.offsetY;
-		
-		var dx = matrixPixelSize;
-		var dy = matrixPixelSize;
-		
-		var c = Math.floor(x / dx);
-		var r = Math.floor(y / dy);
-		if(world != undefined) {
-			world.m[r][c] = 1;
-		}
-		
-		paintMatrix(world).onCanvas(canId);
-		*/
-	});
+}		
 
-}
 
 
 // Simulate
@@ -386,6 +428,8 @@ function simulate() {
 
 // Create all agents
 function createAllAgents() {
+	var healingTime = arguments[0];
+
 	// Create of agent in NW region, typeS
 	var xmin = 2;
 	var xmax = 23;
@@ -508,3 +552,19 @@ function createAllCities() {
 	city.push(c1);
 }
 
+
+// Get value from textarea -- note different format
+function getValueFromTextarea() {
+	var pattern = arguments[0];
+	var txa = arguments[1];
+	var val = "";
+	var lines = txa.value.split("\n");
+	for(var i = 0; i < lines.length; i++) {
+		var cols = lines[i].split(" ");
+		if(cols[0] == pattern) {
+			val = cols[1];
+			break;
+		}
+	}
+	return val;
+}
