@@ -21,6 +21,8 @@
 	2139 Fix previous problem.
 	20200613
 	0633 Add infectedByAgent information.
+	1016 Fix recover time information.
+	1040 Try to create chain of infection.
 	
 	References
 	1. https://stackoverflow.com/a/46244457/9475509
@@ -218,6 +220,7 @@ class AgentSIR extends Agent {
 		this.timeRecovered = -1;
 		this.timeForHealing = 0;
 		this.infectedByAgent = -1;
+		this.chainInfection = [];
 	}
 	
 	setHealingTime() {
@@ -255,7 +258,8 @@ class AgentSIR extends Agent {
 	heal() {
 		var iter = arguments[0];
 		if(this.timeInfected > -1 &&
-			iter - this.timeInfected >= this.timeForHealing) {
+			iter - this.timeInfected >= this.timeForHealing &&
+			this.timeRecovered == -1) {
 			this.setRecovered(iter);
 		}
 	}
