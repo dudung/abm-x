@@ -50,6 +50,7 @@
 	2254 Can view result in new window [15], must allow pop-up.
 	2258 That will help when file not ready if use [16] directly.
 	2310 Add link to https://github.com/dudung/abm-x in md file.
+	2313 Sometimes file not ready for window.open().
 	
 	References
 	1. url https://stackoverflow.com/a/48906011/9475509
