@@ -25,6 +25,9 @@
 	1927 Set wall hole with dataSetId.
 	20200612
 	2141 Pause. To-Do is listing S, I, R in each city.
+	20200613
+	0746 Implement padStr() from [4].
+	0828 Show SIR from all cities.
 	
 	References
 	1. url https://stackoverflow.com/a/48906011/9475509
@@ -40,6 +43,7 @@
 		 and birth rates", Applied Mathematics and Computation
 		 [Appl. Math. Comput.], vol. 236, no., pp. 184-194, Jun
 		 2014, url https://doi.org/10.1016/j.amc.2014.03.030.
+	4. url https://stackoverflow.com/a/10073737/9475509
 */
 
 
@@ -48,6 +52,7 @@ var proc, iter, iterMax;
 var dataSetId;
 var world, city, road, agent;
 var healingTime;
+var txa1, txa2
 
 // Call main function
 main();
@@ -61,8 +66,20 @@ function main() {
 	healingTime = 14;
 	
 	iter = 0;
-	iterMax = 10000;
+	iterMax = 300;
 	
+	txa1 = document.createElement("textarea");
+	txa1.style.width = "640px";
+	txa1.style.height = "4.4em";
+	txa1.style.overflowY = "scroll";
+	document.body.append(txa1);
+
+	txa2 = document.createElement("textarea");
+	txa2.style.width = "640px";
+	txa2.style.height = "4.4em";
+	txa2.style.overflowY = "scroll";
+	document.body.append(txa2);
+
 	var canId = "can0";
 	var can = document.createElement("canvas");
 	can.id = canId;
@@ -71,7 +88,7 @@ function main() {
 	can.style.width = can.width + "px";
 	can.style.height = can.height + "px";
 	can.style.border = "1px solid #444";
-	can.style.float = "left";
+	//can.style.float = "left";
 	document.body.append(can);
 	
 	// Default value is 10 with w = 500, h = 500
@@ -108,12 +125,6 @@ function main() {
 			t.innerHTML = "Start";
 		}
 	});
-	
-	txa = document.createElement("textarea");
-	txa.style.width = "265px";
-	txa.style.height = "475px";
-	txa.style.overflowY = "scroll";
-	div.append(txa);
 	
 	// Define world
 	world = new Matrix(49, 49, 1);
@@ -216,6 +227,7 @@ function simulate() {
 		c[i].calcSIR(iter, a);
 	}
 	
+	/*
 	var str = iter + "\n";
 	for(var i = 0; i < agent.length; i++) {
 		str += ("0" + i).slice(-2) + " | ";
@@ -223,6 +235,29 @@ function simulate() {
 		str += agent[i].visitedIter + "\n";
 	}
 	txa.value = str;
+	*/
+	
+	var N = 0;
+	var str = iter.toString().padStart(3, "0") + " ";
+	for(var i = 0; i < city.length; i++) {
+		var lastS = city[i].S[city[i].S.length - 1];
+		var lastI = city[i].I[city[i].I.length - 1];
+		var lastR = city[i].R[city[i].R.length - 1];
+		var lastN = city[i].N[city[i].N.length - 1];
+		
+		N += lastN;
+		
+		str += lastS.toString().padStart(3, "0") + " ";
+		str += lastI.toString().padStart(3, "0") + " ";
+		str += lastR.toString().padStart(3, "0") + " ";
+		str += lastN.toString().padStart(3, "0") + " ";
+		str += N.toString().padStart(3, "0");
+		
+		if(i < city.length - 2) str += " ";
+	}
+	if(iter > 0) txa1.value += "\n";
+	txa1.value += str;
+	txa1.scrollTop = txa1.scrollHeight;
 		
 	iter++;
 	if(iter > iterMax) {
@@ -230,7 +265,7 @@ function simulate() {
 	}
 }
 
-	
+
 // Create all agents
 function createAllAgents() {
 	// Create of agent in NW region, typeS
