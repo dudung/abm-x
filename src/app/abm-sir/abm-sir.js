@@ -42,6 +42,11 @@
 	2025 Try to save using [9].
 	2046 Add header UI for parameters.
 	2056 Try add time information [10].
+	2113 Can use [9] but saving with Download default name.
+	2117 Can open window dan write to it [11], but not md.
+	2202 Try [12] and it works.
+	2227 Can save canvas to PNG [13] and insert to .md file.
+	2231 Open new window for allowing multiple files downlad [14].
 	
 	References
 	1. url https://stackoverflow.com/a/48906011/9475509
@@ -63,7 +68,11 @@
 	7. url https://stackoverflow.com/a/58833088/9475509
 	8. url https://sweetalert2.github.io [20200613].
 	9. url https://stackoverflow.com/a/4551467/9475509
-	10. url url https://stackoverflow.com/a/4744635/9475509
+	10. url https://stackoverflow.com/a/4744635/9475509
+	11. url https://stackoverflow.com/a/2109227/9475509
+	12. url https://stackoverflow.com/a/25715985/9475509
+	13. url https://stackoverflow.com/a/44487883/9475509
+	14. url https://stackoverflow.com/a/2339452/9475509
 */
 
 
@@ -277,15 +286,19 @@ function main() {
 		var datetime = yyyy + "-" + mm + "-" + dd + " " +
 			HH + ":" + MM + ":" + SS;
 		
+		var fn = yyyy + "-" + mm + "-" + dd + "-" +
+			HH + "-" + MM + "-" + SS;
+
 		var content = "" +
 			"# abm-sir\n" +
 			"Output of `abm-sir` program as a part of `abm-x`\n" +
 			"\n" +
-			"## Parameters\n```\n" +
+			"## Parameter\n```\n" +
 			div3.innerHTML + "\n" +
 			params +
 			"\n```\n\n" +
-			"## City\n```\n" +
+			"## City\n" +
+			"![](" + fn + ".png)\n\n```\n" +
 			div1.innerHTML + "\n" +
 			outCity +
 			"\n```\n\n" +
@@ -296,16 +309,54 @@ function main() {
 			"## Note\n" +
 			"Created on " + datetime;
 
-		//console.log(content);
+		// Solution 0 -- only view the result
+		/*
+		console.log(content);
+		*/
+		
+		/*
+		// Solution 1 -- can not change filename
 		var uriContent = "data:application/octet-stream," + 	
 			encodeURIComponent(content);
 		newWindow = window.open(uriContent, 'neuesDokument');
+		*/
+		
+		/*
+		// Solution 2 -- can not save new window
+		var nw = window.open("");
+		var div = document.createElement("pre");
+		div.innerHTML = content;
+		nw.document.body.append(div);
+		*/
+		
+		// Solution 3 -- it works [12], even without append to body
+		var nw = window.open("");
+		var uriContent = "data:application/octet-stream," + 	
+			encodeURIComponent(content);
+		var a = document.createElement("a");
+		nw.document.body.append(a);
+		a.download = fn + ".md";
+		a.href = uriContent;
+		a.click();
+		nw.close();
+		
+		var can = document.getElementById("can0");
+		var a = document.createElement("a");
+		a.download = fn + ".png";
+		a.href = can.toDataURL("image/png")
+			.replace("image/png", "image/octet-stream");
+		a.click();
+		
+		var ldir = "file:///C:/Users/Sparisoma%20Viridi/Downloads/";
+		var ffn = ldir + fn + ".md";
+		setTimeout(1000);
+		var nw2 = window.open(ffn);
+		console.log(nw2);
+		
+		
+		
 	});
-
-
-
-
-
+	
 	btn1 = document.createElement("button");
 	btn1.innerHTML = "About";
 	btn1.style.width = "70px";
