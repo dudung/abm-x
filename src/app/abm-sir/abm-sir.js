@@ -4,7 +4,7 @@
 	(SIR) model
 	
 	Sparisoma Viridi | https://github.com/dudung/abm-x
-	Armi Susandi | https://fitb.itb.ac.id/dr-rer-nat-armi-susandi-mt 
+	Armi Susandi | https://fitb.itb.ac.id/dr-rer-nat-armi-susandi-mt
 	
 	20200608
 	2040 Start this app using abm-odm as the base.
@@ -31,6 +31,8 @@
 	0944 Obtain default style of textarea [5].
 	1308 Clean layout.
 	1310 Clear previousFunction.
+	1320 Fix 0-1 to -01 for S only agents.
+	1340 Make input textarea but not yet readable.
 	
 	References
 	1. url https://stackoverflow.com/a/48906011/9475509
@@ -65,17 +67,10 @@ main();
 
 // Define main function
 function main() {
-	// Available 0, 1, 2, 4, 5
-	dataSetId = 1;
-	
-	healingTime = 14;
-	
-	iter = 0;
-	iterMax = 300;
 	var div0 = document.createElement("div");
 	div0.style.width = "556px";
-	div0.style.height = "299px";
-	div0.style.border = "1px solid #aaa";
+	div0.style.height = "367px";
+	div0.style.border = "1px solid #888";
 	div0.style.background = "#eee";
 	div0.style.float = "left";
 	document.body.append(div0);
@@ -105,7 +100,7 @@ function main() {
 	txa1.style.height = "4.4em";
 	txa1.style.overflowY = "scroll";
 	div0.append(txa1);
-
+	
 	var div2 = document.createElement("div");
 	div2.style.width = "552px";
 	div2.style.fontFamily = "Monospace";
@@ -129,7 +124,23 @@ function main() {
 	txa2.style.overflowX = "scroll";
 	txa2.style.whiteSpace = "nowrap";
 	div0.append(txa2);
-
+	
+	var txa3 = document.createElement("textarea");
+	txa3.style.width = "480px";
+	txa3.style.height = "79px";
+	div0.append(txa3);
+	txa3.value = "SCENARIO 0\n"
+		+ "HEALTIME 14\n"
+		+ "ITERTIME 300\n"
+		+ "INFAGENT 0\n"
+		+ "RECAGENT 1,2,11,12,13,22,23,24";
+	txa3.style.overflowY = "scroll";
+	
+	dataSetId = 1;
+	healingTime = 14;
+	iter = 0;
+	iterMax = 300;
+	
 	var canId = "can0";
 	var can = document.createElement("canvas");
 	can.id = canId;
@@ -138,15 +149,25 @@ function main() {
 	can.style.width = can.width + "px";
 	can.style.height = can.height + "px";
 	can.style.border = "1px solid #444";
-	//can.style.float = "left";
 	document.body.append(can);
 	
 	// Default value is 10 with w = 500, h = 500
 	matrixPixelSize = 5 * 1.5;
 	
+	var divBtn = document.createElement("div");
+	divBtn.style.width = "70px";
+	divBtn.style.float = "right";
+	div0.append(divBtn);
+	
+	var btn0 = document.createElement("button");
+	btn0.innerHTML = "Read";
+	btn0.style.width = "70px";
+	divBtn.append(btn0);
+
 	var btn = document.createElement("button");
 	btn.innerHTML = "Start";
-	div0.append(btn);
+	btn.style.width = "70px";
+	divBtn.append(btn);
 	
 	btn.addEventListener("click", function() {
 		var e = arguments[0];
@@ -231,6 +252,7 @@ function main() {
 	paintMatrix(world).onCanvas(canId);
 		
 	can.addEventListener("click", function() {
+		/*
 		var e = arguments[0];
 		var t = e.target;
 		var x = e.offsetX;
@@ -246,6 +268,7 @@ function main() {
 		}
 		
 		paintMatrix(world).onCanvas(canId);
+		*/
 	});
 
 }
@@ -332,16 +355,19 @@ function simulate() {
 		
 		var inf = agent[i].timeInfected.toString()
 			.padStart(3, "0");
+		if(inf == "0-1") inf = "-01";
 		str += inf;
 		str += " ";
 		
 		var rec = agent[i].timeRecovered.toString()
 			.padStart(3, "0");
+		if(rec == "0-1") rec = "-01";
 		str += rec;
 		str += " ";
 		
 		var iba = agent[i].infectedByAgent.toString()
 			.padStart(3, "0");
+		if(iba == "0-1") iba = "-01";
 		str += iba;
 		str += " ";
 		
