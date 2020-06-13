@@ -36,6 +36,12 @@
 	1704 Archive ref for nowrap in textarea [6].
 	1737 Convert array of string to number [7].
 	1746 Can set initial inf and rec, but not work in history.
+	1859 Fix history.
+	1915 Fix both button.
+	1926 Not implement sweetalert2 [8].
+	2025 Try to save using [9].
+	2046 Add header UI for parameters.
+	2056 Try add time information [10].
 	
 	References
 	1. url https://stackoverflow.com/a/48906011/9475509
@@ -55,15 +61,17 @@
 	5. url https://stackoverflow.com/a/20014039/9475509
 	6. url https://stackoverflow.com/a/8136701/9475509
 	7. url https://stackoverflow.com/a/58833088/9475509
+	8. url https://sweetalert2.github.io [20200613].
+	9. url https://stackoverflow.com/a/4551467/9475509
+	10. url url https://stackoverflow.com/a/4744635/9475509
 */
 
 
 // Define global variabels
 var proc, iter, iterMax;
-//var dataSetId;
 var world, city, road, agent;
 var healingTime;
-var txa1, txa2, txa3, canId;
+var txa1, txa2, txa3, canId, btn, btn0, btn1, btn2;
 var oiAgent;
 
 // Call main function
@@ -124,15 +132,31 @@ function main() {
 	
 	txa2 = document.createElement("textarea");
 	txa2.style.width = "550px";
-	txa2.style.height = "12.4em";
+	txa2.style.height = "11.4em";
 	txa2.style.overflowY = "scroll";
 	txa2.style.overflowX = "scroll";
 	txa2.style.whiteSpace = "nowrap";
 	div0.append(txa2);
 	
+	var div3 = document.createElement("div");
+	div3.style.width = "552px";
+	div3.style.fontFamily = "Monospace";
+	div3.style.letterSpacing = "normal";
+  div3.style.wordSpacing = "0px";
+	div3.style.fontSize = "13.3333px";
+  div3.style.fontStretch = "normal";
+  div3.style.border = "1px solid #000";	
+  div3.style.color = "#fff";	
+  div3.style.background = "#000";	
+	div3.style.fontWeight = 400;
+	div3.style.paddingLeft = "2px";
+	div3.innerHTML = "PARAMETR "
+		+ "VALUE";
+	div0.append(div3);
+	
 	var txa3 = document.createElement("textarea");
 	txa3.style.width = "480px";
-	txa3.style.height = "79px";
+	txa3.style.height = "78px";
 	div0.append(txa3);
 	txa3.value = "SCENARIO 0\n"
 		+ "HEALTIME 14\n"
@@ -159,7 +183,7 @@ function main() {
 	divBtn.style.float = "right";
 	div0.append(divBtn);
 	
-	var btn0 = document.createElement("button");
+	btn0 = document.createElement("button");
 	btn0.innerHTML = "Read";
 	btn0.style.width = "70px";
 	divBtn.append(btn0);
@@ -194,12 +218,19 @@ function main() {
 		var temp = getValueFromTextarea("RECAGENT", txa3);
 		var recagent = temp.split(",").map(i => parseInt(i));
 		
-		initialize(dataSetId, healingTime, infagent, recagent);	
+		txa1.value = "";
+		txa2.value = "";
+		
+		initialize(dataSetId, healingTime, infagent, recagent);
+		
+		btn.disabled = false;
+		btn2.disabled = true;
 	});
 
-	var btn = document.createElement("button");
+	btn = document.createElement("button");
 	btn.innerHTML = "Start";
 	btn.style.width = "70px";
+	btn.disabled = true;
 	divBtn.append(btn);
 	
 	btn.addEventListener("click", function() {
@@ -217,12 +248,78 @@ function main() {
 			);
 			
 			t.innerHTML = "Stop";
+			btn0.disabled = true;
 		} else {
 			clearInterval(proc);
 			t.innerHTML = "Start";
+			btn0.disabled = false;
 		}
 	});
 	
+	btn2 = document.createElement("button");
+	btn2.innerHTML = "Save";
+	btn2.style.width = "70px";
+	btn2.disabled = true;
+	divBtn.append(btn2);
+	
+	btn2.addEventListener("click", function() {
+		var params = txa3.value;
+		var outCity = txa1.value;
+		var outAgent = txa2.value;
+
+		var sdt = new Date();
+		var dd = sdt.getDate();
+		var mm = ("0" + (sdt.getMonth() + 1)).slice(-2);
+		var yyyy = sdt.getYear() + 1900;
+		var HH = ("0" + sdt.getHours()).slice(-2);
+		var MM = ("0" + sdt.getMinutes()).slice(-2);
+		var SS = ("0" + sdt.getSeconds()).slice(-2);
+		var datetime = yyyy + "-" + mm + "-" + dd + " " +
+			HH + ":" + MM + ":" + SS;
+		
+		var content = "" +
+			"# abm-sir\n" +
+			"Output of `abm-sir` program as a part of `abm-x`\n" +
+			"\n" +
+			"## Parameters\n```\n" +
+			div3.innerHTML + "\n" +
+			params +
+			"\n```\n\n" +
+			"## City\n```\n" +
+			div1.innerHTML + "\n" +
+			outCity +
+			"\n```\n\n" +
+			"## Agent\n```\n" +
+			div2.innerHTML  + "\n" +
+			outAgent +
+			"\n```\n\n" +
+			"## Note\n" +
+			"Created on " + datetime;
+
+		//console.log(content);
+		var uriContent = "data:application/octet-stream," + 	
+			encodeURIComponent(content);
+		newWindow = window.open(uriContent, 'neuesDokument');
+	});
+
+
+
+
+
+	btn1 = document.createElement("button");
+	btn1.innerHTML = "About";
+	btn1.style.width = "70px";
+	divBtn.append(btn1);
+	
+	btn1.addEventListener("click", function() {
+		alert(
+			"abm-sir (version 20200613)\n" +
+			"Sparisoma Viridi | https://gihub.com/dudung\n" +
+			"Armi Susandi | https://fitb.itb.ac.id/" +
+			"dr-rer-nat-armi-susandi-mt"
+		);
+	});
+
 	can.addEventListener("click", function() {
 		/*
 		var e = arguments[0];
@@ -290,8 +387,10 @@ function initialize() {
 	createAllAgents(healingTime);
 	
 	// Set origin infection agent
-	//oiAgent = 0;
-	//agent[oiAgent].setInfected(iter);
+	/*
+	oiAgent = 0;
+	agent[oiAgent].setInfected(iter);
+	*/
 	for(var i = 0; i < infagent.length; i++) {
 		var id = infagent[i];
 		agent[id].setInfected(iter);
@@ -312,8 +411,7 @@ function initialize() {
 	
 	// Paint the matrix on canvas
 	paintMatrix(world).onCanvas(canId);
-}		
-
+}
 
 
 // Simulate
@@ -370,16 +468,21 @@ function simulate() {
 		for(var i = 0; i < agent.length; i++) {
 			var iba = agent[i].infectedByAgent;
 			for(var j = 0; j < agent.length; j++) {
-				if(iba == -1) break;
-				if(iba === oiAgent) {
+				if(iba == -1) {
+					break;
+				} else if(iba === agent[i].id) {
 					agent[i].chainInfection.push(
 						iba.toString().padStart(3, "0")
 					);
 					break;
+				} else if(iba == agent[i].chainInfection[agent[i].
+					chainInfection.length -1]) {
+					break;
+				} else {
+					agent[i].chainInfection.push(
+						iba.toString().padStart(3, "0")
+					);
 				}
-				agent[i].chainInfection.push(
-					iba.toString().padStart(3, "0")
-				);
 				iba = agent[iba].infectedByAgent;
 			}
 		}
@@ -422,6 +525,10 @@ function simulate() {
 	iter++;
 	if(iter > iterMax) {
 		clearInterval(proc);
+		btn.innerHTML = "Start";
+		btn.disabled = true;
+		btn0.disabled = false;
+		btn2.disabled = false;
 	}
 }
 
