@@ -29,6 +29,7 @@
 	0746 Implement padStr() from [4].
 	0828 Show SIR from all cities.
 	0944 Obtain default style of textarea [5].
+	1308 Clean layout.
 	
 	References
 	1. url https://stackoverflow.com/a/48906011/9475509
@@ -70,7 +71,14 @@ function main() {
 	
 	iter = 0;
 	iterMax = 50;
-	
+	var div0 = document.createElement("div");
+	div0.style.width = "556px";
+	div0.style.height = "299px";
+	div0.style.border = "1px solid #aaa";
+	div0.style.background = "#eee";
+	div0.style.float = "left";
+	document.body.append(div0);
+		
 	var div1 = document.createElement("div");
 	div1.style.width = "552px";
 	div1.style.fontFamily = "Monospace";
@@ -89,13 +97,13 @@ function main() {
 		+ "C2S C2I C2R C2N "
 		+ "C3S C3I C3R C3N "
 		+ "CAN";
-	document.body.append(div1);
+	div0.append(div1);
 	
 	txa1 = document.createElement("textarea");
 	txa1.style.width = "550px";
 	txa1.style.height = "4.4em";
 	txa1.style.overflowY = "scroll";
-	document.body.append(txa1);
+	div0.append(txa1);
 
 	var div2 = document.createElement("div");
 	div2.style.width = "552px";
@@ -111,7 +119,7 @@ function main() {
 	div2.style.paddingLeft = "2px";
 	div2.innerHTML = "AID "
 		+ "SUS INF REC IBA HIS";
-	document.body.append(div2);
+	div0.append(div2);
 	
 	txa2 = document.createElement("textarea");
 	txa2.style.width = "550px";
@@ -119,13 +127,13 @@ function main() {
 	txa2.style.overflowY = "scroll";
 	txa2.style.overflowX = "scroll";
 	txa2.style.whiteSpace = "nowrap";
-	document.body.append(txa2);
+	div0.append(txa2);
 
 	var canId = "can0";
 	var can = document.createElement("canvas");
 	can.id = canId;
-	can.width = 245 * 2;
-	can.height = 245 * 2;
+	can.width = 245 * 1.5;
+	can.height = 245 * 1.5;
 	can.style.width = can.width + "px";
 	can.style.height = can.height + "px";
 	can.style.border = "1px solid #444";
@@ -133,18 +141,11 @@ function main() {
 	document.body.append(can);
 	
 	// Default value is 10 with w = 500, h = 500
-	matrixPixelSize = 5 * 2;
+	matrixPixelSize = 5 * 1.5;
 	
-	var div = document.createElement("div");
-	div.style.border = "0px solid #888";
-	div.style.height = "500px";
-	div.style.width = "270px";
-	div.style.float = "left";
-	document.body.append(div);
-		
 	var btn = document.createElement("button");
 	btn.innerHTML = "Start";
-	div.append(btn);
+	div0.append(btn);
 	
 	btn.addEventListener("click", function() {
 		var e = arguments[0];
