@@ -46,7 +46,10 @@
 	2117 Can open window dan write to it [11], but not md.
 	2202 Try [12] and it works.
 	2227 Can save canvas to PNG [13] and insert to .md file.
-	2231 Open new window for allowing multiple files downlad [14].
+	2231 Open new window allowing multiple files download [14].
+	2254 Can view result in new window [15], must allow pop-up.
+	2258 That will help when file not ready if use [16] directly.
+	2310 Add link to https://github.com/dudung/abm-x in md file.
 	
 	References
 	1. url https://stackoverflow.com/a/48906011/9475509
@@ -73,6 +76,8 @@
 	12. url https://stackoverflow.com/a/25715985/9475509
 	13. url https://stackoverflow.com/a/44487883/9475509
 	14. url https://stackoverflow.com/a/2339452/9475509
+	15. url https://www.w3schools.com/jsref/met_win_settimeout.asp
+	16. url https://stackoverflow.com/a/34193305/9475509
 */
 
 
@@ -291,7 +296,8 @@ function main() {
 
 		var content = "" +
 			"# abm-sir\n" +
-			"Output of `abm-sir` program as a part of `abm-x`\n" +
+			"Output of `abm-sir` as part of [`abm-x`]" +
+			"(https://github.com/dudung/abm-x)\n" +
 			"\n" +
 			"## Parameter\n```\n" +
 			div3.innerHTML + "\n" +
@@ -349,11 +355,7 @@ function main() {
 		
 		var ldir = "file:///C:/Users/Sparisoma%20Viridi/Downloads/";
 		var ffn = ldir + fn + ".md";
-		setTimeout(1000);
-		var nw2 = window.open(ffn);
-		console.log(nw2);
-		
-		
+		setTimeout(function() {	var nw2 = window.open(ffn); }, 2000);
 		
 	});
 	
