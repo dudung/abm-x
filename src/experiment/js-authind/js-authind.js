@@ -14,6 +14,8 @@
 	0707 Add next pre-data from Sinta2 [3].
 	0714 Add Scopus link.
 	0719 Change link style and color, also back for even items.
+	20200614
+	1040 Update for iseng only.
 	
 	References
 	1. url https://www.scopus.com [20200611].
@@ -549,26 +551,26 @@ function addAuthors() {
 /*
 6032157
 SINTA ID
-28,4
+28,4 (11.06) - 28.47 (14.06)
 Overall Score
-8,8
+8,8 (11.06) - 8.86 (14.06)
 3 Years Score
-2858
+2858 (11.06) - 2881.5 (14.06)
 Overall Score V2
-1156
+1156 (11.06) - 1178.5 (14.06)
 3 Years Score V2
 0
 Books
-818
+818 (11.06) - 807 (14.06)
 Rank in National
-590
+590 (11.06) - 517 (14.06)
 3 Years National Rank
 0
 IPR
 Scoring 
-91
+91 (11.06, 14.06)
 Rank in Affiliation
-34
+34 (11.06, 14.06)
 3 Years Affiliation Rank
 
 
@@ -584,16 +586,16 @@ Overall Score V2
 3 Years Score V2
 0
 Books
-874
+874 (11.06) - 872 (14.06)
 Rank in National
-2483
+2483 (11.06) - 2524 (14.06)
 3 Years National Rank
 0
 IPR
 Scoring 
-95
+95 (11.06, 14.06)
 Rank in Affiliation
-141
+141 (11.06, 14.06)
 3 Years Affiliation Rank
 
 
