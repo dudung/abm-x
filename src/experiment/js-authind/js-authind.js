@@ -16,6 +16,8 @@
 	0719 Change link style and color, also back for even items.
 	20200614
 	1040 Update for iseng only.
+	20200616
+	0852 Update for iseng only, daily dynamic?
 	
 	References
 	1. url https://www.scopus.com [20200611].
@@ -551,26 +553,26 @@ function addAuthors() {
 /*
 6032157
 SINTA ID
-28,4 (11.06) - 28.47 (14.06)
+28,4 (11.06) - 28.47 (14.06, 15.06)
 Overall Score
-8,8 (11.06) - 8.86 (14.06)
+8,8 (11.06) - 8.86 (14.06, 15.06)
 3 Years Score
-2858 (11.06) - 2881.5 (14.06)
+2858 (11.06) - 2881.5 (14.06, 15.06)
 Overall Score V2
-1156 (11.06) - 1178.5 (14.06)
+1156 (11.06) - 1178.5 (14.06, 15.06)
 3 Years Score V2
 0
 Books
-818 (11.06) - 807 (14.06)
+818 (11.06) - 807 (14.06) - 806 (15.06)
 Rank in National
-590 (11.06) - 517 (14.06)
+590 (11.06) - 517 (14.06) - 574 (15.06)
 3 Years National Rank
 0
 IPR
 Scoring 
-91 (11.06, 14.06)
+91 (11.06, 14.06, 15.06)
 Rank in Affiliation
-34 (11.06, 14.06)
+34 (11.06, 14.06, 15.06)
 3 Years Affiliation Rank
 
 
