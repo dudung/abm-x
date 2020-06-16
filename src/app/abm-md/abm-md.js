@@ -8,6 +8,7 @@
 	2020 Start from abm-sir app as base.
 	2024 Move library from libs to libs/abm.
 	2015 Copy libs/md from butiran.js, not adjusted yet.
+	2044 Change to bgColor for ocean style.
 	
 	References
 	1. 
@@ -21,6 +22,8 @@ var healingTime;
 var txa1, txa2, txa3, canId, btn, btn0, btn1, btn2;
 var oiAgent;
 
+var bgColor = "#eef";
+
 // Call main function
 main();
 
@@ -30,9 +33,10 @@ function main() {
 	var div0 = document.createElement("div");
 	div0.style.width = "556px";
 	div0.style.height = "367px";
-	div0.style.border = "1px solid #888";
+	div0.style.border = "1px solid #88f";
 	div0.style.background = "#eee";
 	div0.style.float = "left";
+	div0.style.border = "1px solid #00f";
 	document.body.append(div0);
 		
 	var div1 = document.createElement("div");
@@ -42,9 +46,9 @@ function main() {
   div1.style.wordSpacing = "0px";
 	div1.style.fontSize = "13.3333px";
   div1.style.fontStretch = "normal";
-  div1.style.border = "1px solid #000";	
+  div1.style.border = "1px solid #008";	
   div1.style.color = "#fff";	
-  div1.style.background = "#000";	
+  div1.style.background = "#00a";	
 	div1.style.fontWeight = 400;
 	div1.style.paddingLeft = "2px";
 	div1.innerHTML = "ITR "
@@ -59,6 +63,8 @@ function main() {
 	txa1.style.width = "550px";
 	txa1.style.height = "4.4em";
 	txa1.style.overflowY = "scroll";
+	txa1.style.border = "1px solid #00f";
+	txa1.style.background = bgColor;
 	div0.append(txa1);
 	
 	var div2 = document.createElement("div");
@@ -68,9 +74,9 @@ function main() {
   div2.style.wordSpacing = "0px";
 	div2.style.fontSize = "13.3333px";
   div2.style.fontStretch = "normal";
-  div2.style.border = "1px solid #000";	
+  div2.style.border = "1px solid #009";	
   div2.style.color = "#fff";	
-  div2.style.background = "#000";	
+  div2.style.background = "#00a";	
 	div2.style.fontWeight = 400;
 	div2.style.paddingLeft = "2px";
 	div2.innerHTML = "AID "
@@ -83,6 +89,8 @@ function main() {
 	txa2.style.overflowY = "scroll";
 	txa2.style.overflowX = "scroll";
 	txa2.style.whiteSpace = "nowrap";
+	txa2.style.border = "1px solid #00f";
+	txa2.style.background = bgColor;
 	div0.append(txa2);
 	
 	var div3 = document.createElement("div");
@@ -92,9 +100,9 @@ function main() {
   div3.style.wordSpacing = "0px";
 	div3.style.fontSize = "13.3333px";
   div3.style.fontStretch = "normal";
-  div3.style.border = "1px solid #000";	
+  div3.style.border = "1px solid #008";	
   div3.style.color = "#fff";	
-  div3.style.background = "#000";	
+  div3.style.background = "#00a";	
 	div3.style.fontWeight = 400;
 	div3.style.paddingLeft = "2px";
 	div3.innerHTML = "PARAMETR "
@@ -111,6 +119,8 @@ function main() {
 		+ "INFAGENT 0\n"
 		+ "RECAGENT 1,2,11,12,13,22,23,24";
 	txa3.style.overflowY = "scroll";
+	txa3.style.border = "1px solid #00f";
+	txa3.style.background = bgColor;
 	
 	canId = "can0";
 	var can = document.createElement("canvas");
@@ -119,7 +129,8 @@ function main() {
 	can.height = 245 * 1.5;
 	can.style.width = can.width + "px";
 	can.style.height = can.height + "px";
-	can.style.border = "1px solid #444";
+	can.style.border = "1px solid #44f";
+	can.style.background = bgColor;
 	document.body.append(can);
 	
 	// Default value is 10 with w = 500, h = 500
@@ -299,10 +310,8 @@ function main() {
 	
 	btn1.addEventListener("click", function() {
 		alert(
-			"abm-sir (version 20200613)\n" +
-			"Sparisoma Viridi | https://gihub.com/dudung\n" +
-			"Armi Susandi | https://fitb.itb.ac.id/" +
-			"dr-rer-nat-armi-susandi-mt"
+			"abm-md (version 20200616)\n" +
+			"Sparisoma Viridi | https://github.com/dudung"
 		);
 	});
 
