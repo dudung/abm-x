@@ -9,6 +9,7 @@
 	2024 Move library from libs to libs/abm.
 	2015 Copy libs/md from butiran.js, not adjusted yet.
 	2044 Change to bgColor for ocean style.
+	2244 Rename main() to main2() for archive only.
 	
 	References
 	1. 
@@ -28,8 +29,13 @@ var bgColor = "#eef";
 main();
 
 
-// Define main function
+// Define
 function main() {
+}
+
+
+// Define main2 function -- archive for easier editing
+function main2() {
 	var div0 = document.createElement("div");
 	div0.style.width = "556px";
 	div0.style.height = "367px";
