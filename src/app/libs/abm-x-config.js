@@ -8,6 +8,7 @@
 	2201 Create this file.
 	2202 Rename it from config.js to abm-x-config.js.
 	2240 Finish set all webpack_libs_md_* to false.
+	2241 Note var classX = require() -> without var, problem(?).
 */
 
 var webpack_libs_md_vect3 = false;
