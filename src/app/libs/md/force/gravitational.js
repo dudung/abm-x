@@ -9,11 +9,14 @@
 	libraries.
 	20180603
 	Rename from gravitation to gravitational.
+	20200618
+	2146 Integrate to abm-x manually, comment the last part.
+	2146 Commment require classes part.
 */
 
 // Require classes
-var Vect3 = require('../vect3')();
-var Grain = require('../grain')();
+//var Vect3 = require('../vect3')();
+//var Grain = require('../grain')();
 
 // Define class of Gravitational
 class Gravitational {
@@ -68,7 +71,9 @@ class Gravitational {
 	}
 }
 
+/*
 // Export module -- 20180602.2020 ok
 module.exports = function() {
 	return Gravitational;
 };
+*/

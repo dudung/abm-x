@@ -7,11 +7,14 @@
 	20180603
 	Create this library from previous force.js and
 	gravitation.js libraries.
+	20200618
+	2145 Integrate to abm-x manually, comment the last part.
+	2145 Commment require classes part.
 */
 
 // Require classes
-var Vect3 = require('../vect3')();
-var Grain = require('../grain')();
+//var Vect3 = require('../vect3')();
+//var Grain = require('../grain')();
 
 // Define class of Electrostatic
 class Electrostatic {
@@ -66,7 +69,9 @@ class Electrostatic {
 	}
 }
 
+/*
 // Export module -- 20180603.1155 ok
 module.exports = function() {
 	return Electrostatic;
 };
+*/

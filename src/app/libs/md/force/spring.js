@@ -13,11 +13,14 @@
 	20190602
 	1508 Seek problem by relaxing spring.
 	1515 Fix it for two grains but not yet tested for one.
+	20200618
+	2149 Integrate to abm-x manually, comment the last part.
+	2149 Commment require classes part.
 */
 
 // Require classes
-var Vect3 = require('../vect3')();
-var Grain = require('../grain')();
+//var Vect3 = require('../vect3')();
+//var Grain = require('../grain')();
 
 // Define class of Spring
 class Spring {
@@ -104,7 +107,9 @@ class Spring {
 	}
 }
 
+/*
 // Export module -- 20180603.1324 ok
 module.exports = function() {
 	return Spring;
 };
+*/

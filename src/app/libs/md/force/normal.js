@@ -20,12 +20,15 @@
 	0426 Bug found in determining n but not solution came up yet.
 	0717 Can not found solution, still.
 	0732 Can determine interaction side, but not yet overlap.
+	20200618
+	2148 Integrate to abm-x manually, comment the last part.
+	2148 Commment require classes part.
 */
 
 // Require classes
-var Vect3 = require('../vect3')();
-var Grain = require('../grain')();
-var Box = require('../box')();
+//var Vect3 = require('../vect3')();
+//var Grain = require('../grain')();
+//var Box = require('../box')();
 
 // Define class of Normal
 class Normal {
@@ -149,7 +152,9 @@ class Normal {
 	}
 }
 
+/*
 // Export module -- 20180603.1231 ok
 module.exports = function() {
 	return Normal;
 };
+*/

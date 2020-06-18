@@ -10,10 +10,13 @@
 	2000 Add dir for non-horizontal fluid surface.
 	20190531
 	0630 Fix sliding on water surface plane.
+	20200618
+	2143 Integrate to abm-x manually, comment the last part.
+	2143 Commment require classes part.
 */
 
 // Require classes
-var Vect3 = require('../vect3')();
+//var Vect3 = require('../vect3')();
 
 // Define class of Buoyant
 class Buoyant {
@@ -111,7 +114,9 @@ class Buoyant {
 	}
 }
 
+/*
 // Export module -- 20180602.1944 ok
 module.exports = function() {
 	return Buoyant;
 };
+*/

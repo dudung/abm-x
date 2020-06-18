@@ -27,6 +27,8 @@
 	add node neg() from vect3old.js library.
 	20180603
 	Fix unit vector of 0 vector.
+	20200618
+	2141 Integrate to abm-x manually, comment the last part.
 */
 
 // Define class of Vect3
@@ -160,7 +162,9 @@ class Vect3 {
 	}
 }
 
+/*
 // Export module -- 20180527.1515 ok
 module.exports = function() {
 	return Vect3;
 };
+*/

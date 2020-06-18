@@ -24,10 +24,13 @@
 	Future note for setting m, D --> rho, D, rho --> m.
 	20190530
 	1658 Modify the use c as array of color [color, bgcolor].
+	20200618
+	2141 Integrate to abm-x manually, comment the last part.
+	2142 Commment require classes part.
 */
 
 // Require classes
-var Vect3 = require('../lib/vect3')();
+//var Vect3 = require('../lib/vect3')();
 
 // Define class of Grain
 function Grain() {
@@ -93,7 +96,9 @@ function Grain() {
 	}
 }
 
+/*
 // Export module -- 20180527.1608 ok
 module.exports = function() {
 	return Grain;
 };
+*/

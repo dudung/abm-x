@@ -7,11 +7,14 @@
 	20180603
 	Create this library from previous force.js and
 	electrostatic.js libraries.
+	20200618
+	2147 Integrate to abm-x manually, comment the last part.
+	2147 Commment require classes part.
 */
 
 // Require classes
-var Vect3 = require('../vect3')();
-var Grain = require('../grain')();
+//var Vect3 = require('../vect3')();
+//var Grain = require('../grain')();
 
 // Define class of Magnetic
 class Magnetic {
@@ -71,7 +74,9 @@ class Magnetic {
 	}
 }
 
+/*
 // Export module -- 20180603.1432 ok
 module.exports = function() {
 	return Magnetic;
 };
+*/

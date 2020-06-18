@@ -7,11 +7,14 @@
 	20180602
 	Create this library from previous force.js and viscous.js
 	library.
+	20200618
+	2144 Integrate to abm-x manually, comment the last part.
+	2144 Commment require classes part.
 */
 
 // Require classes
-var Vect3 = require('../vect3')();
-var Grain = require('../grain')();
+//var Vect3 = require('../vect3')();
+//var Grain = require('../grain')();
 
 // Define class of Drag
 class Drag {
@@ -57,7 +60,9 @@ class Drag {
 	}
 }
 
+/*
 // Export module -- 20180603.1340 !ok
 module.exports = function() {
 	return Drag;
 };
+*/
