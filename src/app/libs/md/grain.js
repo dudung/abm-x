@@ -27,10 +27,13 @@
 	20200618
 	2141 Integrate to abm-x manually, comment the last part.
 	2142 Commment require classes part.
+	2224 Set webpack_libs_md_grain to false.
 */
 
 // Require classes
-//var Vect3 = require('../lib/vect3')();
+if(webpack_libs_md_grain) {
+	Vect3 = require('../libs/vect3')();
+}
 
 // Define class of Grain
 function Grain() {
@@ -96,9 +99,9 @@ function Grain() {
 	}
 }
 
-/*
 // Export module -- 20180527.1608 ok
-module.exports = function() {
-	return Grain;
-};
-*/
+if(webpack_libs_md_grain) {
+	module.exports = function() {
+		return Grain;
+	};
+}

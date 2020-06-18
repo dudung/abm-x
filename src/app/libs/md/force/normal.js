@@ -23,12 +23,15 @@
 	20200618
 	2148 Integrate to abm-x manually, comment the last part.
 	2148 Commment require classes part.
+	2235 Set webpack_libs_md_force_normal to false.
 */
 
 // Require classes
-//var Vect3 = require('../vect3')();
-//var Grain = require('../grain')();
-//var Box = require('../box')();
+if(webpack_libs_md_force_normal) {
+	Vect3 = require('../libs/vect3')();
+	Grain = require('../libs/grain')();
+	Box = require('../libs/box')();
+}
 
 // Define class of Normal
 class Normal {
@@ -152,9 +155,9 @@ class Normal {
 	}
 }
 
-/*
 // Export module -- 20180603.1231 ok
-module.exports = function() {
-	return Normal;
-};
-*/
+if(webpack_libs_md_force_normal) {
+	module.exports = function() {
+		return Normal;
+	};
+}

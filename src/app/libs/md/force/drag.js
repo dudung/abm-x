@@ -10,11 +10,14 @@
 	20200618
 	2144 Integrate to abm-x manually, comment the last part.
 	2144 Commment require classes part.
+	2231 Set webpack_libs_md_force_drag to false.
 */
 
 // Require classes
-//var Vect3 = require('../vect3')();
-//var Grain = require('../grain')();
+if(webpack_libs_md_force_drag) {
+	Vect3 = require('../libs/vect3')();
+	Grain = require('../libs/grain')();
+}
 
 // Define class of Drag
 class Drag {
@@ -60,9 +63,9 @@ class Drag {
 	}
 }
 
-/*
 // Export module -- 20180603.1340 !ok
-module.exports = function() {
-	return Drag;
-};
-*/
+if(webpack_libs_md_force_drag) {
+	module.exports = function() {
+		return Drag;
+	};
+}

@@ -10,11 +10,14 @@
 	20200618
 	2145 Integrate to abm-x manually, comment the last part.
 	2145 Commment require classes part.
+	2232 Set webpack_libs_md_force_electrostatic to false.
 */
 
 // Require classes
-//var Vect3 = require('../vect3')();
-//var Grain = require('../grain')();
+if(webpack_libs_md_force_electrostatic) {
+	Vect3 = require('../libs/vect3')();
+	Grain = require('../libs/grain')();
+}
 
 // Define class of Electrostatic
 class Electrostatic {
@@ -69,9 +72,9 @@ class Electrostatic {
 	}
 }
 
-/*
 // Export module -- 20180603.1155 ok
-module.exports = function() {
-	return Electrostatic;
-};
-*/
+if(webpack_libs_md_force_electrostatic) {
+	module.exports = function() {
+		return Electrostatic;
+	};
+}

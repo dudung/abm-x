@@ -29,6 +29,9 @@
 	Fix unit vector of 0 vector.
 	20200618
 	2141 Integrate to abm-x manually, comment the last part.
+	2204 Setup throug abm-x-config.js file.
+	2208 Set webpack_libs_md_vect3 to false.
+	2225 Use better if block for module.export part.
 */
 
 // Define class of Vect3
@@ -162,9 +165,9 @@ class Vect3 {
 	}
 }
 
-/*
 // Export module -- 20180527.1515 ok
-module.exports = function() {
-	return Vect3;
-};
-*/
+if(webpack_libs_md_vect3) {
+	module.exports = function() {
+		return Vect3;
+	};
+}

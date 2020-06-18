@@ -12,11 +12,14 @@
 	20200618
 	2146 Integrate to abm-x manually, comment the last part.
 	2146 Commment require classes part.
+	2233 Set webpack_libs_md_force_gravitational to false.
 */
 
 // Require classes
-//var Vect3 = require('../vect3')();
-//var Grain = require('../grain')();
+if(webpack_libs_md_force_gravitational) {
+	Vect3 = require('../libs/vect3')();
+	Grain = require('../libs/grain')();
+}
 
 // Define class of Gravitational
 class Gravitational {
@@ -71,9 +74,9 @@ class Gravitational {
 	}
 }
 
-/*
 // Export module -- 20180602.2020 ok
-module.exports = function() {
-	return Gravitational;
-};
-*/
+if(webpack_libs_md_force_gravitational) {
+	module.exports = function() {
+		return Gravitational;
+	};
+}
