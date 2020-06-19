@@ -9,29 +9,359 @@
 	2024 Move library from libs to libs/abm.
 	2015 Copy libs/md from butiran.js, not adjusted yet.
 	2044 Change to bgColor for ocean style.
-	2244 Rename main() to main2() for archive only.
+	20200618
+	2244 Rename main to main2 for archive only.
+	20200619
+	0515 Create clear function for Canvas and TextArea elements.
+	0707 Draw grid on a Canvas element.
+	0720 Create getValueOf to get params from input TextArea.
+	0733 Fix return value of getValueOf function.
+	0821 Use alert box.
+	0825 Create empty event for all buttons.
 	
 	References
-	1. 
+	1. url https://stackoverflow.com/a/57474962/9475509
+	2. url https://stackoverflow.com/a/58833088/9475509
+	3. url https://www.w3schools.com/jsref/met_win_alert.asp
+	   [20200619].
 */
 
 
 // Define global variabels
-var proc, iter, iterMax;
-var world, city, road, agent;
-var healingTime;
-var txa1, txa2, txa3, canId, btn, btn0, btn1, btn2;
-var oiAgent;
-
-var bgColor = "#eef";
+var backgroundColor, borderColor, fontColor;
+var btnLoad, btnRead, btnStart, btnSave, btnAbout, btnHelp;
+var taIn, taOut, can;
+var um2px;
+var proc, iter, iterMax, gridSize;
+var Ncell, Dcell, Hnpat, Wnpat;
 
 // Call main function
 main();
 
 
-// Define
+// Define main function
 function main() {
+	initParams();
+	
+	[
+		btnLoad, btnRead, btnStart, btnSave, btnAbout, btnHelp,
+		taIn, taOut,
+		can
+	] = createElements();
+	
+	btnLoad.addEventListener("click", function() {
+		loadParams();
+		btnRead.disabled = false;
+	});
+	
+	btnRead.addEventListener("click", function() {
+		readParams();
+		clear(can);
+		drawGrid(gridSize + "px", "#f0f0ff").on(can);
+		btnStart.disabled = false;
+	});
+	
+	btnStart.addEventListener("click", function() {
+		if(btnStart.innerHTML == "Start") {
+			btnStart.innerHTML = "Stop";
+			btnLoad.disabled = true;
+			btnRead.disabled = true;
+			btnAbout.disabled = true;
+			btnHelp.disabled = true;
+			taIn.disabled = true;
+		} else {
+			btnStart.innerHTML = "Start";
+			btnLoad.disabled = false;
+			btnRead.disabled = false;
+			btnAbout.disabled = false;
+			taIn.disabled = false;
+			btnHelp.disabled = false;
+		}
+	});
+	
+	btnSave.addEventListener("click", function() {
+	});
+	
+	btnAbout.addEventListener("click", function() {
+		alert(
+			"abm-md | About\n" + 
+			"Version 20200619\n" +
+			"Sparisoma Viridi | https://github.com/dudung/abm-x"
+		);
+	});
+	
+	btnHelp.addEventListener("click", function() {
+		alert(
+			"abm-md | Help\n" +
+			"Use available buttons"
+		);
+	});
 }
+
+
+// Load default parameters to input TextArea
+function loadParams() {
+	clear(taIn);
+	addLine("ITERTIME 0,1000\n").to(taIn);
+	addLine("GRIDSIZE 10\n").to(taIn);
+	addLine("CELLDIAM 20\n").to(taIn);
+	addLine("CELLSNUM 20,20\n").to(taIn);
+	addLine("CELLSSEP 5,5\n").to(taIn);
+	addLine("NPHEIGHT 10\n").to(taIn);
+	addLine("NPWIDTHX 10,10").to(taIn);
+}
+
+
+// Read params from input TextArea
+function readParams() {
+	var it = getValueOf("ITERTIME").from(taIn);
+	iter = it[0];
+	iterMax = it[1];
+	
+	gridSize = getValueOf("GRIDSIZE").from(taIn)[0];
+	
+	Ncell = getValueOf("CELLSNUM").from(taIn);
+	Dcell = getValueOf("CELLDIAM").from(taIn);
+	Hnpat = getValueOf("NPHEIGHT").from(taIn);
+	Wnpat = getValueOf("NPWIDTHX").from(taIn);
+}
+
+
+// Get value of pattern from a TextArea
+function getValueOf() {
+	var pattern = arguments[0];
+	var o = {
+		from: function() {
+			var el = arguments[0];
+			var val;;
+			
+			var lines = el.value.split("\n");
+			var N = lines.length;
+			if(lines[N - 1].length == 0) {
+				lines.pop();
+				N = lines.length;
+			}
+			for(var i = 0; i < N; i++) {
+				var cols = lines[i].split(" ");
+				var M = cols.length;
+				for(var j = 0; j < M; j++) {
+					if(cols[0] == pattern) {
+						var arr = cols[1].split(",");
+						val = arr.map(e => parseFloat(e));
+						break;
+					}
+				}
+			}
+			return val;
+		}
+	};
+	
+	/*
+	var x = getValueOf("XRANGE").from(taIn);
+	*/
+	
+	return o;
+}
+
+
+// Draw square grid with certain size
+function drawGrid() {
+	var l = parseInt(arguments[0]);
+	var c = arguments[1];
+	var o = {
+		on: function() {
+			var can = arguments[0];
+			var w = can.width;
+			var h = can.height;
+			var Nx = w / l;
+			var Ny = h / l;
+			
+			var cx = can.getContext("2d");
+			cx.strokeStyle = c;
+			cx.lineWidth = 1;
+			
+			for(var j = 0; j < Ny; j++) {
+				for(var i = 0; i < Nx; i++) {
+					var x = i * l;
+					var y = j * l;
+					cx.beginPath();
+					cx.rect(x, y, x + l, y + l);
+					cx.stroke();
+				}
+			}
+		}
+	};
+	
+	/*
+	drawGrid("10px", "#e0e0ff").on(can);
+	*/
+	
+	return o;
+}
+
+
+// Add a line to a TextArea element
+function addLine() {
+	var line = arguments[0];
+	var o = {
+		to: function() {
+			var el = arguments[0];
+			el.value += line;
+		}
+	};
+	
+	/*
+	addLine("ITERTIME 1000\n").to(taIn);
+	*/
+	
+	return o;
+}
+
+
+// Intialize parameters
+function initParams() {
+	backgroundColor = "#fff";
+	borderColor = "#aae";
+	fontColor = "#00f";
+	
+	/*
+		width = 800 px = 400 µm
+		1 = 2 (px / µm)
+		
+		cell = 20 µm = 40 px
+		grid = 10 px
+	*/
+	um2px = 2;
+}
+
+
+// Create required HTML DOM elements
+function createElements() {
+	var elems = [];
+	
+	var div0 = document.createElement("div");
+	div0.style.width = "800px";
+	div0.style.height = "240px";
+	div0.style.border = "1px solid " + borderColor;
+	div0.style.borderBottom = "0px solid " + borderColor;
+	div0.style.background = backgroundColor;
+	
+	var can = document.createElement("canvas");
+	can.width = 800;
+	can.height = 240;
+	can.style.width = can.width + "px";
+	can.style.height = can.height + "px";
+	
+	var div1 = document.createElement("div");
+	div1.style.width = "802px";
+	div1.style.height = "124px";
+	div1.style.border = "0px solid " + borderColor;
+	div1.style.background = backgroundColor;
+	
+	var taIn = document.createElement("textarea");
+	taIn.style.width = "200px";
+	taIn.style.height = "122px";
+	taIn.style.overflowY = "scroll";
+	taIn.style.border = "1px solid " + borderColor;
+	taIn.style.background = backgroundColor;
+	taIn.style.float = "left"
+	
+	var div2 = document.createElement("div");
+	div2.style.width = "60px";
+	div2.style.height = "126px";
+	div2.style.border = "1px solid " + borderColor;
+	div2.style.background = backgroundColor;
+	div2.style.float = "left"
+
+	var taOut = document.createElement("textarea");
+	taOut.style.width = "528px";
+	taOut.style.height = "122px";
+	taOut.style.overflowY = "scroll";
+	taOut.style.border = "1px solid " + borderColor;
+	taOut.style.background = backgroundColor;
+	taOut.style.float = "left"
+	
+	var btnLoad = document.createElement("button");
+	btnLoad.innerHTML = "Load";
+	btnLoad.style.width = "60px";
+	btnLoad.disabled = false;
+	
+	var btnRead = document.createElement("button");
+	btnRead.innerHTML = "Read";
+	btnRead.style.width = "60px";
+	btnRead.disabled = true;
+	
+	var btnStart = document.createElement("button");
+	btnStart.innerHTML = "Start";
+	btnStart.style.width = "60px";
+	btnStart.disabled = true;
+
+	var btnSave = document.createElement("button");
+	btnSave.innerHTML = "Save";
+	btnSave.style.width = "60px";
+	btnSave.disabled = true;
+
+	var btnAbout = document.createElement("button");
+	btnAbout.innerHTML = "About";
+	btnAbout.style.width = "60px";
+	btnAbout.disabled = false;
+	
+	var btnHelp = document.createElement("button");
+	btnHelp.innerHTML = "Help";
+	btnHelp.style.width = "60px";
+	btnHelp.disabled = false;
+
+	document.body.append(div0);
+		div0.append(can);
+	document.body.append(div1);
+		div1.append(taIn);
+		div1.append(div2);
+			div2.append(btnLoad);
+			div2.append(btnRead);
+			div2.append(btnStart);
+			div2.append(btnSave);
+			div2.append(btnAbout);
+			div2.append(btnHelp);
+		div1.append(taOut);
+
+	elems.push(btnLoad);
+	elems.push(btnRead);
+	elems.push(btnStart);
+	elems.push(btnSave);
+	elems.push(btnAbout);
+	elems.push(btnHelp);
+	elems.push(taIn);
+	elems.push(taOut);
+	elems.push(can);
+	
+	return elems;
+}
+
+
+// Clear Canvas and TextArea elements
+function clear() {
+	var el = arguments[0];
+	if( el instanceof HTMLCanvasElement) {
+		var cx = el.getContext("2d");
+		cx.beginPath();
+		cx.clearRect(0, 0, el.width, el.height);
+		cx.fill();
+	}
+	if(el instanceof HTMLTextAreaElement) {
+		el.value = "";
+	}
+
+	/*
+	var cx = can.getContext("2d");
+	cx.beginPath();
+	cx.fillRect(0, 0, 800, 200);
+	cx.fill();
+	
+	clear(can);
+	*/
+}
+
+
 
 
 // Define main2 function -- archive for easier editing
