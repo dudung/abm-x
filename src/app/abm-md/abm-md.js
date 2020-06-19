@@ -29,6 +29,7 @@
 	1113 Can draw per gridSize.
 	1130 Finallya can draw right matrix for nanopattern.
 	1139 Can draw single cell above substrat.
+	1232 Set ytop for stem cell.
 	
 	References
 	1. url https://stackoverflow.com/a/57474962/9475509
@@ -177,7 +178,7 @@ function drawStemCells() {
 	var Ly = L[1];
 	
 	var xmid = 0.5 * (xmin + xmax);
-	var ytop = ymax - 2 * D;
+	var ytop = ymax - gridSize - 0.5 * D;
 		
 	var o = {
 		on: function() {
