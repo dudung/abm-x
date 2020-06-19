@@ -18,12 +18,16 @@
 	0733 Fix return value of getValueOf function.
 	0821 Use alert box.
 	0825 Create empty event for all buttons.
+	0843 Create tx and ty for coordinates transformation.
+	0900 Can draw nanopattern but only zigzag.
+	0926 Can draw nanowells and nanopillars.
 	
 	References
 	1. url https://stackoverflow.com/a/57474962/9475509
 	2. url https://stackoverflow.com/a/58833088/9475509
 	3. url https://www.w3schools.com/jsref/met_win_alert.asp
 	   [20200619].
+	4. url https://stackoverflow.com/a/43363105/9475509
 */
 
 
@@ -34,6 +38,7 @@ var taIn, taOut, can;
 var um2px;
 var proc, iter, iterMax, gridSize;
 var Ncell, Dcell, Hnpat, Wnpat;
+var XMIN, YMIN, XMAX, YMAX, xmin, ymin, xmax, ymax;
 
 // Call main function
 main();
@@ -58,6 +63,8 @@ function main() {
 		readParams();
 		clear(can);
 		drawGrid(gridSize + "px", "#f0f0ff").on(can);
+		drawNanopattern(Wnpat, Hnpat).on(can);
+		//drawStemCells().on(can);
 		btnStart.disabled = false;
 	});
 	
@@ -107,7 +114,7 @@ function loadParams() {
 	addLine("CELLDIAM 20\n").to(taIn);
 	addLine("CELLSNUM 20,20\n").to(taIn);
 	addLine("CELLSSEP 5,5\n").to(taIn);
-	addLine("NPHEIGHT 10\n").to(taIn);
+	addLine("NPHEIGHT 0,20\n").to(taIn);
 	addLine("NPWIDTHX 10,10").to(taIn);
 }
 
@@ -124,6 +131,36 @@ function readParams() {
 	Dcell = getValueOf("CELLDIAM").from(taIn);
 	Hnpat = getValueOf("NPHEIGHT").from(taIn);
 	Wnpat = getValueOf("NPWIDTHX").from(taIn);
+	
+	XMIN = 0;
+	XMAX = can.width;
+	YMIN = can.height;
+	YMAX = 0;
+
+	xmin = XMIN / um2px;
+	ymin = YMAX / um2px;
+	xmax = XMAX / um2px;
+	ymax = YMIN / um2px;
+}
+
+
+// Transform x to X
+function tx() {
+	var x = arguments[0];
+	var X = (x - xmin) / (xmax - xmin);
+	X *= (XMAX- XMIN);
+	X += XMIN;
+	return X;
+}
+
+
+// Transform y to Y
+function ty() {
+	var y = arguments[0];
+	var Y = (y - ymin) / (ymax - ymin);
+	Y *= (YMAX- YMIN);
+	Y += YMIN;
+	return Y;
 }
 
 
@@ -163,6 +200,55 @@ function getValueOf() {
 	return o;
 }
 
+
+// Draw nanopattern
+function drawNanopattern() {
+	var w = arguments[0];
+	var h = arguments[1];
+	var Nw = w.length;
+	
+	var dx = w.reduce((a, b) => a + b, 0);
+	
+	var o = {
+		on: function() {
+			var el = arguments[0];
+			var cx = el.getContext("2d");
+			
+				var N = (xmax - xmin) / dx;
+				cx.strokeStyle = "#f00";
+				cx.lineWidth = 2;
+				cx.beginPath();
+				for(var i = 0; i < N; i++) {
+					var x = xmin + i * dx;
+					for(var j = 0; j < Nw; j++) {
+						var xx = [];
+						var yy = [];
+						
+						xx.push(x);
+						yy.push(ymin + h[j]);
+						
+						x += w[j];
+						xx.push(x);
+						yy.push(ymin + h[j]);
+						
+						for(var k = 0; k < xx.length; k++) {
+							var X = tx(xx[k]);
+							var Y = ty(yy[k]);
+							if(i == 0 && j == 0 && k == 0) {
+								cx.moveTo(X, Y);
+							} else {
+								cx.lineTo(X, Y);
+							}
+						}
+					}
+				}
+				cx.stroke();
+			
+		}
+	};
+	
+	return o;
+}
 
 // Draw square grid with certain size
 function drawGrid() {
