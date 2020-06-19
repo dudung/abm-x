@@ -21,6 +21,7 @@
 	0843 Create tx and ty for coordinates transformation.
 	0900 Can draw nanopattern but only zigzag.
 	0926 Can draw nanowells and nanopillars.
+	0950 Can draw empty space using abm matrix.
 	
 	References
 	1. url https://stackoverflow.com/a/57474962/9475509
@@ -37,7 +38,7 @@ var btnLoad, btnRead, btnStart, btnSave, btnAbout, btnHelp;
 var taIn, taOut, can;
 var um2px;
 var proc, iter, iterMax, gridSize;
-var Ncell, Dcell, Hnpat, Wnpat;
+var Ncell, Dcell, Hnpat, Wnpat, world;
 var XMIN, YMIN, XMAX, YMAX, xmin, ymin, xmax, ymax;
 
 // Call main function
@@ -62,7 +63,8 @@ function main() {
 	btnRead.addEventListener("click", function() {
 		readParams();
 		clear(can);
-		drawGrid(gridSize + "px", "#f0f0ff").on(can);
+		paintMatrix(world).onCanvas("can");
+		drawGrid((gridSize * um2px) + "px", "#f0f0ff").on(can);
 		drawNanopattern(Wnpat, Hnpat).on(can);
 		//drawStemCells().on(can);
 		btnStart.disabled = false;
@@ -110,7 +112,7 @@ function main() {
 function loadParams() {
 	clear(taIn);
 	addLine("ITERTIME 0,1000\n").to(taIn);
-	addLine("GRIDSIZE 10\n").to(taIn);
+	addLine("GRIDSIZE 5\n").to(taIn);
 	addLine("CELLDIAM 20\n").to(taIn);
 	addLine("CELLSNUM 20,20\n").to(taIn);
 	addLine("CELLSSEP 5,5\n").to(taIn);
@@ -141,6 +143,11 @@ function readParams() {
 	ymin = YMAX / um2px;
 	xmax = XMAX / um2px;
 	ymax = YMIN / um2px;
+	
+	var ROWS = ymax / gridSize;
+	var COLS = xmax / gridSize;
+	world = new Matrix(ROWS, COLS, 1);   // 1 = empty space
+	matrixPixelSize = gridSize * um2px;  // Change grid size
 }
 
 
@@ -231,6 +238,11 @@ function drawNanopattern() {
 						xx.push(x);
 						yy.push(ymin + h[j]);
 						
+						var Ngrid = dx / (gridSize * um2px);
+						for(var k = 0; k < Ngrid.length; k++) {
+							
+						}
+						
 						for(var k = 0; k < xx.length; k++) {
 							var X = tx(xx[k]);
 							var Y = ty(yy[k]);
@@ -243,7 +255,6 @@ function drawNanopattern() {
 					}
 				}
 				cx.stroke();
-			
 		}
 	};
 	
@@ -337,6 +348,7 @@ function createElements() {
 	can.height = 240;
 	can.style.width = can.width + "px";
 	can.style.height = can.height + "px";
+	can.id = "can";
 	
 	var div1 = document.createElement("div");
 	div1.style.width = "802px";
