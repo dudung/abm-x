@@ -28,6 +28,7 @@
 	1039 Problem get certain grid from nano pattern.
 	1113 Can draw per gridSize.
 	1130 Finallya can draw right matrix for nanopattern.
+	1139 Can draw single cell above substrat.
 	
 	References
 	1. url https://stackoverflow.com/a/57474962/9475509
@@ -44,7 +45,7 @@ var btnLoad, btnRead, btnStart, btnSave, btnAbout, btnHelp;
 var taIn, taOut, can;
 var um2px;
 var proc, iter, iterMax, gridSize;
-var Ncell, Dcell, Hnpat, Wnpat, world;
+var Ncell, Dcell, Lcell, Hnpat, Wnpat, world;
 var XMIN, YMIN, XMAX, YMAX, xmin, ymin, xmax, ymax;
 
 // Call main function
@@ -79,7 +80,8 @@ function main() {
 		drawGrid((gridSize * um2px) + "px", "#f0f0ff").on(can);
 		drawNanopattern(x, y).on(can);
 		
-		//drawStemCells().on(can);
+		drawStemCells(Dcell, Ncell, Lcell).on(can);
+		
 		btnStart.disabled = false;
 	});
 	
@@ -129,8 +131,8 @@ function loadParams() {
 	addLine("CELLDIAM 4\n").to(taIn);
 	addLine("CELLSNUM 20,20\n").to(taIn);
 	addLine("CELLSSEP 1,1\n").to(taIn);
-	addLine("NPHEIGHT 1,5\n").to(taIn);
-	addLine("NPWIDTHX 2,2").to(taIn);
+	addLine("NPHEIGHT 1,7\n").to(taIn);
+	addLine("NPWIDTHX 6,2").to(taIn);
 }
 
 
@@ -144,6 +146,7 @@ function readParams() {
 	
 	Ncell = getValueOf("CELLSNUM").from(taIn);
 	Dcell = getValueOf("CELLDIAM").from(taIn);
+	Lcell = getValueOf("CELLSSEP").from(taIn);
 	Hnpat = getValueOf("NPHEIGHT").from(taIn);
 	Wnpat = getValueOf("NPWIDTHX").from(taIn);
 	
@@ -161,6 +164,38 @@ function readParams() {
 	var COLS = xmax / gridSize;
 	world = new Matrix(ROWS, COLS, 1);   // 1 = empty space
 	matrixPixelSize = gridSize * um2px;  // Change grid size
+}
+
+
+// Draw stem cells
+function drawStemCells() {
+	var D = arguments[0] * gridSize;
+	var N = arguments[1];
+	var L = arguments[2];
+	
+	var Lx = L[0];
+	var Ly = L[1];
+	
+	var xmid = 0.5 * (xmin + xmax);
+	var ytop = ymax - 2 * D;
+		
+	var o = {
+		on: function() {
+			var el = arguments[0];
+			var cx = el.getContext("2d");
+			
+			var X = tx(xmid);
+			var Y = ty(ytop);
+			
+			var R = 0.5 * (tx(D) - tx(0))
+			
+			cx.beginPath();
+			cx.arc(X, Y, R, 0, 2 * Math.PI);
+			cx.stroke();
+		}
+	};
+	
+	return o;
 }
 
 
