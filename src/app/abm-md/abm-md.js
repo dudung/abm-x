@@ -26,6 +26,8 @@
 	1023 Make new drawNanopattern.
 	1031 Correct createNanopattern without on(can).
 	1039 Problem get certain grid from nano pattern.
+	1113 Can draw per gridSize.
+	1130 Finallya can draw right matrix for nanopattern.
 	
 	References
 	1. url https://stackoverflow.com/a/57474962/9475509
@@ -124,11 +126,11 @@ function loadParams() {
 	clear(taIn);
 	addLine("ITERTIME 0,1000\n").to(taIn);
 	addLine("GRIDSIZE 5\n").to(taIn);
-	addLine("CELLDIAM 20\n").to(taIn);
+	addLine("CELLDIAM 4\n").to(taIn);
 	addLine("CELLSNUM 20,20\n").to(taIn);
-	addLine("CELLSSEP 5,5\n").to(taIn);
-	addLine("NPHEIGHT 0,20\n").to(taIn);
-	addLine("NPWIDTHX 10,10").to(taIn);
+	addLine("CELLSSEP 1,1\n").to(taIn);
+	addLine("NPHEIGHT 1,5\n").to(taIn);
+	addLine("NPWIDTHX 2,2").to(taIn);
 }
 
 
@@ -167,22 +169,28 @@ function addPatternBelow() {
 	var xx = arguments[0];
 	var yy = arguments[1];
 	var N = xx.length;
+	var ROWS = world.m.length;
 	
 	var o = {
 		to: function() {
-			var m = arguments[0].m;
+			var m = arguments[0];
 			
 			for(var i = 0; i < N; i++) {
-				var x = xx[i];
-				var col = (x - xmin);
-				col /= (xmax - xmin);
-				col = Math.floor(col);
 				
-				console.log(col);
-				
-				m[0][col] = 4;
+				if(
+					i >= 0 &&
+					(xx[i + 1] != xx[i]) &&
+					i < N - 1
+				) {
+					var x = xx[i];
+					var col = (x - xmin) / gridSize;
+					
+					var y = yy[i];
+					var row = (y - ymin) / gridSize;
+					
+					m.setRows(ROWS - row, ROWS-1).cols(col, col).to(4);
+				}				
 			}
-			
 		}
 	};
 	
@@ -290,19 +298,20 @@ function createNanopattern() {
 	var xxx = [];
 	var yyy = [];
 	
-	var dx = w.reduce((a, b) => a + b, 0);
+	var dx = w.reduce((a, b) => a + b, 0) * gridSize;
 	
 	var N = (xmax - xmin) / dx;
 	for(var i = 0; i < N; i++) {
-		var x = xmin + i * dx;
+		var x = xmin + i * dx + gridSize;
 		for(var j = 0; j < Nw; j++) {
-			xxx.push(x);
-			yyy.push(ymin + h[j]);
+			x -= gridSize;
 			
-			x += w[j];
-
-			xxx.push(x);
-			yyy.push(ymin + h[j]);
+			for(var k = 0; k <= w[j]; k++) {
+				xxx.push(x);
+				yyy.push(ymin + h[j] * gridSize);
+				
+				x += gridSize;
+			}			
 		}
 	}
 	
