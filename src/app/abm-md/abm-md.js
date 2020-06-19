@@ -25,6 +25,7 @@
 	1015 Renamae drawNanopattern to createNanopattern.
 	1023 Make new drawNanopattern.
 	1031 Correct createNanopattern without on(can).
+	1039 Problem get certain grid from nano pattern.
 	
 	References
 	1. url https://stackoverflow.com/a/57474962/9475509
@@ -70,7 +71,7 @@ function main() {
 		var x, y;
 		[x, y] = createNanopattern(Wnpat, Hnpat);
 		
-		addPatternBelow(x, y).on(world);
+		addPatternBelow(x, y).to(world);
 		
 		paintMatrix(world).onCanvas("can");
 		drawGrid((gridSize * um2px) + "px", "#f0f0ff").on(can);
@@ -158,6 +159,34 @@ function readParams() {
 	var COLS = xmax / gridSize;
 	world = new Matrix(ROWS, COLS, 1);   // 1 = empty space
 	matrixPixelSize = gridSize * um2px;  // Change grid size
+}
+
+
+// Add pattern below array of x and y
+function addPatternBelow() {
+	var xx = arguments[0];
+	var yy = arguments[1];
+	var N = xx.length;
+	
+	var o = {
+		to: function() {
+			var m = arguments[0].m;
+			
+			for(var i = 0; i < N; i++) {
+				var x = xx[i];
+				var col = (x - xmin);
+				col /= (xmax - xmin);
+				col = Math.floor(col);
+				
+				console.log(col);
+				
+				m[0][col] = 4;
+			}
+			
+		}
+	};
+	
+	return o;
 }
 
 
