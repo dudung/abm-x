@@ -190,6 +190,8 @@ function drawStemCells() {
 			
 			var R = 0.5 * (tx(D) - tx(0))
 			
+			cx.strokeStyle  = "#0f0";
+			cx.lineWidth = 2;
 			cx.beginPath();
 			cx.arc(X, Y, R, 0, 2 * Math.PI);
 			cx.stroke();
