@@ -22,6 +22,9 @@
 	0900 Can draw nanopattern but only zigzag.
 	0926 Can draw nanowells and nanopillars.
 	0950 Can draw empty space using abm matrix.
+	1015 Renamae drawNanopattern to createNanopattern.
+	1023 Make new drawNanopattern.
+	1031 Correct createNanopattern without on(can).
 	
 	References
 	1. url https://stackoverflow.com/a/57474962/9475509
@@ -63,9 +66,16 @@ function main() {
 	btnRead.addEventListener("click", function() {
 		readParams();
 		clear(can);
+
+		var x, y;
+		[x, y] = createNanopattern(Wnpat, Hnpat);
+		
+		addPatternBelow(x, y).on(world);
+		
 		paintMatrix(world).onCanvas("can");
 		drawGrid((gridSize * um2px) + "px", "#f0f0ff").on(can);
-		drawNanopattern(Wnpat, Hnpat).on(can);
+		drawNanopattern(x, y).on(can);
+		
 		//drawStemCells().on(can);
 		btnStart.disabled = false;
 	});
@@ -210,55 +220,64 @@ function getValueOf() {
 
 // Draw nanopattern
 function drawNanopattern() {
-	var w = arguments[0];
-	var h = arguments[1];
-	var Nw = w.length;
-	
-	var dx = w.reduce((a, b) => a + b, 0);
+	var x = arguments[0];
+	var y = arguments[1];
+	var N = x.length;
 	
 	var o = {
 		on: function() {
 			var el = arguments[0];
 			var cx = el.getContext("2d");
 			
-				var N = (xmax - xmin) / dx;
-				cx.strokeStyle = "#f00";
-				cx.lineWidth = 2;
-				cx.beginPath();
-				for(var i = 0; i < N; i++) {
-					var x = xmin + i * dx;
-					for(var j = 0; j < Nw; j++) {
-						var xx = [];
-						var yy = [];
-						
-						xx.push(x);
-						yy.push(ymin + h[j]);
-						
-						x += w[j];
-						xx.push(x);
-						yy.push(ymin + h[j]);
-						
-						var Ngrid = dx / (gridSize * um2px);
-						for(var k = 0; k < Ngrid.length; k++) {
-							
-						}
-						
-						for(var k = 0; k < xx.length; k++) {
-							var X = tx(xx[k]);
-							var Y = ty(yy[k]);
-							if(i == 0 && j == 0 && k == 0) {
-								cx.moveTo(X, Y);
-							} else {
-								cx.lineTo(X, Y);
-							}
-						}
-					}
+			cx.strokeStyle = "#f00";
+			cx.lineWidth = 2;
+			cx.beginPath();
+			
+			for(var i = 0; i < N; i++) {
+				
+				var X = tx(x[i]);
+				var Y = ty(y[i]);
+				
+				if(i == 0) {
+					cx.moveTo(X, Y);
+				} else {
+					cx.lineTo(X, Y);
 				}
-				cx.stroke();
+			}
+			cx.stroke();
 		}
 	};
 	
 	return o;
+}
+
+
+// Create nanopattern
+function createNanopattern() {
+	var w = arguments[0];
+	var h = arguments[1];
+	var Nw = w.length;
+	
+	var xxx = [];
+	var yyy = [];
+	
+	var dx = w.reduce((a, b) => a + b, 0);
+	
+	var N = (xmax - xmin) / dx;
+	for(var i = 0; i < N; i++) {
+		var x = xmin + i * dx;
+		for(var j = 0; j < Nw; j++) {
+			xxx.push(x);
+			yyy.push(ymin + h[j]);
+			
+			x += w[j];
+
+			xxx.push(x);
+			yyy.push(ymin + h[j]);
+		}
+	}
+	
+	return [xxx, yyy];
 }
 
 // Draw square grid with certain size
