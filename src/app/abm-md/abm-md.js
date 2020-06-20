@@ -30,6 +30,13 @@
 	1130 Finallya can draw right matrix for nanopattern.
 	1139 Can draw single cell above substrat.
 	1232 Set ytop for stem cell.
+	20200620
+	1051 Continue again.
+	1105 Add grain to store granular cells.
+	1628 Try to make substrateOverlapWith function.
+	1648 Still problem with the function.
+	1741 Work but old problem normal force.
+	1800 Fix problem by negative root in circle equation.
 	
 	References
 	1. url https://stackoverflow.com/a/57474962/9475509
@@ -48,6 +55,8 @@ var um2px;
 var proc, iter, iterMax, gridSize;
 var Ncell, Dcell, Lcell, Hnpat, Wnpat, world;
 var XMIN, YMIN, XMAX, YMAX, xmin, ymin, xmax, ymax;
+var grain, nanopattern;
+var Grav, Norm, Visc;
 
 // Call main function
 main();
@@ -74,6 +83,7 @@ function main() {
 
 		var x, y;
 		[x, y] = createNanopattern(Wnpat, Hnpat);
+		nanopattern = {x: x, y: y};
 		
 		addPatternBelow(x, y).to(world);
 		
@@ -81,7 +91,17 @@ function main() {
 		drawGrid((gridSize * um2px) + "px", "#f0f0ff").on(can);
 		drawNanopattern(x, y).on(can);
 		
+		grain = [];
 		drawStemCells(Dcell, Ncell, Lcell).on(can);
+		
+		Grav = new Gravitational();
+		Grav.setField(new Vect3(0, -10, 0));
+		
+		Norm = new Normal();
+		Norm.setConstants(10000, 1);
+		
+		Visc = new Drag();
+		Visc.setConstants(0, 0.1, 0);
 		
 		btnStart.disabled = false;
 	});
@@ -94,6 +114,9 @@ function main() {
 			btnAbout.disabled = true;
 			btnHelp.disabled = true;
 			taIn.disabled = true;
+			
+			proc = setInterval(simulate, 100);
+			
 		} else {
 			btnStart.innerHTML = "Start";
 			btnLoad.disabled = false;
@@ -101,6 +124,8 @@ function main() {
 			btnAbout.disabled = false;
 			taIn.disabled = false;
 			btnHelp.disabled = false;
+			
+			clearInterval(proc);
 		}
 	});
 	
@@ -124,13 +149,166 @@ function main() {
 }
 
 
+// Simulate
+function simulate() {
+	paintMatrix(world).onCanvas("can");
+	/*
+	drawGrid((gridSize * um2px) + "px", "#f0f0ff").on(can);
+	drawNanopattern(nanopattern.x, nanopattern.y).on(can);
+	*/
+	
+	//drawStemCells(Dcell, Ncell, Lcell).on(can);
+	
+	var N = grain.length;
+	var SF = [];
+	for(var i = 0; i < N; i++) {
+		var F = new Vect3();
+		
+		var Fg = Grav.force(grain[i]);
+		F = Vect3.add(F, Fg);
+		
+		for(var j = 0; j < N; j++) {
+			if(i != j) {
+				var Fn = Norm.force(grain[i], grain[j]);
+				F = Vect3.add(F, Fn);
+			}
+		}
+		
+		var Fd = Visc.force(grain[i]);
+		F = Vect3.add(F, Fd);
+		
+		SF.push(F);
+	}
+	
+	var dt = 0.01;
+	
+	for(var i = 0; i < N; i++) {
+		if(grain[i].state == "float") {
+			var a = Vect3.div(SF[i], grain[i].m);
+					
+			var v = grain[i].v;
+			v = Vect3.add(v, Vect3.mul(a, dt));
+			grain[i].v = v;
+			
+			var r = grain[i].r;
+			r = Vect3.add(r, Vect3.mul(v, dt));
+			grain[i].r = r;
+			
+			var isOverlap = substrateOverlapWith(grain[i]);
+			if(isOverlap == true) {
+				grain[i].state = "static";
+			}
+		}
+	}
+
+function substrateOverlapWith() {
+	var g = arguments[0];
+	var ov = false;	
+	
+	var cx = can.getContext("2d");
+	cx.strokeStyle = "#00f";
+	cx.beginPath();
+	
+	var N = 20;
+	var xc = g.r.x;
+	var yc = g.r.y;
+	var R = 0.5 * g.D;
+	var dx = 2 * R / N;
+	var xmin = xc - R;
+	for(var i = 0; i <= N; i++) {
+		var xi = xmin + dx * i
+		var x2 = (xi - xc) * (xi - xc)
+		var y2 = Math.abs(R * R - x2);
+		var yi = yc - Math.sqrt(y2);
+		
+		if(i == 0) {
+			cx.moveTo(tx(xi), ty(yi));
+		} else {
+			cx.lineTo(tx(xi), ty(yi));
+		}
+		
+		var col = Math.floor(xi / gridSize);
+		var row = Math.floor(yi / gridSize);
+		var ROWS = world.m.length;
+		var COLS = world.m[0].length;
+		if(col > COLS) col = COLS - 1;
+		
+		var w = 1;
+		if(row < ROWS) {
+			w = world.m[ROWS - 1 - row][col];
+		} else {
+			console.log(row, yi, y2);
+		}
+		
+		if(w == 4) {
+			ov = true;
+			return ov;
+		}
+	}
+	
+	cx.stroke();
+
+	return ov;
+}
+	
+	var D = Dcell * gridSize;
+	var R = 0.5 * (tx(D) - tx(0));
+	var cx = can.getContext("2d");
+	for(var i = 0; i < N; i++) {
+		
+		var x = grain[i].r.x;
+		var y = grain[i].r.y;
+		
+		var X = tx(x);
+		var Y = ty(y);
+		
+		/**/
+		cx.strokeStyle  = "#cc0";
+		cx.lineWidth = 4;
+		cx.beginPath();
+		cx.arc(X, Y, R, 0, 2 * Math.PI);
+		cx.stroke();
+		
+		cx.fillStyle  = "#ffd";
+		cx.lineWidth = 2;
+		cx.beginPath();
+		cx.arc(X, Y, R, 0, 2 * Math.PI);
+		cx.fill();
+		/**/
+	}
+	
+	//paintMatrix(world).onCanvas("can");
+	drawGrid((gridSize * um2px) + "px", "#f0f0ff").on(can);
+	drawNanopattern(nanopattern.x, nanopattern.y).on(can);
+	
+	// Draw lower arc
+	for(var i = 0; i < N; i++) {
+		substrateOverlapWith(grain[i]);
+	}
+	
+	if(iter >= iterMax) {
+		btnStart.innerHTML = "Start";
+		btnStart.disabled = true;
+		btnLoad.disabled = false;
+		btnRead.disabled = false;
+		btnAbout.disabled = false;
+		taIn.disabled = false;
+		btnHelp.disabled = false;
+		
+		clearInterval(proc);
+	}
+	
+	iter++;
+}
+
+
 // Load default parameters to input TextArea
 function loadParams() {
 	clear(taIn);
 	addLine("ITERTIME 0,1000\n").to(taIn);
 	addLine("GRIDSIZE 5\n").to(taIn);
-	addLine("CELLDIAM 4\n").to(taIn);
-	addLine("CELLSNUM 20,20\n").to(taIn);
+	addLine("CELLDIAM 2\n").to(taIn);
+	addLine("CELLSNUM 10,9,8\n").to(taIn);
 	addLine("CELLSSEP 1,1\n").to(taIn);
 	addLine("NPHEIGHT 1,7\n").to(taIn);
 	addLine("NPWIDTHX 6,2").to(taIn);
@@ -174,17 +352,59 @@ function drawStemCells() {
 	var N = arguments[1];
 	var L = arguments[2];
 	
-	var Lx = L[0];
-	var Ly = L[1];
+	var Lx = L[0] * gridSize;
+	var Ly = L[1] * gridSize;
 	
 	var xmid = 0.5 * (xmin + xmax);
 	var ytop = ymax - gridSize - 0.5 * D;
-		
+	
 	var o = {
 		on: function() {
 			var el = arguments[0];
 			var cx = el.getContext("2d");
 			
+			var R = 0.5 * (tx(D) - tx(0));
+			
+			var id = 0;
+			for(var j = 0; j < N.length; j++) {
+				
+				var LLx = (N[j] - 1) * (D + Lx);
+				
+				for(var i = 0; i < N[j]; i++) {
+					
+					var x = (xmid - 0.5 * LLx)
+						+ i * (D + Lx);
+					
+					var y = ymax - gridSize - 0.5 * D
+						- j * (D + Ly);
+					
+					var g = new Grain();
+					g.r = new Vect3(x, y, 0);
+					g.m = 1;
+					g.D = D;
+					g.v = new Vect3();
+					g.i = id++;
+					g.state = "float";
+					grain.push(g);
+					
+					var X = tx(x);
+					var Y = ty(y);
+					
+					cx.strokeStyle  = "#cc0";
+					cx.lineWidth = 4;
+					cx.beginPath();
+					cx.arc(X, Y, R, 0, 2 * Math.PI);
+					cx.stroke();
+					
+					cx.fillStyle  = "#ffd";
+					cx.lineWidth = 2;
+					cx.beginPath();
+					cx.arc(X, Y, R, 0, 2 * Math.PI);
+					cx.fill();
+				}
+			}
+			
+			/*
 			var X = tx(xmid);
 			var Y = ty(ytop);
 			
@@ -195,6 +415,8 @@ function drawStemCells() {
 			cx.beginPath();
 			cx.arc(X, Y, R, 0, 2 * Math.PI);
 			cx.stroke();
+			*/
+			
 		}
 	};
 	
@@ -938,8 +1160,8 @@ function initialize() {
 }
 
 
-// Simulate
-function simulate() {
+// Simulate --> rename to 2
+function simulate2() {
 	var a = arguments[0];
 	var r = arguments[1];
 	var c = arguments[2];
