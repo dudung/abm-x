@@ -37,6 +37,7 @@
 	1648 Still problem with the function.
 	1741 Work but old problem normal force.
 	1800 Fix problem by negative root in circle equation.
+	1826 Change color for float and static states.
 	
 	References
 	1. url https://stackoverflow.com/a/57474962/9475509
@@ -91,14 +92,14 @@ function main() {
 		drawGrid((gridSize * um2px) + "px", "#f0f0ff").on(can);
 		drawNanopattern(x, y).on(can);
 		
-		grain = [];
-		drawStemCells(Dcell, Ncell, Lcell).on(can);
+		grain = createStemCells(Dcell, Ncell, Lcell)
+		drawStemCells(grain).on(can);
 		
 		Grav = new Gravitational();
 		Grav.setField(new Vect3(0, -10, 0));
 		
 		Norm = new Normal();
-		Norm.setConstants(10000, 1);
+		Norm.setConstants(1E4, 2);
 		
 		Visc = new Drag();
 		Visc.setConstants(0, 0.1, 0);
@@ -135,7 +136,7 @@ function main() {
 	btnAbout.addEventListener("click", function() {
 		alert(
 			"abm-md | About\n" + 
-			"Version 20200619\n" +
+			"Version 20200620\n" +
 			"Sparisoma Viridi | https://github.com/dudung/abm-x"
 		);
 	});
@@ -152,12 +153,7 @@ function main() {
 // Simulate
 function simulate() {
 	paintMatrix(world).onCanvas("can");
-	/*
 	drawGrid((gridSize * um2px) + "px", "#f0f0ff").on(can);
-	drawNanopattern(nanopattern.x, nanopattern.y).on(can);
-	*/
-	
-	//drawStemCells(Dcell, Ncell, Lcell).on(can);
 	
 	var N = grain.length;
 	var SF = [];
@@ -200,14 +196,30 @@ function simulate() {
 			}
 		}
 	}
+	
+	drawStemCells(grain).on(can);
+	drawNanopattern(nanopattern.x, nanopattern.y).on(can);
+	
+	if(iter >= iterMax) {
+		btnStart.innerHTML = "Start";
+		btnStart.disabled = true;
+		btnLoad.disabled = false;
+		btnRead.disabled = false;
+		btnAbout.disabled = false;
+		taIn.disabled = false;
+		btnHelp.disabled = false;
+		
+		clearInterval(proc);
+	}
+	
+	iter++;
+}
 
+
+// Check whether stem cell overlap with substrate
 function substrateOverlapWith() {
 	var g = arguments[0];
 	var ov = false;	
-	
-	var cx = can.getContext("2d");
-	cx.strokeStyle = "#00f";
-	cx.beginPath();
 	
 	var N = 20;
 	var xc = g.r.x;
@@ -220,12 +232,6 @@ function substrateOverlapWith() {
 		var x2 = (xi - xc) * (xi - xc)
 		var y2 = Math.abs(R * R - x2);
 		var yi = yc - Math.sqrt(y2);
-		
-		if(i == 0) {
-			cx.moveTo(tx(xi), ty(yi));
-		} else {
-			cx.lineTo(tx(xi), ty(yi));
-		}
 		
 		var col = Math.floor(xi / gridSize);
 		var row = Math.floor(yi / gridSize);
@@ -246,59 +252,7 @@ function substrateOverlapWith() {
 		}
 	}
 	
-	cx.stroke();
-
 	return ov;
-}
-	
-	var D = Dcell * gridSize;
-	var R = 0.5 * (tx(D) - tx(0));
-	var cx = can.getContext("2d");
-	for(var i = 0; i < N; i++) {
-		
-		var x = grain[i].r.x;
-		var y = grain[i].r.y;
-		
-		var X = tx(x);
-		var Y = ty(y);
-		
-		/**/
-		cx.strokeStyle  = "#cc0";
-		cx.lineWidth = 4;
-		cx.beginPath();
-		cx.arc(X, Y, R, 0, 2 * Math.PI);
-		cx.stroke();
-		
-		cx.fillStyle  = "#ffd";
-		cx.lineWidth = 2;
-		cx.beginPath();
-		cx.arc(X, Y, R, 0, 2 * Math.PI);
-		cx.fill();
-		/**/
-	}
-	
-	//paintMatrix(world).onCanvas("can");
-	drawGrid((gridSize * um2px) + "px", "#f0f0ff").on(can);
-	drawNanopattern(nanopattern.x, nanopattern.y).on(can);
-	
-	// Draw lower arc
-	for(var i = 0; i < N; i++) {
-		substrateOverlapWith(grain[i]);
-	}
-	
-	if(iter >= iterMax) {
-		btnStart.innerHTML = "Start";
-		btnStart.disabled = true;
-		btnLoad.disabled = false;
-		btnRead.disabled = false;
-		btnAbout.disabled = false;
-		taIn.disabled = false;
-		btnHelp.disabled = false;
-		
-		clearInterval(proc);
-	}
-	
-	iter++;
 }
 
 
@@ -311,7 +265,9 @@ function loadParams() {
 	addLine("CELLSNUM 10,9,8\n").to(taIn);
 	addLine("CELLSSEP 1,1\n").to(taIn);
 	addLine("NPHEIGHT 1,7\n").to(taIn);
-	addLine("NPWIDTHX 6,2").to(taIn);
+	addLine("NPWIDTHX 6,2\n").to(taIn);
+	addLine("SITEPOSX 6,2\n").to(taIn);
+	addLine("SITEPOSY 6,2").to(taIn);
 }
 
 
@@ -346,8 +302,8 @@ function readParams() {
 }
 
 
-// Draw stem cells
-function drawStemCells() {
+// Create stem cells
+function createStemCells() {
 	var D = arguments[0] * gridSize;
 	var N = arguments[1];
 	var L = arguments[2];
@@ -357,66 +313,70 @@ function drawStemCells() {
 	
 	var xmid = 0.5 * (xmin + xmax);
 	var ytop = ymax - gridSize - 0.5 * D;
+	var R = 0.5 * (tx(D) - tx(0));
+	
+	var grain = [];
+	var id = 0;
+	for(var j = 0; j < N.length; j++) {
+		var LLx = (N[j] - 1) * (D + Lx);
+		
+		for(var i = 0; i < N[j]; i++) {
+			var x = (xmid - 0.5 * LLx) + i * (D + Lx);
+			var y = ymax - gridSize - 0.5 * D - j * (D + Ly);
+			
+			var g = new Grain();
+			g.r = new Vect3(x, y, 0);
+			g.m = 1;
+			g.D = D;
+			g.v = new Vect3();
+			g.i = id++;
+			g.state = "float";
+			grain.push(g);
+		}
+	}
+
+	return grain;
+}
+
+
+// Draw stem cells
+function drawStemCells() {
+	var g = arguments[0];
+	var N = g.length;
 	
 	var o = {
 		on: function() {
 			var el = arguments[0];
 			var cx = el.getContext("2d");
 			
-			var R = 0.5 * (tx(D) - tx(0));
-			
-			var id = 0;
-			for(var j = 0; j < N.length; j++) {
+			for(var i = 0; i < N; i++) {
+				var D = g[i].D;
+				var R = 0.5 * (tx(D) - tx(0));
 				
-				var LLx = (N[j] - 1) * (D + Lx);
+				var x = g[i].r.x;
+				var y = g[i].r.y;
 				
-				for(var i = 0; i < N[j]; i++) {
-					
-					var x = (xmid - 0.5 * LLx)
-						+ i * (D + Lx);
-					
-					var y = ymax - gridSize - 0.5 * D
-						- j * (D + Ly);
-					
-					var g = new Grain();
-					g.r = new Vect3(x, y, 0);
-					g.m = 1;
-					g.D = D;
-					g.v = new Vect3();
-					g.i = id++;
-					g.state = "float";
-					grain.push(g);
-					
-					var X = tx(x);
-					var Y = ty(y);
-					
+				var X = tx(x);
+				var Y = ty(y);
+				
+				if(g[i].state == "float") {
+					cx.strokeStyle  = "#0c0";
+					cx.fillStyle  = "#dfd";
+				} else {
 					cx.strokeStyle  = "#cc0";
-					cx.lineWidth = 4;
-					cx.beginPath();
-					cx.arc(X, Y, R, 0, 2 * Math.PI);
-					cx.stroke();
-					
 					cx.fillStyle  = "#ffd";
-					cx.lineWidth = 2;
-					cx.beginPath();
-					cx.arc(X, Y, R, 0, 2 * Math.PI);
-					cx.fill();
 				}
+				
+				cx.lineWidth = 4;
+				cx.beginPath();
+				cx.arc(X, Y, R, 0, 2 * Math.PI);
+				cx.stroke();
+				
+				cx.lineWidth = 2;
+				cx.beginPath();
+				cx.arc(X, Y, R, 0, 2 * Math.PI);
+				cx.fill();
 			}
-			
-			/*
-			var X = tx(xmid);
-			var Y = ty(ytop);
-			
-			var R = 0.5 * (tx(D) - tx(0))
-			
-			cx.strokeStyle  = "#0f0";
-			cx.lineWidth = 2;
-			cx.beginPath();
-			cx.arc(X, Y, R, 0, 2 * Math.PI);
-			cx.stroke();
-			*/
-			
 		}
 	};
 	
@@ -621,6 +581,7 @@ function addLine() {
 		to: function() {
 			var el = arguments[0];
 			el.value += line;
+			el.scrollTop = el.scrollHeight;
 		}
 	};
 	
