@@ -175,10 +175,9 @@ function simulate() {
 		var Fd = Visc.force(grain[i]);
 		F = Vect3.add(F, Fd);
 		
-		var isOverlap = depoSiteOverlapWith(grain[i], 0);
-		if(isOverlap == true) {
-			grain[i].state = "static";
-		}
+		
+		var Fn = collide(grain[i], world, 0);
+		F = Vect3.add(F, Fn);
 		
 		SF.push(F);
 	}
@@ -222,6 +221,48 @@ function simulate() {
 	iter++;
 }
 
+
+// Collide grain with world of certain type
+function collide() {
+	var g = arguments[0];
+	var w = arguments[1];
+	var t = arguments[2];
+	
+	
+	var N = 20;
+	var xc = g.r.x;
+	var yc = g.r.y;
+	var R = 0.5 * g.D;
+	var dx = 2 * R / N;
+	var xmin = xc - R;
+	for(var i = 0; i <= N; i++) {
+		var xi = xmin + dx * i
+		var x2 = (xi - xc) * (xi - xc)
+		var y2 = Math.abs(R * R - x2);
+		var yi = yc - Math.sqrt(y2);
+		
+		var col = Math.floor(xi / gridSize);
+		var row = Math.floor(yi / gridSize);
+		var ROWS = w.m.length;
+		var COLS = w.m[0].length;
+		if(col > COLS) col = COLS - 1;
+		
+		var m = 1;
+		if(row < ROWS) {
+			m = w.m[ROWS - 1 - row][col];
+		} else {
+			console.log(row, yi, y2);
+		}
+		
+		if(m == t) {
+			ov = true;
+			return ov;
+		}
+	}
+
+
+	
+}
 
 // Check whether stem cell overlap with deposition site
 function depoSiteOverlapWith() {
