@@ -38,6 +38,7 @@
 	1741 Work but old problem normal force.
 	1800 Fix problem by negative root in circle equation.
 	1826 Change color for float and static states.
+	1922 Design deposition sites code.
 	
 	References
 	1. url https://stackoverflow.com/a/57474962/9475509
@@ -54,7 +55,7 @@ var btnLoad, btnRead, btnStart, btnSave, btnAbout, btnHelp;
 var taIn, taOut, can;
 var um2px;
 var proc, iter, iterMax, gridSize;
-var Ncell, Dcell, Lcell, Hnpat, Wnpat, world;
+var Ncell, Dcell, Lcell, Hnpat, Wnpat, world, depoSite;
 var XMIN, YMIN, XMAX, YMAX, xmin, ymin, xmax, ymax;
 var grain, nanopattern;
 var Grav, Norm, Visc;
@@ -87,10 +88,11 @@ function main() {
 		nanopattern = {x: x, y: y};
 		
 		addPatternBelow(x, y).to(world);
+		addDepositionSites(depoSite).to(world);
 		
 		paintMatrix(world).onCanvas("can");
 		drawGrid((gridSize * um2px) + "px", "#f0f0ff").on(can);
-		drawNanopattern(x, y).on(can);
+		//drawNanopattern(x, y).on(can);
 		
 		grain = createStemCells(Dcell, Ncell, Lcell)
 		drawStemCells(grain).on(can);
@@ -173,6 +175,11 @@ function simulate() {
 		var Fd = Visc.force(grain[i]);
 		F = Vect3.add(F, Fd);
 		
+		var isOverlap = depoSiteOverlapWith(grain[i], 0);
+		if(isOverlap == true) {
+			grain[i].state = "static";
+		}
+		
 		SF.push(F);
 	}
 	
@@ -190,7 +197,7 @@ function simulate() {
 			r = Vect3.add(r, Vect3.mul(v, dt));
 			grain[i].r = r;
 			
-			var isOverlap = substrateOverlapWith(grain[i]);
+			var isOverlap = depoSiteOverlapWith(grain[i], 4);
 			if(isOverlap == true) {
 				grain[i].state = "static";
 			}
@@ -198,7 +205,7 @@ function simulate() {
 	}
 	
 	drawStemCells(grain).on(can);
-	drawNanopattern(nanopattern.x, nanopattern.y).on(can);
+	//drawNanopattern(nanopattern.x, nanopattern.y).on(can);
 	
 	if(iter >= iterMax) {
 		btnStart.innerHTML = "Start";
@@ -216,9 +223,10 @@ function simulate() {
 }
 
 
-// Check whether stem cell overlap with substrate
-function substrateOverlapWith() {
+// Check whether stem cell overlap with deposition site
+function depoSiteOverlapWith() {
 	var g = arguments[0];
+	var t = arguments[1];
 	var ov = false;	
 	
 	var N = 20;
@@ -246,7 +254,7 @@ function substrateOverlapWith() {
 			console.log(row, yi, y2);
 		}
 		
-		if(w == 4) {
+		if(w == t) {
 			ov = true;
 			return ov;
 		}
@@ -266,8 +274,7 @@ function loadParams() {
 	addLine("CELLSSEP 1,1\n").to(taIn);
 	addLine("NPHEIGHT 1,7\n").to(taIn);
 	addLine("NPWIDTHX 6,2\n").to(taIn);
-	addLine("SITEPOSX 6,2\n").to(taIn);
-	addLine("SITEPOSY 6,2").to(taIn);
+	addLine("DEPOSITE 0,0,0,0,0,0,7,7").to(taIn);
 }
 
 
@@ -284,6 +291,7 @@ function readParams() {
 	Lcell = getValueOf("CELLSSEP").from(taIn);
 	Hnpat = getValueOf("NPHEIGHT").from(taIn);
 	Wnpat = getValueOf("NPWIDTHX").from(taIn);
+	depoSite = getValueOf("DEPOSITE").from(taIn);
 	
 	XMIN = 0;
 	XMAX = can.width;
@@ -408,7 +416,7 @@ function addPatternBelow() {
 					var y = yy[i];
 					var row = (y - ymin) / gridSize;
 					
-					m.setRows(ROWS - row, ROWS-1).cols(col, col).to(4);
+					m.setRows(ROWS - row, ROWS-1).cols(col, col).to(0);
 				}				
 			}
 		}
@@ -417,6 +425,40 @@ function addPatternBelow() {
 	return o;
 }
 
+
+// Add deposition sites
+function addDepositionSites() {
+	var site = arguments[0];
+	var w;
+	
+	var o = {
+		to: function() {
+			w = arguments[0];
+			var M = site.length;
+			var ROWS = w.m.length;
+			var COLS = w.m[0].length;
+			var j = 0;
+			for(var i = 0; i < COLS; i++) {
+				if(j > M - 1) j = 0;
+				
+				if(site[j] > 0) {
+					w.m[ROWS - site[j]][i] = 4;
+				}
+				
+				j++;
+			}
+		}
+	};
+	
+	/*
+	*/
+	
+	return o;
+}
+
+
+
+//addDepositionSites(depoSite).to(world)
 
 // Transform x to X
 function tx() {
