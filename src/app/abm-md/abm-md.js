@@ -228,7 +228,6 @@ function simulate() {
 		clearInterval(proc);
 	}
 	
-	
 	if(STOP) {
 		paintMatrix(world).onCanvas("can");
 		drawGrid((gridSize * um2px) + "px", "#f0f0ff").on(can);
@@ -275,8 +274,8 @@ function collide() {
 		
 		if(m == t) {
 			STOP = true;
-			var msg = "Simulation terminated at iteration"
-				+ iter + "\n"
+			var msg = "Simulation terminated\n"
+				+ "iteration "+ iter + "\n"
 				+ "grain " + g.i + " collide with grid["
 				+ row_ + "][" + col + "] -- color 4 (#f00)";
 			addLine(msg + "\n").to(taOut);
@@ -336,10 +335,10 @@ function loadParams() {
 	addLine("GRIDSIZE 5\n").to(taIn);
 	addLine("CELLDIAM 2\n").to(taIn);
 	addLine("CELLSNUM 10,9,8\n").to(taIn);
-	addLine("CELLSSEP 1,1\n").to(taIn);
-	addLine("NPHEIGHT 1,7\n").to(taIn);
-	addLine("NPWIDTHX 6,2\n").to(taIn);
-	addLine("DEPOSITE 0,0,0,0,0,0,7,7").to(taIn);
+	addLine("CELLSSEP 2,1\n").to(taIn);
+	addLine("NPHEIGHT 1,7,4,6\n").to(taIn);
+	addLine("NPWIDTHX 6,2,3,1\n").to(taIn);
+	addLine("DEPOSITE 0,0,0,0,0,0,7,7,0,0,0,6").to(taIn);
 }
 
 
@@ -752,7 +751,7 @@ function createElements() {
 	div1.style.background = backgroundColor;
 	
 	var taIn = document.createElement("textarea");
-	taIn.style.width = "200px";
+	taIn.style.width = "300px";
 	taIn.style.height = "122px";
 	taIn.style.overflowY = "scroll";
 	taIn.style.border = "1px solid " + borderColor;
@@ -767,7 +766,7 @@ function createElements() {
 	div2.style.float = "left"
 
 	var taOut = document.createElement("textarea");
-	taOut.style.width = "528px";
+	taOut.style.width = "428px";
 	taOut.style.height = "122px";
 	taOut.style.overflowY = "scroll";
 	taOut.style.border = "1px solid " + borderColor;
