@@ -39,6 +39,12 @@
 	1800 Fix problem by negative root in circle equation.
 	1826 Change color for float and static states.
 	1922 Design deposition sites code.
+	20200621
+	0525 Force collide to stop program for debugging.
+	0539 Find problem by collide.
+	0548 Found, isolated the problem, should return new Vect3.
+	0600 Show particles id.
+	0612 Can show collided grid.
 	
 	References
 	1. url https://stackoverflow.com/a/57474962/9475509
@@ -46,6 +52,9 @@
 	3. url https://www.w3schools.com/jsref/met_win_alert.asp
 	   [20200619].
 	4. url https://stackoverflow.com/a/43363105/9475509
+	5. url https://www.w3schools.com/tags/canvas_textalign.asp
+	   [20200621].
+	6. url https://stackoverflow.com/a/52968208/9475509
 */
 
 
@@ -59,6 +68,7 @@ var Ncell, Dcell, Lcell, Hnpat, Wnpat, world, depoSite;
 var XMIN, YMIN, XMAX, YMAX, xmin, ymin, xmax, ymax;
 var grain, nanopattern;
 var Grav, Norm, Visc;
+var STOP;
 
 // Call main function
 main();
@@ -175,7 +185,6 @@ function simulate() {
 		var Fd = Visc.force(grain[i]);
 		F = Vect3.add(F, Fd);
 		
-		
 		var Fn = collide(grain[i], world, 0);
 		F = Vect3.add(F, Fn);
 		
@@ -196,7 +205,8 @@ function simulate() {
 			r = Vect3.add(r, Vect3.mul(v, dt));
 			grain[i].r = r;
 			
-			var isOverlap = depoSiteOverlapWith(grain[i], 4);
+			var isOverlap = false;
+			isOverlap = depoSiteOverlapWith(grain[i], 4);
 			if(isOverlap == true) {
 				grain[i].state = "static";
 			}
@@ -206,7 +216,7 @@ function simulate() {
 	drawStemCells(grain).on(can);
 	//drawNanopattern(nanopattern.x, nanopattern.y).on(can);
 	
-	if(iter >= iterMax) {
+	if(iter >= iterMax || STOP) {
 		btnStart.innerHTML = "Start";
 		btnStart.disabled = true;
 		btnLoad.disabled = false;
@@ -218,6 +228,13 @@ function simulate() {
 		clearInterval(proc);
 	}
 	
+	
+	if(STOP) {
+		paintMatrix(world).onCanvas("can");
+		drawGrid((gridSize * um2px) + "px", "#f0f0ff").on(can);
+		drawStemCells(grain).on(can);
+	}
+	
 	iter++;
 }
 
@@ -227,7 +244,6 @@ function collide() {
 	var g = arguments[0];
 	var w = arguments[1];
 	var t = arguments[2];
-	
 	
 	var N = 20;
 	var xc = g.r.x;
@@ -247,21 +263,29 @@ function collide() {
 		var COLS = w.m[0].length;
 		if(col > COLS) col = COLS - 1;
 		
+		var row_ = ROWS - 1 - row;
+		
 		var m = 1;
+		
 		if(row < ROWS) {
-			m = w.m[ROWS - 1 - row][col];
+			m = w.m[row_][col];
 		} else {
 			console.log(row, yi, y2);
 		}
 		
 		if(m == t) {
-			ov = true;
-			return ov;
+			STOP = true;
+			var msg = "Simulation terminated at iteration"
+				+ iter + "\n"
+				+ "grain " + g.i + " collide with grid["
+				+ row_ + "][" + col + "] -- color 4 (#f00)";
+			addLine(msg + "\n").to(taOut);
+			w.m[row_][col] = 14;
 		}
 	}
-
-
 	
+	// It should return (0, 0, 0) for debugging.
+	return new Vect3;
 }
 
 // Check whether stem cell overlap with deposition site
@@ -425,6 +449,14 @@ function drawStemCells() {
 				cx.beginPath();
 				cx.arc(X, Y, R, 0, 2 * Math.PI);
 				cx.fill();
+				
+				cx.font = "10px arial";
+				cx.textAlign = "center";
+				cx.textBaseline = "middle";
+				cx.beginPath();
+				cx.fillStyle = "#000";
+				cx.fillText(g[i].i, X, Y);
+				cx.closePath();
 			}
 		}
 	};
@@ -690,6 +722,8 @@ function initParams() {
 		grid = 10 px
 	*/
 	um2px = 2;
+	
+	STOP = false;
 }
 
 
