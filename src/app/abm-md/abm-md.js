@@ -47,6 +47,7 @@
 	0612 Can show collided grid.
 	0628 Try to introduce normal force from collided grid.
 	0649 Force in x ok, but not in y.
+	0801 Good only when grid at right, at left does not work.
 	
 	References
 	1. url https://stackoverflow.com/a/57474962/9475509
@@ -250,13 +251,63 @@ function collide() {
 	var xc = g.r.x;
 	var yc = g.r.y;
 	var R = 0.5 * g.D;
+	
+	var dq = 2 * Math.PI / N;
+	for(var i = 0; i < N; i++) {
+		var qi = i * dq;
+		var xi = xc + R * Math.cos(qi);
+		var yi = yc + R * Math.sin(qi);
+		
+		var col = Math.floor(xi / gridSize);
+		var row = Math.floor(yi / gridSize);
+		var ROWS = w.m.length;
+		var COLS = w.m[0].length;
+		if(col > COLS) col = COLS - 1;
+		
+		var row_ = ROWS - 1 - row;
+		var m = 1;
+		if(row < ROWS) {
+			m = w.m[row_][col];
+		}
+		
+		var Fn = new Vect3();
+		
+		if(m == t) {
+			//STOP = true;
+			var msg = ""
+				+ "iter=" + iter + " "
+				+ "grain[" + g.i + "] grid["
+				+ row_ + "][" + col + "]";
+			addLine(msg + " ").to(taOut);
+			
+			w.m[row_][col] = 14;
+			console.log(xc, xi, yc, yi);
+			
+			var k = 1E3;
+			// Should be in vector form?
+			Fn.x = -k * (xc - xi);
+			Fn.y = -k * (yc - yi);
+			
+			var ri = new Vect3(xi, yi, 0);
+			var ric = Vect3.sub(ri, g.r);
+			var nic = ric.unit();
+			var lic = ric.len();
+			var l = Math.min(0, R - lic);
+			
+			Fn = Vect3.mul(k * l, nic);
+			
+			//addLine(Fn.x + " " + Fn.y + "\n").to(taOut);
+		}
+	}
+	
+	/*
 	var dx = 2 * R / N;
 	var xmin = xc - R;
 	for(var i = 0; i <= N; i++) {
-		var xi = xmin + dx * i
-		var x2 = (xi - xc) * (xi - xc)
+		var xi = xmin + dx * i;
+		var x2 = (xi - xc) * (xi - xc);
 		var y2 = Math.abs(R * R - x2);
-		var yi = yc - Math.sqrt(y2); // For lower side of grain
+		var yi = yc - Math.sqrt(y2);
 		
 		var col = Math.floor(xi / gridSize);
 		var row = Math.floor(yi / gridSize);
@@ -274,19 +325,11 @@ function collide() {
 			console.log(row, yi, y2);
 		}
 		
-		
-		
 		var Fn = new Vect3();
 		
 		if(m == t) {
 			//STOP = true;
 			var msg = ""
-				/*
-				+ "Simulation terminated\n"
-				+ "iteration "+ iter + "\n"
-				+ "grain " + g.i + " collide with grid["
-				+ row_ + "][" + col + "] -- color 4 (#f00)";
-				*/
 				+ "iter=" + iter + " "
 				+ "grain[" + g.i + "] grid["
 				+ row_ + "][" + col + "]";
@@ -295,12 +338,13 @@ function collide() {
 			//w.m[row_][col] = 14;
 			console.log(row, yc, yi);
 			
-			var k = 1E4;
+			var k = 1E3;
 			Fn.x = k * (xc - xi);
-			Fn.y = 2 * k * (yc - yi); // For lower side of grain
+			Fn.y = k * (yc - yi);
 			addLine(Fn.x + " " + Fn.y + "\n").to(taOut);
 		}
 	}
+	*/
 	
 	// It should return (0, 0, 0) for debugging.
 	return Fn;
@@ -352,8 +396,10 @@ function loadParams() {
 	clear(taIn);
 	addLine("ITERTIME 0,1000\n").to(taIn);
 	addLine("GRIDSIZE 5\n").to(taIn);
-	addLine("CELLDIAM 2\n").to(taIn);
-	addLine("CELLSNUM 10,9,8\n").to(taIn);
+	//addLine("CELLDIAM 2\n").to(taIn);
+	addLine("CELLDIAM 4\n").to(taIn);
+	//addLine("CELLSNUM 10,9,8\n").to(taIn);
+	addLine("CELLSNUM 2\n").to(taIn);
 	addLine("CELLSSEP 1,1\n").to(taIn);
 	addLine("NPHEIGHT 1,7\n").to(taIn);
 	addLine("NPWIDTHX 6,2\n").to(taIn);
@@ -419,7 +465,7 @@ function createStemCells() {
 			g.r = new Vect3(x, y, 0);
 			g.m = 1;
 			g.D = D;
-			g.v = new Vect3();
+			g.v = new Vect3(0, 0, 0);
 			g.i = id++;
 			g.state = "float";
 			grain.push(g);
