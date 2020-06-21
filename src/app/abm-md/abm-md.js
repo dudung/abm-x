@@ -54,6 +54,8 @@
 	1914 Create test 01.
 	1916 Integrate arrow, collided grid to grain for debugging.
 	2034 Can draw arrow and arc as part of grain.
+	2044 Change test 01 and can draw force direction.
+	2058 Change test 01 and try to record first data.
 	
 	References
 	1. url https://stackoverflow.com/a/57474962/9475509
@@ -98,12 +100,12 @@ NPWIDTHX 6,2
 DEPOSITE 0,0,0,0,0,0,7,7
 `;break;
 	case "01": str = `
-ITERTIME 0,1000
+ITERTIME 0,5000
 GRIDSIZE 16
 CELLDIAM 3
 CELLSNUM 1
 CELLSSEP 1,1
-NPHEIGHT 1,3,4
+NPHEIGHT 1,2,3
 NPWIDTHX 5,1,1
 DEPOSITE 0,0,0
 `;break;
@@ -254,7 +256,15 @@ function simulate() {
 	
 	drawStemCells(grain).on(can);
 	
-	var dt = 0.01;
+	addLine(
+		iter + "\t" +
+		grain[0].r.x.toFixed(2) + "\t" + 
+		grain[0].r.y.toFixed(2) + "\t" + 
+		grain[0].v.x.toFixed(2) + "\t" + 
+		grain[0].v.y.toFixed(2) + "\n"
+	).to(taOut);
+	
+	var dt = 0.02;
 	
 	for(var i = 0; i < N; i++) {
 		if(grain[i].state == "float") {
@@ -352,24 +362,16 @@ function collide() {
 				+ "iter=" + iter + " "
 				+ "grain[" + g.i + "] grid["
 				+ row_ + "][" + col + "]";
-			addLine(msg + " ").to(taOut);
+			//addLine(msg + " ").to(taOut);
 			
 			//w.m[row_][col] = 14;
 			g.grid.push([row_, col]);
-			
-			var k = 1E18;
-			var ri = new Vect3(xi, yi, 0);
-			var rc = new Vect3(xc, yc, 0);
-			var ric = Vect3.sub(ri, rc);
-			var nic = ric.unit();
-			var lic = ric.len();
-			var l = R - lic;
-			Fn = Vect3.mul(-k * l, nic);
 			
 			g.arc.push([xi, yi]);
 		}
 	}
 	
+	// Calculate average of overlap arc
 	var xmid = 0;
 	var ymid = 0;
 	for(var i = 0; i < g.arc.length; i++) {
@@ -379,6 +381,19 @@ function collide() {
 	xmid /= g.arc.length;
 	ymid /= g.arc.length;
 	g.arrow.push([xmid, ymid, xc, yc]);
+	
+	// Use midpoint to calculate repulsion force
+	var ri = new Vect3(xc, yc, 0);
+	var rj = new Vect3(xmid, ymid, 0);
+	var rij = Vect3.sub(ri, rj);
+	var nij = rij.unit();
+	var lij = rij.len();
+	
+	// Should be dependent on overlap
+	var l = R - lij;
+	
+	var k = 100;
+	Fn = Vect3.mul(k, nij);
 	
 	// It should return (0, 0, 0) for debugging.
 	return Fn;
@@ -616,8 +631,6 @@ function drawStemCells() {
 					}
 					var qL = q - dq;
 					var qR = q + dq;
-					
-					console.log(q, qL, qR, aHS);
 					
 					var xL = xH + s * aHS * Math.cos(qL);
 					var yL = yH + s * aHS * Math.sin(qL);
