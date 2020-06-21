@@ -56,6 +56,7 @@
 	2034 Can draw arrow and arc as part of grain.
 	2044 Change test 01 and can draw force direction.
 	2058 Change test 01 and try to record first data.
+	2103 Oscillate and float by test 01, normal force wrong.
 	
 	References
 	1. url https://stackoverflow.com/a/57474962/9475509
