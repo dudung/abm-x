@@ -50,6 +50,7 @@
 	0801 Good only when grid at right, at left does not work.
 	1606 Set option for grid and nanopattern.
 	1627 Create test parameters.
+	1658 Ceate drawArrows.
 	
 	References
 	1. url https://stackoverflow.com/a/57474962/9475509
@@ -74,6 +75,7 @@ var XMIN, YMIN, XMAX, YMAX, xmin, ymin, xmax, ymax;
 var grain, nanopattern;
 var Grav, Norm, Visc;
 var STOP, DRAW_GRID_LAST, DRAW_NANOPATTERN;
+var arrows;
 
 var testNum = "00";
 
@@ -159,6 +161,8 @@ function main() {
 		
 		Visc = new Drag();
 		Visc.setConstants(0, 0.1, 0);
+		
+		arrows = [];
 		
 		btnStart.disabled = false;
 	});
@@ -261,12 +265,16 @@ function simulate() {
 	}
 	
 	drawStemCells(grain).on(can);
+		
 	if(DRAW_GRID_LAST) {
 		drawGrid((gridSize * um2px) + "px", "#f0f0ff").on(can);
 	}
 	if(DRAW_NANOPATTERN) {
 		drawNanopattern(nanopattern.x, nanopattern.y).on(can);
 	}
+	
+	drawArrows(arrows).on(can);
+	//arrows = [];
 	
 	if(iter >= iterMax || STOP) {
 		btnStart.innerHTML = "Start";
@@ -351,6 +359,27 @@ function collide() {
 			
 			Fn = Vect3.mul(-k * l, nic);
 			
+			/*
+			var cx = can.getContext("2d");
+			cx.strokeStyle = "#f00";
+			cx.lineWidth = 2;
+			cx.beginPath();
+			cx.moveTo(tx(xc), ty(yc));
+			cx.lineTo(
+				tx(xc + nic.x * gridSize),
+				ty(yc + nic.y * gridSize)
+			);
+			cx.stroke();
+			*/
+			arrows.push([
+				xc,
+				yc,
+				xc + nic.x * gridSize,
+				yc + nic.y * gridSize
+			]);
+			
+			console.log(arrows);
+			
 			console.log(lic, R, l, Fn.strval());
 			
 			//addLine(Fn.x + " " + Fn.y + "\n").to(taOut);
@@ -362,6 +391,30 @@ function collide() {
 	// It should return (0, 0, 0) for debugging.
 	return Fn;
 }
+
+
+// Draw arrows for debugging
+function drawArrows() {
+	var arr = arguments[0];
+	var o = {
+		on: function() {
+			var can = arguments[0];
+			
+			var cx = can.getContext("2d");
+			cx.strokeStyle = "#f00";
+			cx.lineWidth = 2;
+			cx.beginPath();
+			for(var i = 0; i < arr.length; i++) {
+				var ar = arr[i];
+				cx.moveTo(tx(ar[0]), ty(ar[1]));
+				cx.lineTo(tx(ar[2]), ty(ar[3]));
+			}
+			cx.stroke();
+		}
+	};
+	return o;
+}
+
 
 // Check whether stem cell overlap with deposition site
 function depoSiteOverlapWith() {
