@@ -45,6 +45,8 @@
 	0548 Found, isolated the problem, should return new Vect3.
 	0600 Show particles id.
 	0612 Can show collided grid.
+	0628 Try to introduce normal force from collided grid.
+	0649 Force in x ok, but not in y.
 	
 	References
 	1. url https://stackoverflow.com/a/57474962/9475509
@@ -254,7 +256,7 @@ function collide() {
 		var xi = xmin + dx * i
 		var x2 = (xi - xc) * (xi - xc)
 		var y2 = Math.abs(R * R - x2);
-		var yi = yc - Math.sqrt(y2);
+		var yi = yc - Math.sqrt(y2); // For lower side of grain
 		
 		var col = Math.floor(xi / gridSize);
 		var row = Math.floor(yi / gridSize);
@@ -272,19 +274,34 @@ function collide() {
 			console.log(row, yi, y2);
 		}
 		
+		var Fn = new Vect3();
+		
 		if(m == t) {
-			STOP = true;
-			var msg = "Simulation terminated\n"
+			//STOP = true;
+			var msg = ""
+				/*
+				+ "Simulation terminated\n"
 				+ "iteration "+ iter + "\n"
 				+ "grain " + g.i + " collide with grid["
 				+ row_ + "][" + col + "] -- color 4 (#f00)";
-			addLine(msg + "\n").to(taOut);
-			w.m[row_][col] = 14;
+				*/
+				+ "iter=" + iter + " "
+				+ "grain[" + g.i + "] grid["
+				+ row_ + "][" + col + "]";
+			addLine(msg + " ").to(taOut);
+			
+			//w.m[row_][col] = 14;
+			console.log(row, yc, yi);
+			
+			var k = 1000;
+			Fn.x = k * (xc - xi);
+			Fn.y = k * (yc - yi); // For lower side of grain
+			addLine(Fn.x + " " + Fn.y + "\n").to(taOut);
 		}
 	}
 	
 	// It should return (0, 0, 0) for debugging.
-	return new Vect3;
+	return Fn;
 }
 
 // Check whether stem cell overlap with deposition site
@@ -335,10 +352,10 @@ function loadParams() {
 	addLine("GRIDSIZE 5\n").to(taIn);
 	addLine("CELLDIAM 2\n").to(taIn);
 	addLine("CELLSNUM 10,9,8\n").to(taIn);
-	addLine("CELLSSEP 2,1\n").to(taIn);
-	addLine("NPHEIGHT 1,7,4,6\n").to(taIn);
-	addLine("NPWIDTHX 6,2,3,1\n").to(taIn);
-	addLine("DEPOSITE 0,0,0,0,0,0,7,7,0,0,0,6").to(taIn);
+	addLine("CELLSSEP 1,1\n").to(taIn);
+	addLine("NPHEIGHT 1,7\n").to(taIn);
+	addLine("NPWIDTHX 6,2\n").to(taIn);
+	addLine("DEPOSITE 0,0,0,0,0,0,7,7").to(taIn);
 }
 
 
