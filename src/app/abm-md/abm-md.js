@@ -50,7 +50,10 @@
 	0801 Good only when grid at right, at left does not work.
 	1606 Set option for grid and nanopattern.
 	1627 Create test parameters.
-	1658 Ceate drawArrows.
+	1658 Create drawArrows.
+	1914 Create test 01.
+	1916 Integrate arrow, collided grid to grain for debugging.
+	2034 Can draw arrow and arc as part of grain.
 	
 	References
 	1. url https://stackoverflow.com/a/57474962/9475509
@@ -75,9 +78,9 @@ var XMIN, YMIN, XMAX, YMAX, xmin, ymin, xmax, ymax;
 var grain, nanopattern;
 var Grav, Norm, Visc;
 var STOP, DRAW_GRID_LAST, DRAW_NANOPATTERN;
-var arrows;
+var STOP_WHEN_COLLIDING;
 
-var testNum = "00";
+var testNum = "01";
 
 // Perform some 
 function performTest() {
@@ -93,6 +96,16 @@ CELLSSEP 1,1
 NPHEIGHT 1,7
 NPWIDTHX 6,2
 DEPOSITE 0,0,0,0,0,0,7,7
+`;break;
+	case "01": str = `
+ITERTIME 0,1000
+GRIDSIZE 16
+CELLDIAM 3
+CELLSNUM 1
+CELLSSEP 1,1
+NPHEIGHT 1,3,4
+NPWIDTHX 5,1,1
+DEPOSITE 0,0,0
 `;break;
 	}
 	
@@ -161,8 +174,6 @@ function main() {
 		
 		Visc = new Drag();
 		Visc.setConstants(0, 0.1, 0);
-		
-		arrows = [];
 		
 		btnStart.disabled = false;
 	});
@@ -237,10 +248,11 @@ function simulate() {
 		
 		var Fn = collide(grain[i], world, 0);
 		F = Vect3.add(F, Fn);
-		//console.log(Fn.strval());
 		
 		SF.push(F);
 	}
+	
+	drawStemCells(grain).on(can);
 	
 	var dt = 0.01;
 	
@@ -263,8 +275,6 @@ function simulate() {
 			}
 		}
 	}
-	
-	drawStemCells(grain).on(can);
 		
 	if(DRAW_GRID_LAST) {
 		drawGrid((gridSize * um2px) + "px", "#f0f0ff").on(can);
@@ -273,8 +283,6 @@ function simulate() {
 		drawNanopattern(nanopattern.x, nanopattern.y).on(can);
 	}
 	
-	drawArrows(arrows).on(can);
-	//arrows = [];
 	
 	if(iter >= iterMax || STOP) {
 		btnStart.innerHTML = "Start";
@@ -313,6 +321,10 @@ function collide() {
 	var xc = g.r.x;
 	var yc = g.r.y;
 	var R = 0.5 * g.D;
+
+	g.arc = [];
+	g.grid = [];
+	g.arrow = [];
 	
 	var dq = 2 * Math.PI / N;
 	for(var i = 0; i < N; i++) {
@@ -333,60 +345,40 @@ function collide() {
 		}
 		
 		if(m == t) {
-			//STOP = true;
+			if(!STOP_WHEN_COLLIDING) {
+				STOP = true;
+			}
 			var msg = ""
 				+ "iter=" + iter + " "
 				+ "grain[" + g.i + "] grid["
 				+ row_ + "][" + col + "]";
 			addLine(msg + " ").to(taOut);
 			
-			w.m[row_][col] = 14;
-			//console.log(xc, xi, yc, yi);
+			//w.m[row_][col] = 14;
+			g.grid.push([row_, col]);
 			
 			var k = 1E18;
-			// Should be in vector form?
-			//Fn.x = -k * (xc - xi);
-			//Fn.y = -k * (yc - yi);
-			
 			var ri = new Vect3(xi, yi, 0);
 			var rc = new Vect3(xc, yc, 0);
 			var ric = Vect3.sub(ri, rc);
 			var nic = ric.unit();
 			var lic = ric.len();
 			var l = R - lic;
-			
-			//console.log(ric.strval(), nic.strval());
-			
 			Fn = Vect3.mul(-k * l, nic);
 			
-			/*
-			var cx = can.getContext("2d");
-			cx.strokeStyle = "#f00";
-			cx.lineWidth = 2;
-			cx.beginPath();
-			cx.moveTo(tx(xc), ty(yc));
-			cx.lineTo(
-				tx(xc + nic.x * gridSize),
-				ty(yc + nic.y * gridSize)
-			);
-			cx.stroke();
-			*/
-			arrows.push([
-				xc,
-				yc,
-				xc + nic.x * gridSize,
-				yc + nic.y * gridSize
-			]);
-			
-			console.log(arrows);
-			
-			console.log(lic, R, l, Fn.strval());
-			
-			//addLine(Fn.x + " " + Fn.y + "\n").to(taOut);
+			g.arc.push([xi, yi]);
 		}
 	}
 	
-	//console.log("internal " + Fn.strval());
+	var xmid = 0;
+	var ymid = 0;
+	for(var i = 0; i < g.arc.length; i++) {
+		xmid += g.arc[i][0];
+		ymid += g.arc[i][1];
+	}
+	xmid /= g.arc.length;
+	ymid /= g.arc.length;
+	g.arrow.push([xmid, ymid, xc, yc]);
 	
 	// It should return (0, 0, 0) for debugging.
 	return Fn;
@@ -462,9 +454,7 @@ function loadParams() {
 	clear(taIn);
 	addLine("ITERTIME 0,1000\n").to(taIn);
 	addLine("GRIDSIZE 5\n").to(taIn);
-	//addLine("CELLDIAM 2\n").to(taIn);
 	addLine("CELLDIAM 4\n").to(taIn);
-	//addLine("CELLSNUM 10,9,8\n").to(taIn);
 	addLine("CELLSNUM 2\n").to(taIn);
 	addLine("CELLSSEP 1,1\n").to(taIn);
 	addLine("NPHEIGHT 1,7\n").to(taIn);
@@ -533,7 +523,12 @@ function createStemCells() {
 			g.D = D;
 			g.v = new Vect3(0, 0, 0);
 			g.i = id++;
+			
 			g.state = "float";
+			g.arc = [];
+			g.grid = [];
+			g.arrow = [];
+			
 			grain.push(g);
 		}
 	}
@@ -587,6 +582,59 @@ function drawStemCells() {
 				cx.fillStyle = "#000";
 				cx.fillText(g[i].i, X, Y);
 				cx.closePath();
+				
+				cx.beginPath();
+				cx.lineWidth = 2;
+				cx.strokeStyle = "#f00";
+				for(var j = 0; j < g[i].arc.length; j++) {
+					var xx = g[i].arc[j][0];
+					var yy = g[i].arc[j][1];
+					if(j == 0) {
+						cx.moveTo(tx(xx), ty(yy));
+					} else {
+						cx.lineTo(tx(xx), ty(yy));
+					}
+				}
+				cx.stroke();
+				
+				if(g[i].arrow.length > 0) {
+					var xT = g[i].arrow[0][0];
+					var yT = g[i].arrow[0][1];
+					var xH = g[i].arrow[0][2];
+					var yH = g[i].arrow[0][3];
+					
+					var hS = Math.sqrt(
+						(xH - xT) * (xH - xT) + (yH - yT) * (yH - yT)
+					);
+					var aHS = 0.4 * hS;
+					
+					var dq = Math.PI / 6;
+					var q = Math.atan((yH - yT) / (xH - xT));
+					var s = 1;
+					if(xH - xT >= 0) {
+						s = -1;
+					}
+					var qL = q - dq;
+					var qR = q + dq;
+					
+					console.log(q, qL, qR, aHS);
+					
+					var xL = xH + s * aHS * Math.cos(qL);
+					var yL = yH + s * aHS * Math.sin(qL);
+					var xR = xH + s * aHS * Math.cos(qR);
+					var yR = yH + s * aHS * Math.sin(qR);
+					
+					cx.beginPath();
+					cx.lineWidth = 2;
+					cx.strokeStyle = "#f00";
+					cx.moveTo(tx(xT), ty(yT));
+					cx.lineTo(tx(xH), ty(yH));
+					cx.lineTo(tx(xL), ty(yL));
+					cx.moveTo(tx(xH), ty(yH));
+					cx.lineTo(tx(xR), ty(yR));
+					cx.stroke();
+				}
+				
 			}
 		}
 	};
@@ -659,9 +707,6 @@ function addDepositionSites() {
 	return o;
 }
 
-
-
-//addDepositionSites(depoSite).to(world)
 
 // Transform x to X
 function tx() {
@@ -856,6 +901,7 @@ function initParams() {
 	STOP = false;
 	DRAW_GRID_LAST = true;
 	DRAW_NANOPATTERN = false;
+	STOP_WHEN_COLLIDING = true;
 }
 
 
