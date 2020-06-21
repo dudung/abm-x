@@ -48,6 +48,8 @@
 	0628 Try to introduce normal force from collided grid.
 	0649 Force in x ok, but not in y.
 	0801 Good only when grid at right, at left does not work.
+	1606 Set option for grid and nanopattern.
+	1627 Create test parameters.
 	
 	References
 	1. url https://stackoverflow.com/a/57474962/9475509
@@ -71,7 +73,36 @@ var Ncell, Dcell, Lcell, Hnpat, Wnpat, world, depoSite;
 var XMIN, YMIN, XMAX, YMAX, xmin, ymin, xmax, ymax;
 var grain, nanopattern;
 var Grav, Norm, Visc;
-var STOP;
+var STOP, DRAW_GRID_LAST, DRAW_NANOPATTERN;
+
+var testNum = "00";
+
+// Perform some 
+function performTest() {
+	var tnum = arguments[0];
+	var str;
+	switch(tnum) {
+	case "00": str = `
+ITERTIME 0,1000
+GRIDSIZE 8
+CELLDIAM 3
+CELLSNUM 2,1
+CELLSSEP 1,1
+NPHEIGHT 1,7
+NPWIDTHX 6,2
+DEPOSITE 0,0,0,0,0,0,7,7
+`;break;
+	}
+	
+	line = str.split("\n");
+	line.pop();
+	line.shift();
+	str = line.join("\n");
+	addLine(str).to(taIn);
+	
+	btnRead.disabled = false;
+}
+
 
 // Call main function
 main();
@@ -86,6 +117,8 @@ function main() {
 		taIn, taOut,
 		can
 	] = createElements();
+	
+	performTest(testNum);
 	
 	btnLoad.addEventListener("click", function() {
 		loadParams();
@@ -104,11 +137,19 @@ function main() {
 		addDepositionSites(depoSite).to(world);
 		
 		paintMatrix(world).onCanvas("can");
-		drawGrid((gridSize * um2px) + "px", "#f0f0ff").on(can);
-		//drawNanopattern(x, y).on(can);
+		if(!DRAW_GRID_LAST) {
+			drawGrid((gridSize * um2px) + "px", "#f0f0ff").on(can);
+		}
 		
 		grain = createStemCells(Dcell, Ncell, Lcell)
 		drawStemCells(grain).on(can);
+		
+		if(DRAW_GRID_LAST) {
+			drawGrid((gridSize * um2px) + "px", "#f0f0ff").on(can);
+		}
+		if(DRAW_NANOPATTERN) {
+			drawNanopattern(nanopattern.x, nanopattern.y).on(can);
+		}
 		
 		Grav = new Gravitational();
 		Grav.setField(new Vect3(0, -10, 0));
@@ -168,7 +209,9 @@ function main() {
 // Simulate
 function simulate() {
 	paintMatrix(world).onCanvas("can");
-	drawGrid((gridSize * um2px) + "px", "#f0f0ff").on(can);
+	if(!DRAW_GRID_LAST) {
+		drawGrid((gridSize * um2px) + "px", "#f0f0ff").on(can);
+	}
 	
 	var N = grain.length;
 	var SF = [];
@@ -190,6 +233,7 @@ function simulate() {
 		
 		var Fn = collide(grain[i], world, 0);
 		F = Vect3.add(F, Fn);
+		//console.log(Fn.strval());
 		
 		SF.push(F);
 	}
@@ -217,7 +261,12 @@ function simulate() {
 	}
 	
 	drawStemCells(grain).on(can);
-	//drawNanopattern(nanopattern.x, nanopattern.y).on(can);
+	if(DRAW_GRID_LAST) {
+		drawGrid((gridSize * um2px) + "px", "#f0f0ff").on(can);
+	}
+	if(DRAW_NANOPATTERN) {
+		drawNanopattern(nanopattern.x, nanopattern.y).on(can);
+	}
 	
 	if(iter >= iterMax || STOP) {
 		btnStart.innerHTML = "Start";
@@ -235,6 +284,9 @@ function simulate() {
 		paintMatrix(world).onCanvas("can");
 		drawGrid((gridSize * um2px) + "px", "#f0f0ff").on(can);
 		drawStemCells(grain).on(can);
+		if(DRAW_NANOPATTERN) {
+			drawNanopattern(nanopattern.x, nanopattern.y).on(can);
+		}
 	}
 	
 	iter++;
@@ -247,6 +299,8 @@ function collide() {
 	var w = arguments[1];
 	var t = arguments[2];
 	
+	var Fn = new Vect3();
+
 	var N = 20;
 	var xc = g.r.x;
 	var yc = g.r.y;
@@ -270,8 +324,6 @@ function collide() {
 			m = w.m[row_][col];
 		}
 		
-		var Fn = new Vect3();
-		
 		if(m == t) {
 			//STOP = true;
 			var msg = ""
@@ -283,71 +335,29 @@ function collide() {
 			w.m[row_][col] = 14;
 			//console.log(xc, xi, yc, yi);
 			
-			var k = 1E3;
+			var k = 1E18;
 			// Should be in vector form?
-			Fn.x = -k * (xc - xi);
-			Fn.y = -k * (yc - yi);
+			//Fn.x = -k * (xc - xi);
+			//Fn.y = -k * (yc - yi);
 			
 			var ri = new Vect3(xi, yi, 0);
-			var ric = Vect3.sub(ri, g.r);
+			var rc = new Vect3(xc, yc, 0);
+			var ric = Vect3.sub(ri, rc);
 			var nic = ric.unit();
 			var lic = ric.len();
 			var l = R - lic;
 			
 			//console.log(ric.strval(), nic.strval());
 			
-			Fn = Vect3.mul(k * l, nic);
-			console.log(Fn.strval());
+			Fn = Vect3.mul(-k * l, nic);
+			
+			console.log(lic, R, l, Fn.strval());
 			
 			//addLine(Fn.x + " " + Fn.y + "\n").to(taOut);
 		}
 	}
 	
-	/*
-	var dx = 2 * R / N;
-	var xmin = xc - R;
-	for(var i = 0; i <= N; i++) {
-		var xi = xmin + dx * i;
-		var x2 = (xi - xc) * (xi - xc);
-		var y2 = Math.abs(R * R - x2);
-		var yi = yc - Math.sqrt(y2);
-		
-		var col = Math.floor(xi / gridSize);
-		var row = Math.floor(yi / gridSize);
-		var ROWS = w.m.length;
-		var COLS = w.m[0].length;
-		if(col > COLS) col = COLS - 1;
-		
-		var row_ = ROWS - 1 - row;
-		
-		var m = 1;
-		
-		if(row < ROWS) {
-			m = w.m[row_][col];
-		} else {
-			console.log(row, yi, y2);
-		}
-		
-		var Fn = new Vect3();
-		
-		if(m == t) {
-			//STOP = true;
-			var msg = ""
-				+ "iter=" + iter + " "
-				+ "grain[" + g.i + "] grid["
-				+ row_ + "][" + col + "]";
-			addLine(msg + " ").to(taOut);
-			
-			//w.m[row_][col] = 14;
-			console.log(row, yc, yi);
-			
-			var k = 1E3;
-			Fn.x = k * (xc - xi);
-			Fn.y = k * (yc - yi);
-			addLine(Fn.x + " " + Fn.y + "\n").to(taOut);
-		}
-	}
-	*/
+	//console.log("internal " + Fn.strval());
 	
 	// It should return (0, 0, 0) for debugging.
 	return Fn;
@@ -501,10 +511,10 @@ function drawStemCells() {
 				
 				if(g[i].state == "float") {
 					cx.strokeStyle  = "#0c0";
-					cx.fillStyle  = "#dfd";
+					cx.fillStyle  = "#8f8";
 				} else {
 					cx.strokeStyle  = "#cc0";
-					cx.fillStyle  = "#ffd";
+					cx.fillStyle  = "#ff8";
 				}
 				
 				cx.lineWidth = 4;
@@ -791,6 +801,8 @@ function initParams() {
 	um2px = 2;
 	
 	STOP = false;
+	DRAW_GRID_LAST = true;
+	DRAW_NANOPATTERN = false;
 }
 
 
