@@ -281,7 +281,7 @@ function collide() {
 			addLine(msg + " ").to(taOut);
 			
 			w.m[row_][col] = 14;
-			console.log(xc, xi, yc, yi);
+			//console.log(xc, xi, yc, yi);
 			
 			var k = 1E3;
 			// Should be in vector form?
@@ -294,9 +294,10 @@ function collide() {
 			var lic = ric.len();
 			var l = R - lic;
 			
-			console.log(ric.strval(), nic.strval());
+			//console.log(ric.strval(), nic.strval());
 			
 			Fn = Vect3.mul(k * l, nic);
+			console.log(Fn.strval());
 			
 			//addLine(Fn.x + " " + Fn.y + "\n").to(taOut);
 		}
