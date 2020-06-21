@@ -393,7 +393,7 @@ function collide() {
 	
 	var k = 100;
 	Fn = Vect3.mul(k, nij);
-	console.log(nij);
+	//console.log(nij);
 	
 	// It should return (0, 0, 0) for debugging.
 	return Fn;
