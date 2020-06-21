@@ -292,7 +292,9 @@ function collide() {
 			var ric = Vect3.sub(ri, g.r);
 			var nic = ric.unit();
 			var lic = ric.len();
-			var l = Math.min(0, R - lic);
+			var l = R - lic;
+			
+			console.log(ric.strval(), nic.strval());
 			
 			Fn = Vect3.mul(k * l, nic);
 			
