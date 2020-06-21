@@ -274,6 +274,8 @@ function collide() {
 			console.log(row, yi, y2);
 		}
 		
+		
+		
 		var Fn = new Vect3();
 		
 		if(m == t) {
@@ -293,9 +295,9 @@ function collide() {
 			//w.m[row_][col] = 14;
 			console.log(row, yc, yi);
 			
-			var k = 1000;
+			var k = 1E4;
 			Fn.x = k * (xc - xi);
-			Fn.y = k * (yc - yi); // For lower side of grain
+			Fn.y = 2 * k * (yc - yi); // For lower side of grain
 			addLine(Fn.x + " " + Fn.y + "\n").to(taOut);
 		}
 	}
