@@ -347,14 +347,9 @@ function collide() {
 		var row = Math.floor(yi / gridSize);
 		var ROWS = w.m.length;
 		var COLS = w.m[0].length;
-		if(col > COLS) col = COLS - 1;
-		
 		var row_ = ROWS - 1 - row;
-		var m = 1;
-		if(row < ROWS) {
-			m = w.m[row_][col];
-		}
-		
+
+		var m = w.m[row_][col];
 		if(m == t) {
 			if(!STOP_WHEN_COLLIDING) {
 				STOP = true;
@@ -366,7 +361,7 @@ function collide() {
 			//addLine(msg + " ").to(taOut);
 			
 			//w.m[row_][col] = 14;
-			g.grid.push([row_, col]);
+			g.grid.push([row_, col]);  // Not yet implemented
 			
 			g.arc.push([xi, yi]);
 		}
@@ -391,10 +386,14 @@ function collide() {
 	var lij = rij.len();
 	
 	// Should be dependent on overlap
-	var l = R - lij;
+	var l = 0;
+	if(xmid != 0 && ymid != 0) {
+		var l = Math.max(0, R - lij);
+	}
 	
 	var k = 100;
 	Fn = Vect3.mul(k, nij);
+	console.log(nij);
 	
 	// It should return (0, 0, 0) for debugging.
 	return Fn;
