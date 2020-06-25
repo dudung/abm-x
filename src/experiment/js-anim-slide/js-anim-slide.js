@@ -15,7 +15,7 @@
 	1603 Try fullscreen [6].
 	1639 Create class of Slide.
 	1644 Move the class to slide.js libs folder.
-	2014 
+	2014 Detect fullscreen mode other way [7].
 	
 	References
 	1. url https://stackoverflow.com/a/49301815/9475509
@@ -26,6 +26,7 @@
 	5. url https://stackoverflow.com/a/14858293/9475509
 	6. url https://andrew.hedges.name/experiments/fullscreen/
 	   [20200625].
+	7. url https://stackoverflow.com/a/16755234/9475509
 */
 
 
@@ -105,6 +106,14 @@ function main() {
 
 	document.body.addEventListener("keydown", function() {
 		var e = event;
-		console.log(e);
+		if(e.key == "F11") {
+			if(window.innerWidth == screen.width) {
+				slide.zoom();
+			} else {
+				slide.unZoom();
+			}
+		}
+		var isFullscreen = document.fullscreenElement != null;
+				
 	});
 }
