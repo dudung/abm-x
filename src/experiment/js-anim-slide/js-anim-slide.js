@@ -42,7 +42,7 @@ main();
 
 // Define main function
 function main() {
-	slide = new Slide("slide0");
+	var slide = new Slide("slide0");
 	slide.appendTo(document.body);
 	
 	slide.setContentDiv(`
