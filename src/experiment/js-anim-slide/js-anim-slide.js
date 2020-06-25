@@ -16,6 +16,8 @@
 	1639 Create class of Slide.
 	1644 Move the class to slide.js libs folder.
 	2014 Detect fullscreen mode other way [7].
+	2054 Can not detect unfullscreen due to unknown event.
+	2118 Finish for today.
 	
 	References
 	1. url https://stackoverflow.com/a/49301815/9475509
@@ -44,6 +46,7 @@ function main() {
 	slide.appendTo(document.body);
 	
 	slide.setContentDiv(`
+	<b>Circle equation</b><br /><br />
 	Cirlce in $xy$-plane is set of points that has the relation
 	
 	\\begin{equation}
@@ -59,46 +62,45 @@ function main() {
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;
 	$(x, y)$
 	</center>
 
-	<br />
 	<center>
 	$R$
-	&nbsp;&nbsp;&nbsp;&nbsp;
 	</center>
 
 
-	<br />
+	<br /><br />
 	<center>
 	$(x_c, y_c)$
 	</center>
-	<br /><br />
+	<br />
 	
-	Every point $(x, y)$, where the red point is an example, will obey Eqn. \\eqref{eqn:circle-equation}.
+	Every point $(x, y)$, where the red point is an example, will obey Eqn. \\eqref{eqn:circle-equation}. In 3-D the equation must include the third coordinate $z$.
 	`);
 	
 	slide.setContentCan(`
 	cx.lineWidth = 2;
 	cx.strokeStyle = "#00f";
 	cx.beginPath();
-	cx.arc(307, 210, 50, 0, 2 * Math.PI);
+	cx.arc(307, 220, 50, 0, 2 * Math.PI);
 	cx.stroke();
 	
 	cx.strokeStyle = "#00f";
 	cx.beginPath();
-	cx.moveTo(307, 210);
-	cx.lineTo(330, 165);
+	cx.moveTo(307, 220);
+	cx.lineTo(340, 182);
 	cx.stroke();
 	
 	cx.fillStyle = "#00f";
 	cx.beginPath();
-	cx.arc(307, 210, 3, 0, 2 * Math.PI);
+	cx.arc(307, 220, 3, 0, 2 * Math.PI);
 	cx.fill();
 	
 	cx.fillStyle = "#f00";
 	cx.beginPath();
-	cx.arc(330, 165, 3, 0, 2 * Math.PI);
+	cx.arc(340, 182, 3, 0, 2 * Math.PI);
 	cx.fill();
 	`);
 	
@@ -107,13 +109,16 @@ function main() {
 	document.body.addEventListener("keydown", function() {
 		var e = event;
 		if(e.key == "F11") {
+			slide.zoom();
+			
+			/*
 			if(window.innerWidth == screen.width) {
 				slide.zoom();
 			} else {
 				slide.unZoom();
 			}
+			*/
 		}
-		var isFullscreen = document.fullscreenElement != null;
-				
+		//var isFullscreen = document.fullscreenElement != null;	
 	});
 }
