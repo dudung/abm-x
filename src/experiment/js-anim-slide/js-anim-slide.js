@@ -15,6 +15,7 @@
 	1603 Try fullscreen [6].
 	1639 Create class of Slide.
 	1644 Move the class to slide.js libs folder.
+	2014 
 	
 	References
 	1. url https://stackoverflow.com/a/49301815/9475509
@@ -40,72 +41,70 @@ main();
 function main() {
 	slide = new Slide("slide0");
 	slide.appendTo(document.body);
-		
-	var eqn =`
-	There is no $a$ in following formula
+	
+	slide.setContentDiv(`
+	Cirlce in $xy$-plane is set of points that has the relation
 	
 	\\begin{equation}
-	\\label{eqn:schroe}
-	\\frac{\\partial^2 \\psi}{\\partial x^2} + (E - H) \\psi = 0
+	\\label{eqn:circle-equation}
+	(x - x_c)^2 + (y - y_c)^2 = R^2,
 	\\end{equation}
 
-	Equation \\eqref{eqn:schroe} is something.
-	`;
+	where $(x_c, y_c)$ is center point of the circle with radius
+	$R$.
 	
-	slide.sldiv.innerHTML = eqn;
+	<br /><br />
+	<center>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	$(x, y)$
+	</center>
+
+	<br />
+	<center>
+	$R$
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	</center>
+
+
+	<br />
+	<center>
+	$(x_c, y_c)$
+	</center>
+	<br /><br />
 	
-	var cx = slide.slcan.getContext("2d");
-	cx.strokeStyle = "#f00";
+	Every point $(x, y)$, where the red point is an example, will obey Eqn. \\eqref{eqn:circle-equation}.
+	`);
+	
+	slide.setContentCan(`
+	cx.lineWidth = 2;
+	cx.strokeStyle = "#00f";
 	cx.beginPath();
-	cx.arc(100, 100, 20, 0, 2 * Math.PI);
+	cx.arc(307, 210, 50, 0, 2 * Math.PI);
 	cx.stroke();
-}
-
 	
-function aa() {	
-	slideShow = false;
+	cx.strokeStyle = "#00f";
+	cx.beginPath();
+	cx.moveTo(307, 210);
+	cx.lineTo(330, 165);
+	cx.stroke();
 	
+	cx.fillStyle = "#00f";
+	cx.beginPath();
+	cx.arc(307, 210, 3, 0, 2 * Math.PI);
+	cx.fill();
 	
-	
-	var w = 614;
-	var h = 342;
-	var sdiv = document.createElement("div");
-	sdiv.style.width = w + "px";
-	sdiv.style.height = h + "px";
-	sdiv.style.border = "1px solid #000";
-	sdiv.style.padding = "0px";
-	sdiv.addEventListener("click", function() {
-		if(!slideShow) {
-			slideShow = true;
-			sdiv.style.transform = "scale(2.2) translate(27%, 27%)";
-			sdiv.requestFullscreen();
-		} else {
-			slideShow = false;
-			sdiv.style.transform = "scale(1) translate(0,0)";
-		}
-	});
-	document.body.append(sdiv);
-	
-	
-	
-	/**/
-	var eqn =`
-	There is no $a$ in following formula
-	\\begin{equation}
-	\\label{eqn:schroe}
-	\\frac{\\partial^2 \\psi}{\\partial x^2} + (E - H) \\psi = 0
-	\\end{equation}
-
-	Equation \\eqref{eqn:schroe} is something.
-	`;
-	
-	sdiv.innerHTML = eqn;
+	cx.fillStyle = "#f00";
+	cx.beginPath();
+	cx.arc(330, 165, 3, 0, 2 * Math.PI);
+	cx.fill();
+	`);
 	
 	//MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
-	
-	if(slideShow) {
-		//sdiv.style.transform = "scale(2.2) translate(27%, 27%)";
-		sdiv.requestFullscreen();
-	}
-}
 
+	document.body.addEventListener("keydown", function() {
+		var e = event;
+		console.log(e);
+	});
+}
