@@ -133,6 +133,7 @@ function addAuthors() {
 		name: "Gunara, Bobby Eka",
 		scopus: [
 			["2020-06-11", 70, 178, 91, 8],
+			["2020-06-28", 70, 179, 92, 8],
 		],
 	}; authors.push(i);
 	
@@ -141,6 +142,7 @@ function addAuthors() {
 		name: "Sutrisno, Widayani",
 		scopus: [
 			["2020-06-11", 31, 97, 80, 6],
+			["2020-06-28", 31, 101, 82, 6],
 		],
 	}; authors.push(i);
 	
@@ -149,6 +151,7 @@ function addAuthors() {
 		name: "Khotimah, Siti Nurul",
 		scopus: [
 			["2020-06-11", 44, 50, 45, 3],
+			["2020-06-28", 44, 52, 47, 3],
 		],
 	}; authors.push(i);
 	
@@ -181,6 +184,7 @@ function addAuthors() {
 		name: "Bindar, Yazid",
 		scopus: [
 			["2020-06-11", 50, 143, 138, 4],
+			["2020-06-28", 50, 144, 139, 4],
 		],
 	}; authors.push(i);
 	
@@ -197,6 +201,7 @@ function addAuthors() {
 		name: "Basar, Khairul",
 		scopus: [
 			["2020-06-11", 42, 142, 88, 6],
+			["2020-06-28", 43, 154, 91, 7],
 		],
 	}; authors.push(i);
 	
@@ -293,6 +298,7 @@ function addAuthors() {
 		name: "Permana, Sidik",
 		scopus: [
 			["2020-06-11", 66, 227, 120, 9],
+			["2020-06-28", 66, 227, 120, 9],
 		],
 	}; authors.push(i);
 	
@@ -301,6 +307,7 @@ function addAuthors() {
 		name: "Viridi, Sparisoma",
 		scopus: [
 			["2020-06-11", 116, 123, 114, 5],
+			["2020-06-28", 117, 127, 116, 5],
 		],
 	}; authors.push(i);
 	
@@ -421,6 +428,7 @@ function addAuthors() {
 		name: "Irwanto, Dwi",
 		scopus: [
 			["2020-06-11", 46, 94, 70, 6],
+			["2020-06-28", 47, 113, 80, 6],
 		],
 	}; authors.push(i);
 	
@@ -553,51 +561,51 @@ function addAuthors() {
 /*
 6032157
 SINTA ID
-28,4 (11.06) - 28.47 (14.06, 15.06)
+28,4 (11.06) - 28.47 - 28.41 (14.06, 15.06, 28.06)
 Overall Score
-8,8 (11.06) - 8.86 (14.06, 15.06)
+8,8 (11.06) - 8.86 - 8.83 (14.06, 15.06, 28.0)
 3 Years Score
-2858 (11.06) - 2881.5 (14.06, 15.06)
+2858 (11.06) - 2881.5 - 2878.5 (14.06, 15.06, 26.06)
 Overall Score V2
-1156 (11.06) - 1178.5 (14.06, 15.06)
+1156 (11.06) - 1178.5 - 1177 (14.06, 15.06, 26.06)
 3 Years Score V2
 0
 Books
-818 (11.06) - 807 (14.06) - 806 (15.06)
+818 (11.06) - 807 (14.06) - 806 (15.06) - 817 (26.06)
 Rank in National
-590 (11.06) - 517 (14.06) - 574 (15.06)
+590 (11.06) - 517 (14.06) - 574 (15.06) - 611 (26.06)
 3 Years National Rank
 0
 IPR
 Scoring 
-91 (11.06, 14.06, 15.06)
+91 (11.06, 14.06, 15.06, 26.06)
 Rank in Affiliation
-34 (11.06, 14.06, 15.06)
+34 (11.06, 14.06, 15.06, 26.06)
 3 Years Affiliation Rank
 
 
 5972840
 SINTA ID
-30,08
+30,08 - 30,15 (26.06)
 Overall Score
-3,25
+3,25 - 30.24 (26.06)
 3 Years Score
-2760,5
+2760,5 - 2764 (26.06)
 Overall Score V2
-588,5
+588,5 - 588 (26.06)
 3 Years Score V2
 0
 Books
-874 (11.06) - 872 (14.06)
+874 (11.06) - 872 (14.06) - 886 (26.06)
 Rank in National
-2483 (11.06) - 2524 (14.06)
+2483 (11.06) - 2524 (14.06) - 2626 (26.06)
 3 Years National Rank
 0
 IPR
 Scoring 
-95 (11.06, 14.06)
+95 (11.06, 14.06) - 96 (26.06)
 Rank in Affiliation
-141 (11.06, 14.06)
+141 (11.06, 14.06) - 144 (26.06)
 3 Years Affiliation Rank
 
 
