@@ -1,6 +1,15 @@
 # js-kutbah
 Collection of kutbah as I can remember.
 
+## 2020-06-26
+Mesjid Rektorat ITB, Jalan Tamansari 64, setelah suatu sidang terbuka doktor di CCAR yang dilakukan secara daring. Teringat adalah pahala tanpa batas bagi orang yang sabar. Lalu bahwa sabar disebutkan terlebih dahulu baru kemudian sholat. Sabar dalam keadaan sulit lebih mudah dibandingkan dalam keadaan cukup. Semoga penelitian di Indonesia dan ITB dapat cukup bersabar sehingga membuat dasar yang baik dan kuat sehingga dapat mandiri dan tidak bergantung lagi terhadap negara lain. Aamiin YRA.
+
+### QS 39 Az Zumar: 10
+Katakanlah (Muhammad), “Wahai hamba-hamba-Ku yang beriman! Bertakwalah kepada Tuhanmu.” Bagi orang-orang yang berbuat baik di dunia ini akan memperoleh kebaikan. Dan bumi Allah itu luas. Hanya orang-orang yang bersabarlah yang disempurnakan pahalanya tanpa batas.
+
+### QS 2 Al Bagarah: 153
+Wahai orang-orang yang beriman! Mohonlah pertolongan (kepada Allah) dengan sabar dan salat. Sungguh, Allah beserta orang-orang yang sabar.
+
 ## 2020-06-12
 Yang teringat adalah Ibrahim 3X, 11, 8, 18, 65. Terkait bersyukur, waktu kematian tidak dapat ditunda ataupun dipercepat, dan saksi seluruh bagian tubuh. Al-Ikhlas, Pakar Barat, Bandung 40198.
 
